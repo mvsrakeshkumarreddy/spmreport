@@ -1,0 +1,64 @@
+
+
+
+{% include 'applayout.html' %}
+
+{% block content %}
+
+  <body>
+  <div style="text-align: center;">
+  	
+<h1>Base chart page</h1>
+
+{% autoescape off %}
+  {{ plot_div }}
+  {% endautoescape %}
+
+  </div>
+
+<div class="container">
+   <div class="row justify-content-md-center">
+  <form action="" method="POST" enctype="multipart/form-data">
+         
+            {% csrf_token %}
+            
+            <div class="mb-3">
+			  <label for="formFile" class="form-label">Please load Signal Sample file</label>
+             <input  class="form-control" type="file" name="signalsample" required="required">
+			</div>
+			<div class="mb-3">
+			  <label for="formFile" class="form-label">Please load Signal speed file</label>
+             <input  class="form-control" type="file" name="signalspeed" required="required">
+			</div>
+            <br>
+               <button class="btn btn-primary" type="submit" value="upload">upload</button>
+           
+      </form>
+
+</div>
+</div>
+
+
+
+
+  
+  </body>
+{% endblock %}
+
+
+<!--
+<table border="1" width="600">
+<tr>
+<td>signal list</td>
+</tr>
+
+{% for y in y %}
+<tr>
+<td>{{ y }}</td>
+</tr>
+{% endfor %}
+
+</table>
+-->
+
+

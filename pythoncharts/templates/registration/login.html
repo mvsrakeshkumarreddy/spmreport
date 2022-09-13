@@ -1,0 +1,43 @@
+{% extends 'applayout.html' %}
+
+{% block content %}
+	
+   <div class="d-grid gap-2">
+  <button class="btn btn-primary" type="button">Login</button>
+</div>
+<br>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    
+	<form method="POST">
+		
+		{% csrf_token %}
+     
+		<div class="input-group">
+		<label for="id_username" class="col-sm-2 col-form-label">Crew ID:</label>
+		 <div class="col-sm-10">
+		<input type="text" class="form-control" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" oninput="this.value = this.value.toUpperCase()">
+		</div>
+		</div>
+		<br>
+		<div class="input-group">
+		<label for="id_password" class="col-sm-2 col-form-label">Password:</label>
+		 <div class="col-sm-10">
+		<input type="password" class="form-control" name="password"  autocomplete="current-password" maxlength="150" required id="id_password">
+		</div>
+		</div>
+		<br>
+		<button class="btn btn-primary">Login</button>
+		<a href="/register"><button type="button" class="btn btn-primary">Register</button></a>
+	</form>
+ 
+  
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}

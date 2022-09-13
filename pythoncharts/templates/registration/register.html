@@ -1,0 +1,195 @@
+{% extends 'applayout.html' %}
+
+{% block content %}
+
+<style type="text/css">
+	.focused{
+		outline: 0 !important;
+		box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%)  !important;
+	}
+
+	.errorlist li {
+		color: red;
+	}
+</style>
+	  <div class="d-grid gap-2">
+  <button class="btn btn-primary" type="button">Register</button>
+</div>
+<br>
+
+
+<form action="" method="POST">
+	<div class="container">
+	  <div class="row justify-content-md-center">
+	<div class="row">
+	<table class="table table-bordered">
+	{% csrf_token %}
+
+	<tbody><tr>
+	    <th><label for="id_full_name">Full name:</label></th>
+	    <td>
+	      
+	      <input type="text" name="full_name" maxlength="150" required="" id="id_full_name" oninput="this.value = this.value.toUpperCase()">
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_crew_ID">Crew id:</label></th>
+	    <td>
+	      
+	      <input type="text" name="crew_ID" maxlength="7" autofocus="" required="" id="id_crew_ID" oninput="this.value = this.value.toUpperCase()">
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_station">Station (Code):</label></th>
+	    <td>
+	      
+	      <input type="text" name="station" maxlength="3" required="" id="id_station" oninput="this.value = this.value.toUpperCase()">
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_employee_ID">Employee id:</label></th>
+	    <td>
+	      
+	      <input type="text" name="employee_ID" maxlength="11" required="" id="id_employee_ID" oninput="this.value = this.value.toUpperCase()">
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_appointment_date">Appointment date:</label></th>
+	    <td>
+	      
+	      <input type="date" name="appointment_date" required="" id="id_appointment_date">
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_first_name">First name:</label></th>
+	    <td>
+	      
+	      <input type="text" name="first_name" maxlength="150" required="" id="id_first_name" oninput="this.value = this.value.toUpperCase()">
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_last_name">Last name:</label></th>
+	    <td>
+	      
+	      <input type="text" name="last_name" maxlength="150" required="" id="id_last_name" oninput="this.value = this.value.toUpperCase()">
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_email">Email:</label></th>
+	    <td>
+	      
+	      <input type="email" name="email" required="" id="id_email">
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_password1">Password:</label></th>
+	    <td>
+	      
+	      <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
+	      
+	        <br>
+	        <span class="helptext"><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul></span>
+	      
+	      
+	    </td>
+	  </tr>
+
+	  <tr>
+	    <th><label for="id_password2">Password confirmation:</label></th>
+	    <td>
+	      
+	      <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+	      
+	        <br>
+	        <span class="helptext">Enter the same password as before, for verification.</span>
+	      
+	      
+	        
+	      
+	    </td>
+	  </tr>
+	<tr>
+		<td colspan="2">
+			<input type="submit" value="Register" class="btn btn-primary">
+
+			<a href="/login"><button type="button" class="btn btn-primary">Login</button></a>
+		</td>
+	</tr>
+		
+
+		
+	</tbody></table>
+		
+	</div>
+	</div>
+	</div>
+
+</form>
+
+<!--
+<div class="container">
+  <div class="row justify-content-md-center">
+   
+    
+	<form method="POST">
+		
+		{% csrf_token %}
+     
+		<div class="input-group">
+		<label for="id_username" class="col-sm-2 col-form-label">Username:</label>
+		 <div class="col-sm-10">
+		<input type="text" class="form-control" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+		</div>
+		</div>
+		<br>
+		<div class="input-group">
+		<label for="id_password" class="col-sm-2 col-form-label">Password:</label>
+		 <div class="col-sm-10">
+		<input type="password" class="form-control" name="password"  autocomplete="current-password" maxlength="150" required id="id_password">
+		</div>
+		</div>
+		<br>
+		<button class="btn btn-primary">Login</button>
+		<a href="/register"><button type="button" class="btn btn-primary">Register</button></a>
+	</form>
+ 
+  
+  </div>
+</div>
+{% for field in form %}
+        {{ field.label_tag }}<br>
+        {{ field }}
+       
+       
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+
+-->
+{% endblock %}

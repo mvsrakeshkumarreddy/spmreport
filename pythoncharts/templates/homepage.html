@@ -1,0 +1,193 @@
+{% include 'applayout.html' %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+<div style="text-align: center;">
+    
+<h1>Home page</h1>
+
+
+
+  </div>
+
+
+<!--
+<div ng-app="chartAppTest" ng-controller="myCtrl" style="color: black;">
+   
+      
+<form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <br>
+
+     <input name="Cautionorders" type="hidden" value="{[{ Cautionorders }]}" />
+     <input name="cautionorderlength" type="hidden" value="{[{ Cautionorders.length }]}" />
+
+
+                 <button class="btn btn-primary" type="submit" value="submit">Show full graph</button>
+
+  </form>
+
+<table cellpadding="0" cellspacing="0" class="table">
+            <tr>
+                <th>Starting km</th>
+                <th>Ending km</th>
+                <th>Speed</th>
+                <th></th>
+            </tr>
+            <tbody ng-repeat="m in Cautionorders">
+                <tr class="table-primary">
+                    <td><input type="text" value="{[{m.startingkm}]}" name="cautionorderstartingkm" ng-disabled = true /></td>
+                    <td><input type="text" value="{[{m.endingkm}]}" name ="cautionorderendingkm" ng-disabled = true /></td>
+                    <td><input type="number" value="{[{m.Speed}]}" name="cautionorderspeed" ng-disabled = true /></td>
+                    <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr> 
+                    <td><input type="text" ng-model="startingkm" placeholder="Ex:- 111/11" /></td>
+                    <td><input type="text" ng-model="endingkm"  /></td>
+                    <td><input type="number" ng-model="Speed" /></td>
+                    <td><input type="button" ng-click="Add()" value="Add" /></td>
+                </tr>
+            </tfoot>
+</table>
+
+
+</div>
+
+   <script>
+      var app = angular.module('chartAppTest', []);
+
+
+      app.config(function($interpolateProvider) {
+  $interpolateProvider.startSymbol('{[{');
+  $interpolateProvider.endSymbol('}]}');
+});
+      app.controller('myCtrl', function($scope, $window) {
+        
+      $scope.Cautionorders = [];
+      $scope.cautionorderlength = $scope.Cautionorders.length;
+ 
+            $scope.Add = function () {
+                //Add the new item to the Array.
+                var newcautionorder = {};
+                if (typeof ($scope.startingkm) == "undefined" || typeof($scope.endingkm) == "undefined" || typeof($scope.Speed) == "undefined")
+                {
+                  if((typeof($scope.startingkm) == "undefined" && typeof($scope.endingkm) == "undefined") || (typeof($scope.startingkm) == "undefined" && typeof($scope.Speed) == "undefined") || (typeof($scope.endingkm) == "undefined" && typeof($scope.Speed) == "undefined"))
+                  {
+                    $window.alert("Please fill all the columns of a row before addition of new caution");
+                  }
+                  else
+                  {
+
+                  if (typeof($scope.startingkm) == "undefined")
+                  {
+                    $window.alert("Please enter Starting KM");
+                  }
+                  if (typeof($scope.endingkm) == "undefined")
+                  {
+                    $window.alert("Please enter Ending KM");
+                  }
+                  if (typeof($scope.Speed) == "undefined")
+                  {
+                    $window.alert("Please enter Speed");
+                  }
+                  }
+                }
+                else
+                {
+                  newcautionorder.startingkm = $scope.startingkm;
+                  newcautionorder.endingkm = $scope.endingkm;
+                  newcautionorder.Speed = $scope.Speed;
+                  $scope.Cautionorders.push(newcautionorder);
+
+                  //Clear the TextBoxes.
+                  $scope.startingkm = "";
+                  $scope.endingkm = "";
+                  $scope.Speed = "";
+                  
+                }
+ 
+            };
+ 
+            $scope.Remove = function (index) {
+                //Find the record using Index from Array.
+                var start = $scope.Cautionorders[index].startingkm;
+                var end = $scope.Cautionorders[index].endingkm;
+                if ($window.confirm("Do you want to delete: " + start + "" + end)) {
+                    //Remove the item from Array using Index.
+                    $scope.Cautionorders.splice(index, 1);
+                }
+            };
+
+           
+
+
+
+    
+      });
+   </script>
+   -->
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+
+<!--
+ <div style="text-align: center;">
+    
+<h1>Home page</h1>
+
+
+
+  </div>
+
+
+
+<div class="container">
+   <div class="row justify-content-md-center">
+  <form action="" method="POST" enctype="multipart/form-data">
+         
+            {% csrf_token %}
+            
+            <div class="mb-3">
+        <label for="formFile" class="form-label">Please load Signal Sample file</label>
+             <input  class="form-control" type="file" name="signalsample" required="required">
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Please load Signal speed file</label>
+             <input  class="form-control" type="file" name="signalspeed" required="required">
+      </div>
+            <br>
+               <button class="btn btn-primary" type="submit" value="upload">upload</button>
+           
+      </form>
+
+</div>
+</div>
+
+-->
+
+
+
+
+
+<!--
+<table border="1" width="600">
+<tr>
+<td>signal list</td>
+</tr>
+
+{% for y in y %}
+<tr>
+<td>{{ y }}</td>
+</tr>
+{% endfor %}
+
+</table>
+-->

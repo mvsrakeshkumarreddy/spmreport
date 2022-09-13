@@ -1,0 +1,532 @@
+{% include 'applayout.html' %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+
+
+   <div ng-app="chartApp" ng-controller="myCtrl">
+
+
+    <div class="container" ng-show = "loading"> 
+    <center><img src="https://i.gifer.com/AqA0.gif" alt="centered image" height="400" width="400"> </center>
+    </div>
+
+   <!--
+      <input type="text" name="something" value="{{ today }}">
+       -->
+    
+   <div class="container" ng-hide = "loading">
+
+   <div class="row justify-content-md-center">
+      <form action="" method="POST" enctype="multipart/form-data">
+         <div ng-show = showdistspdform>
+            {% csrf_token %}
+            <br>
+            <input name="Cautionorders" type="hidden" value="{[{ Cautionorders }]}" />
+            <input name="cautionorderlength" type="hidden" value="{[{ Cautionorders.length }]}" />
+
+            <select class="form-select col-sm-10" aria-label="Default select example" required="required" name="routeid" ng-model="dropvalue" ng-click=dropvaluefun()>
+              <option selected value="">Please select Route</option>
+              <option value="EDJTJ">ED - JTJ</option>
+              <option value="JTJED">JTJ - ED</option>
+              <option value="SATPJ">SA - TPJ</option>
+              <option value="TPJSA">TPJ - SA</option>
+              <option value="EDTPJ">ED - TPJ</option>
+              <option value="TPJED">TPJ - ED</option>
+              <option value="EDIGU">ED - IGU</option>
+              <option value="IGUED">IGU - ED</option>
+              <option value="KRRDG">KRR - DG</option>
+              <option value="DGKRR">DG - KRR</option>
+              
+              <!--
+              <option value="3" ng-disabled="true">XXXXX</option>
+              -->
+            </select>
+
+            <div class="input-group">
+               <label class="col-sm-2 col-form-label">Starting station:</label><br>
+            </div>
+            <div class="col-sm-10">
+               <input class="form-control" type="text" name="ststn" required="required" value="{{ sstn }}"  ng-model="dropvalueinput" oninput="this.value = this.value.toUpperCase()" style="width: 120%">
+            </div>
+<!--
+            <div class="input-group">
+               <label class="col-sm-2 col-form-label">Please enter Distance values:</label><br>
+            </div>
+            <div class="col-sm-10">
+               <textarea class="form-control" ng-model="distlist" ng-list="&#10;" ng-trim="false" name="distlist" required="required"></textarea>
+            </div>
+            <div class="input-group">
+               <label class="col-sm-2 col-form-label">Please enter Speed values:</label><br>
+            </div>
+            <div class="col-sm-10">
+               <textarea  class="form-control" ng-model="spdlist" ng-list="&#10;" ng-trim="false" name="spdlist" required="required"></textarea>
+            </div>
+  -->
+              <div class="mb-3">
+          <label for="formFile" class="form-label">Please load Speedometer file with distance and speed values</label>
+               <input  class="form-control" type="file" name="spmfile" required="required">
+        </div>
+            <br>
+            <div class="mb-3">
+          <label for="formFile" class="form-label">Please enter the MAXIMUM PERMISSIBLE SPEED of the train in the section:</label>
+               <input  class="form-control" type="number" name="mps" max="110"  ng-model = "mps" required="required">
+        </div>
+            <br>
+            <div class="input-group">
+               <div class="input-group-text">
+                  <input class="form-check-input mt-0" type="checkbox" name="spmtype" value="telpro">
+               </div>
+               <p>&nbsp;</p>
+               <div>
+                  <label class="col-form-label">Distance values whether of type incrementive</label>
+               </div>
+            </div>
+            <br>
+            <div class="input-group">
+               <div class="input-group-text">
+                  <input class="form-check-input mt-0" type = "checkbox" ng-model = "enterplot" value="Enter from to plot details" ng-click = distspdvalues() ng-disabled = "enterplotdisabled"><br>
+               </div>
+               <p>&nbsp;</p>
+               <div>
+                  <label class="col-form-label">Would you like to enter from to plot details</label>
+               </div>
+            </div>
+            <br>
+            <div class="input-group" ng-show = "showfullgraphdiv">
+               <div class="input-group-text">
+                  <input class="form-check-input mt-0" type = "checkbox" ng-model = "showfullgraph" value="Enter from to plot details" ng-click = showfullgraphfun()>
+                  <br>
+               </div>
+               <p>&nbsp;</p>
+               <div>
+                  <label class="col-form-label">Would you like to show full graph</label>
+               </div>
+            </div>
+            <hr ng-show = "showfullgraph">
+
+            <table cellpadding="0" cellspacing="0" class="table" ng-show = "showfullgraph">
+            <tr>
+                <th ng-show = "cautioncheckbox"></th>
+                <th ng-show = "cautioncheckbox"></th>
+                <th>CAUTION STARTING KM</th>
+                <th>CAUTION ENDING KM</th>
+                <th>SPEED</th>
+                <th></th>
+            </tr>
+            <tbody ng-repeat="m in Cautionorders">
+                <tr class="table-primary">
+                    <td  ng-show="cautioncheckbox"><input  class="form-control" type="text" value="{[{m.cautioncheckboxvalue}]}" ng-disabled = true /></td>
+                    <td ng-show = "cautioncheckbox"></td>
+                    <td><input  class="form-control" type="text" value="{[{m.startingkm}]}" name="cautionorderstartingkm" ng-disabled = true /></td>
+                    <td><input  class="form-control" type="text" value="{[{m.endingkm}]}" name ="cautionorderendingkm" ng-disabled = true /></td>
+                    <td><input  class="form-control" type="number" value="{[{m.Speed}]}" name="cautionorderspeed" ng-disabled = true /></td>
+                    <td><input  class="btn btn-danger" type="button" ng-click="Remove($index)" value="Remove" /></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr> 
+                    <td  ng-show="cautioncheckbox"><input   type="checkbox" ng-model="cautioncheckboxvalue1" ng-disabled="cautioncheckboxvalue2"> <label class="col-form-label">SA - KRR</label></td>
+                    <td  ng-show="cautioncheckbox"><input   type="checkbox" ng-model="cautioncheckboxvalue2" ng-disabled="cautioncheckboxvalue1"> <label class="col-form-label">KRR - TPJ</label></td>
+                    <td><input  class="form-control"  type="text" ng-model="startingkm" placeholder="Ex:- 111/11" /></td>
+                    <td><input  class="form-control" type="text" ng-model="endingkm"  /></td>
+                    <td><input  class="form-control" type="number" ng-model="Speed" /></td>
+                    <td><input  class="btn btn-primary" type="button" ng-click="Add()" value="Add" /></td>
+                </tr>
+            </tfoot>
+</table>
+
+
+            <br>
+            <button class="btn btn-primary" type="submit" value="submit" ng-show = "showfullgraph" ng-click = "loading = true">Show full graph</button>
+            <div ng-show = showplotinput>
+               <div class="input-group">
+                  <label class="col-sm-2 col-form-label">Please enter starting station for which plot is required:</label><br>
+               </div>
+               <div class="col-sm-10">
+                  <input class="form-control" type="text" name="pltststn" required="required" ng-model = "pltststn" ng-disabled = "!showplotinput" oninput="this.value = this.value.toUpperCase()">
+               </div>
+               <br>
+               <div class="input-group">
+                  <label class="col-sm-2 col-form-label">Please enter ending station for which plot is required:</label><br>
+               </div>
+               <div class="col-sm-10">
+                  <input class="form-control" type="text" name="pltendstn" required="required" ng-model = "pltendstn" ng-disabled = "!showplotinput" oninput="this.value = this.value.toUpperCase()">
+               </div>
+               <br>
+               <button class="btn btn-primary" type="submit" value="submit">Submit</button>
+            </div>
+      </form>
+      </div>
+
+   </div>
+  
+
+  
+  
+{% autoescape off %}
+  {{ plot_div }}
+  {% endautoescape %}
+
+
+{% if mpsvalue is not null %}
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Feature</th>
+      <th scope="col">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Maximum Permissible speed</td>
+      <td>{{mpsvalue}}</td>
+    </tr>
+    <tr>
+      <td>Maximum speed reached</td>
+      <td>{{mpsmaxvalue}}</td>
+    </tr>
+    <tr>
+    <tr>
+      <td>Maximum Permissible Speed range Travelled</td>
+      <td>{{mpsdistance}}</td>
+    </tr>
+    <tr>
+      <td>Maximum Permissible Speed violation distance travelled</td>
+      <td>{{mpsviolateddistance}}</td>
+    </tr>
+    <tr>
+      <td>Brake Feel Test</td>
+      <td>{{bftvalue}}</td>
+    </tr>
+    <tr>
+       <td>Brake Power Test</td>
+      <td>{{bptvalue}}</td>
+    </tr>
+    <tr>
+       <td>Caution Violations</td>
+      <td>{{violatedvalue}}</td>
+    </tr>
+     <tr class="table-danger">
+       <td >Stopping Stations</td>
+      <td><ul class="list-group">
+{% for stoppings in stoppingstations %}
+    <li class="list-group-item list-group-item-warning">{{ stoppings }}</li>
+{% endfor %}
+</ul></td>
+    </tr>
+    <tr class="table-danger">
+       <td >Late signals / Danger signals</td>
+      <td><ul class="list-group">
+{% for latesignal in latesignals %}
+    <li class="list-group-item list-group-item-warning">{{ latesignal }}</li>
+{% endfor %}
+</ul></td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+
+   <!--
+    <p>{{mpsvalue}}</p>
+      <textarea ng-model="signalkm" ng-list="&#10;" ng-trim="false"></textarea>
+      <p ng-bind="signalkm"></p>
+      
+      
+      <textarea ng-model="signalname" ng-list="&#10;" ng-trim="false"></textarea>
+      <p ng-bind="signalname"></p>
+      <p>Welcome {{today}}</p>
+        <p>Name: <input type="text" ng-model="name"></p>
+        <p ng-bind="list1"></p>
+        <input type="submit" ng-click=check() value="submit">
+      
+      <textarea ng-model="list1" ng-list="&#10;" ng-trim="false"></textarea>
+      
+      </div>
+      
+      <p>Welcome to my first Django project! {{minvalue}}</p>
+      <p>you have entered  {{inputvalue}}</p>
+      -->
+   <!--
+      <form action = "" method = "POST">
+        {% csrf_token %}
+        <label for="ivalue">Your name: </label>
+        <input id="ivalue" type="text" name="ivalue">
+        <input type="submit" value="OK">
+      </form>
+      -->
+   <script>
+      var app = angular.module('chartApp', []);
+
+       app.config(function($interpolateProvider) {
+  $interpolateProvider.startSymbol('{[{');
+  $interpolateProvider.endSymbol('}]}');
+});
+      app.controller('myCtrl', function($scope, $window) {
+        $scope.name= "Rakesh";
+        $scope.showdistspdform = true;
+        $scope.showplotinput = false;
+        $scope.enterplotdisabled = false;
+        $scope.showfullgraphdiv = true;
+
+
+      
+
+        $scope.distspdvalues = function()
+        {
+          if ($scope.enterplot == true)
+          {
+            $scope.showfullgraphdiv = false;
+            $scope.showfullgraph = false;
+            $scope.showplotinput  = true;
+          }
+          if ($scope.enterplot == false)
+          {
+            $scope.showfullgraphdiv = true;
+            $scope.showfullgraph = false;
+            $scope.showplotinput  = false;
+          }
+          //$scope.showdistspdform = false;
+          
+        };
+        $scope.firstcheck = function()
+        {
+          if ($scope.enterplotagain == true)
+          {
+            $scope.startfrombegin = false;
+          }
+        };
+        $scope.secondcheck  = function()
+        {
+          if ($scope.startfrombegin == true)
+          {
+            $scope.enterplotagain = false;
+          }
+        };
+        $scope.distspdvaluesinv = function()
+        {
+          $scope.repeatselect = true;
+        };
+        $scope.repeatfunction = function()
+        {
+          if ($scope.enterplotagain == true)
+          {
+            $scope.repeatselect = false;
+            $scope.showplotinput = true;
+          }
+          if ($scope.startfrombegin == true)
+          {
+            $scope.repeatselect = false;
+            $scope.showdistspdform = true;
+          }
+        };
+        $scope.showfullgraphfun  = function()
+        {
+            if ($scope.enterplotdisabled == true)
+            {
+      
+              $scope.enterplotdisabled = false;
+            }
+            else if ($scope.enterplotdisabled == false)
+            {
+      
+              $scope.enterplotdisabled = true;
+            }
+        };
+        $scope.check = function()
+        {
+          $scope.yes = true;
+        };
+        $scope.dropvaluefun = function()
+        {
+          $scope.cautioncheckbox = false;
+          if ($scope.dropvalue == "JTJED")
+          {
+            $scope.dropvalueinput = "JTJ"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "EDJTJ")
+          {
+            $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "SATPJ")
+          {
+            $scope.dropvalueinput = "SA"
+            $scope.cautioncheckbox = true;
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "TPJSA")
+          {
+            $scope.dropvalueinput = "TPJ"
+            $scope.cautioncheckbox = true;
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "EDTPJ")
+          {
+            $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "TPJED")
+          {
+            $scope.dropvalueinput = "TPJ"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "EDIGU")
+          {
+            $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "IGUED")
+          {
+            $scope.dropvalueinput = "IGU"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "KRRDG")
+          {
+            $scope.dropvalueinput = "KRR"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "DGKRR")
+          {
+            $scope.dropvalueinput = "DG"
+            $scope.Cautionorders = [];
+          }
+        };
+
+
+              $scope.Cautionorders = [];
+      $scope.cautionorderlength = $scope.Cautionorders.length;
+      $scope.cautioncheckboxvalue1 = false;
+      $scope.cautioncheckboxvalue2 = false;
+ 
+            $scope.Add = function () {
+                //Add the new item to the Array.
+                //$window.alert("Please enter Starting KM");
+                var newcautionorder = {};
+                
+                if (typeof ($scope.startingkm) == "undefined" || typeof($scope.endingkm) == "undefined" || typeof($scope.Speed) == "undefined")
+                {
+                  if((typeof($scope.startingkm) == "undefined" && typeof($scope.endingkm) == "undefined") || (typeof($scope.startingkm) == "undefined" && typeof($scope.Speed) == "undefined") || (typeof($scope.endingkm) == "undefined" && typeof($scope.Speed) == "undefined"))
+                  {
+                    $window.alert("Please fill all the columns of a row before addition of new caution");
+                  }
+                  else
+                  {
+
+                  if (typeof($scope.startingkm) == "undefined")
+                  {
+                    $window.alert("Please enter Starting KM");
+                  }
+                  if (typeof($scope.endingkm) == "undefined")
+                  {
+                    $window.alert("Please enter Ending KM");
+                  }
+                  if (typeof($scope.Speed) == "undefined")
+                  {
+                    $window.alert("Please enter Speed");
+                  }
+                  }
+                }
+                else if ($scope.startingkm == "" || $scope.endingkm == "" || $scope.Speed == "")
+                {
+                  if(($scope.startingkm == "" && $scope.endingkm == "") || ($scope.startingkm == "" && $scope.Speed == "") || ($scope.endingkm == "" && $scope.Speed == ""))
+                  {
+                    $window.alert("Please fill all the columns of a row before addition of new caution");
+                  }
+                  else
+                  {
+
+                  if ($scope.startingkm == "")
+                  {
+                    $window.alert("Please enter Starting KM");
+                  }
+                  if ($scope.endingkm == "")
+                  {
+                    $window.alert("Please enter Ending KM");
+                  }
+                  if ($scope.Speed == "")
+                  {
+                    $window.alert("Please enter Speed");
+                  }
+                  }
+                }
+                else if (($scope.dropvalue == "TPJSA") || ($scope.dropvalue == "SATPJ"))
+                {
+                  if ($scope.cautioncheckboxvalue1 == false && $scope.cautioncheckboxvalue2 == false)
+                  {
+                    $window.alert("please select the caution route");
+                  }
+                  else
+                {
+                  newcautionorder.startingkm = $scope.startingkm;
+                  newcautionorder.endingkm = $scope.endingkm;
+                  newcautionorder.Speed = $scope.Speed;
+                  if ($scope.dropvalue == "TPJSA" || $scope.dropvalue == "SATPJ")
+                  {
+                    if ($scope.cautioncheckboxvalue1 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "SA - KRR";
+                    }
+                    if ($scope.cautioncheckboxvalue2 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "KRR - TPJ";
+                    }
+                  }
+                  $scope.Cautionorders.push(newcautionorder);
+
+                  //Clear the TextBoxes.
+                  $scope.startingkm = "";
+                  $scope.endingkm = "";
+                  $scope.Speed = "";
+                  $scope.cautioncheckboxvalue1 = false;
+                  $scope.cautioncheckboxvalue2 = false;
+                  
+                }
+                }
+                else
+                {
+                  newcautionorder.startingkm = $scope.startingkm;
+                  newcautionorder.endingkm = $scope.endingkm;
+                  newcautionorder.Speed = $scope.Speed;
+                  if ($scope.dropvalue == "TPJSA" || $scope.dropvalue == "SATPJ")
+                  {
+                    if ($scope.cautioncheckboxvalue1 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "SA - KRR";
+                    }
+                    if ($scope.cautioncheckboxvalue2 == true)
+                    {
+                      newcautionorder.cautioncheckboxvalue = "KRR - TPJ";
+                    }
+                  }
+                  $scope.Cautionorders.push(newcautionorder);
+
+                  //Clear the TextBoxes.
+                  $scope.startingkm = "";
+                  $scope.endingkm = "";
+                  $scope.Speed = "";
+                  $scope.cautioncheckboxvalue1 = false;
+                  $scope.cautioncheckboxvalue2 = false;
+                  
+                }
+ 
+            };
+ 
+            $scope.Remove = function (index) {
+                //Find the record using Index from Array.
+                var start = $scope.Cautionorders[index].startingkm;
+                var end = $scope.Cautionorders[index].endingkm;
+                if ($window.confirm("Do you want to delete: " + start + "----" + end)) {
+                    //Remove the item from Array using Index.
+                    $scope.Cautionorders.splice(index, 1);
+                }
+            };
+            $scope.loading = false;
+
+    
+      });
+   </script>
+</body>
+{% endblock %}
