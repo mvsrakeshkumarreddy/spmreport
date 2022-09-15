@@ -280,10 +280,25 @@ def chartcreation (request) :
                     break
         """
         #print(plotsignal)
+
+        #bwstnfound = plotsignal.copy()
+        bwstnfound = [0] * len(plotsignal)
         for index in range(len(plotsignal)):
             for i in range(len(list4)):
                 if plotsignal[index] == list2[i]:
+                    #print(i)
+                    bwstnfound[index] = 1
                     plotsignalspeed[index] = list4[i]
+
+        for i in range(len(bwstnfound)):
+            if bwstnfound[i] == 0:
+                for k in range(10):
+                    plotvalue = plotsignal[i]+(0.01*k)
+                    for a in range(len(list4)):
+                        if plotvalue == list2[a] and bwstnfound[i] == 0:
+                            plotsignalspeed[i] = list4[a]
+                            bwstnfound[i] = 1
+        #print(bwstnfound)
         print(plotsignal)
         print(plotsignalspeed)
         print(plotsignalname)
@@ -349,7 +364,7 @@ def chartcreation (request) :
                                arrowcolor='rgb(255,51,0)',)
                     arrow_list.append(arrow) 
 
-        print(arrow_list)
+        #print(arrow_list)
            
         fig.update_layout(annotations=arrow_list, xaxis_title="NAME OF THE SIGNAL", yaxis_title="SPEED (KMPH)", title={'text': graphtitle, 'y':0.9,'x':0.5,'xanchor': 'center','yanchor': 'top'})
 
@@ -770,6 +785,14 @@ def chartcreation (request) :
 
         #print(zeroindexfound)
         #print(zeroindexcopy)
+        #zerofinalreached = 0
+        for a in range(len(signalname)):
+            if annot[len(annot)-1] == signalname[a]:
+                if (signalkmfinal[a]-(x[len(x)-1]))>2:
+                    zerofinalreached = 0
+                else:
+                    zerofinalreached = 1
+
         stoppingstations = []
         for i in range(len(zeroindexcopy)):
             if signalname[zeroindexcopy[i]] == signalname[zeroindex[i]]:
@@ -778,6 +801,8 @@ def chartcreation (request) :
             else:
                 stoppingstations.append(str(signalname[zeroindexcopy[i]]) + " -- " + str(signalname[zeroindex[i]]))
                 #print(str(signalname[zeroindexcopy[i]]) + " -- " + str(signalname[zeroindex[i]]))
+            if i == (len(zeroindexcopy)-1) and zerofinalreached == 1:
+                stoppingstations.append(str(annot[len(annot)-1]) + " -- station")
         #print(stoppingstations)
 
 
@@ -788,7 +813,7 @@ def chartcreation (request) :
         for i in range(len(x)-250):
             for k in range(250):
                 if y[i] >= 45:
-                    if y[i+k] <= ((y[i] * 0.6)):
+                    if y[i+k] <= ((y[i] * 0.6)) or y[i+k] < (33):
                         if ((x[i+k]-x[i]) * 1000) < 1000 and i == latecount:
                             latestart.append(i)
                             lateend.append(i+k)
@@ -851,15 +876,30 @@ def chartcreation (request) :
 
         lateendfound = [0] * len(lateenddistance)
         lateendfoundindex = [0] * len(lateenddistance)
-
+        latebefaft = [0] * len(lateenddistance)
         for i in range(len(lateenddistance)):
             for k in range(len(signalkmfinal)):
                 for a in range(150):
                     if round((lateenddistance[i]+(0.01*a)),2) == signalkmfinal[k] and lateendfound[i] == 0:
                         lateendfound[i] = signalname[k]
                         lateendfoundindex[i] = k
+        #print(lateenddistance)
+        #print(lateendfound)
+        for i in range(len(lateenddistance)):
+            for k in reversed(range(len(signalkmfinal))):
+                if lateendfound[i] == 0:
+                    for p in range(50):
+                        #print(round((lateenddistance[i]-(0.01*a)),2))
+                        #print(signalkmfinal[k])
+                        if round((lateenddistance[i]-(0.01*p)),2) == signalkmfinal[k]:
+                            lateendfound[i] = signalname[k]
+                            lateendfoundindex[i] = k
+                            latebefaft[i] = 1
+
         print(lateendfound)
         print(lateendfoundindex)
+        #print("kkk")
+        print(latebefaft)
 
         lateendfoundindexcopy = lateendfoundindex.copy()
         for i in range(len(lateendfoundindex)):
@@ -898,18 +938,30 @@ def chartcreation (request) :
         print(lateindexfoundannot)
         print(lateendfoundindexcopy)
         print(lateindexfound)
+        
+        
 
         latesignals = []
         for i in range(len(lateendfoundindexcopy)):
-            if signalname[lateendfoundindexcopy[i]] == signalname[lateendfoundindex[i]]:
-                latesignals.append(str(signalname[lateendfoundindexcopy[i]]) + " -- station")
-            elif signalname[lateendfoundindexcopy[i]] != signalname[lateendfoundindex[i]] and lateindexfound[i] == 0:
+            if latebefaft[i] == 0:
+                if signalname[lateendfoundindexcopy[i]] == signalname[lateendfoundindex[i]]:
+                    latesignals.append(str(signalname[lateendfoundindexcopy[i]]) + " -- station")
+                elif signalname[lateendfoundindexcopy[i]] != signalname[lateendfoundindex[i]] and lateindexfound[i] == 0:
+                    for a in range(len(annot)):
+                        if signalname[lateendfoundindexcopy[i]] == annot[a]:
+                            lateindexfound[i] = annot[a-1]
+                    if signalname[lateendfoundindex[i]] == "GWB":
+                        latesignals.append(str(signalname[lateendfoundindex[i]]) + " before " + str(signalname[lateendfoundindex[i]+1]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
+                    else:
+                        latesignals.append(str(signalname[lateendfoundindex[i]]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
+                elif signalname[lateendfoundindexcopy[i]] != signalname[lateendfoundindex[i]] and lateindexfound[i] !=0:
+                    latesignals.append(str(signalname[lateendfoundindexcopy[i]]) + " -- " + str(signalname[lateendfoundindex[i]]))
+            if latebefaft[i] == 1:
                 for a in range(len(annot)):
-                    if signalname[lateendfoundindexcopy[i]] == annot[a]:
-                        lateindexfound[i] = annot[a-1]
-                latesignals.append(str(signalname[lateendfoundindex[i]]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
-            elif signalname[lateendfoundindexcopy[i]] != signalname[lateendfoundindex[i]] and lateindexfound[i] !=0:
-                latesignals.append(str(signalname[lateendfoundindexcopy[i]]) + " -- " + str(signalname[lateendfoundindex[i]]))
+                        if signalname[lateendfoundindexcopy[i]] == annot[a]:
+                            lateindexfound[i] = annot[a-1]
+                latesignals.append("After passing " + str(signalname[lateendfoundindex[i]]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
+
 
 
 

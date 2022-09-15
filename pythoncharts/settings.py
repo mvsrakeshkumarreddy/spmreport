@@ -95,13 +95,14 @@ WSGI_APPLICATION = 'pythoncharts.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -114,6 +115,16 @@ DATABASES = {
 }
 
 """
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd6fkahkl62o0v3',
+        'USER': 'rnfhgyczhkcfjj',
+        'PASSWORD': 'ce8e0d7e7410d3938eb2fb66a2bd988ed9e3281b9aab8ee1470af2420b734206',
+        'HOST': 'ec2-44-209-158-64.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
