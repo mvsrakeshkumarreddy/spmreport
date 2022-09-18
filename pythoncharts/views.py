@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 #import numpy as np
 import io, base64, uuid
 from io import BytesIO
-from datetime import datetime, timedelta, timezone, tzinfo
+from datetime import datetime, timedelta, timezone, tzinfo,date
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
@@ -42,7 +42,13 @@ def chartcreation (request) :
     plotststn = str(plotststn)
     plotendstn = data.get("pltendstn")
     route = data.get("routeid")
-    print(plotststn)
+    #print(plotststn)
+    nameoflp = data.get("nameoflp")
+    trainno = data.get("trainno")
+    locono = data.get("locono")
+    startdate = data.get("startdate")
+    enddate = data.get("enddate")
+
     if request.method == "POST" and plotststn != "None":
         """speedlist = data.get("spdlist")
                                 speedlist1 = speedlist.splitlines()
@@ -94,8 +100,20 @@ def chartcreation (request) :
         speedlist = list(map(float,speedlist1))
         distancelist = list(map(float,distancelist1))
 
+        #spmtype = data.get("spmtype")
+        #print(spmtype)
+        spmcount = 0
+        for i in range(len(distancelist1)):
+            if distancelist1[i] == 1 or distancelist1[i] == 2:
+                spmcount = spmcount+1
+        print(spmcount)
 
-        if data.get("spmtype") == "telpro":
+        if spmcount>=20:
+            spmtype = "telpro"
+        else:
+            spmtype = ""
+
+        if spmtype == "telpro":
             for i in range(len(distancelist)):
                 if i != 0 or i != len(distancelist):
                     distancelist[i] = distancelist[i] + distancelist[i-1]
@@ -398,6 +416,9 @@ def chartcreation (request) :
         colcount = sh1.max_column
         colcount = colcount+1
 
+       
+        
+
         for c in range(colcount):
             if c==0:
                 c=c+1
@@ -410,12 +431,52 @@ def chartcreation (request) :
                 if sh1.cell(r,c).value == "SPEED" or sh1.cell(r,c).value == "speed" or sh1.cell(r,c).value == "Speed" or sh1.cell(r,c).value == "INST.  KMPH":
                     speedrow = r
                     speedcolumn = c
+                if (type(sh1.cell(r,c).value).__name__) == "str":
+                    if sh1.cell(r,c).value == "Time" or sh1.cell(r,c).value == "TIME" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower()):
+                        timerow = r
+                        timecolumn = c
+                    if sh1.cell(r,c).value == "Date" or sh1.cell(r,c).value == "DATE" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower()):
+                        daterow = r
+                        datecolumn = c
+                """
+                if sh1.cell(r,c).value == "Time" or sh1.cell(r,c).value == "TIME" or sh1.cell(r,c).value == "  DATE/Time" or sh1.cell(r,c).value == "Date       TIME":
+                    timerow = r
+                    timecolumn = c
+                if sh1.cell(r,c).value == "Date" or sh1.cell(r,c).value == "DATE" or sh1.cell(r,c).value == "  DATE/Time" or sh1.cell(r,c).value == "Date       TIME":
+                    daterow = r
+                    datecolumn = c
+                """
+
+
+                
+
 
         speedlist1 = []
         distancelist1 = []
+        timelist = []
+        datelist = []
+        timevalue = sh1.cell(timerow,timecolumn).value
+       
+        datevalue = sh1.cell(daterow,datecolumn).value
+        #print(timevalue)
         distancerow = distancerow+2
         speedrow = speedrow+2
+        timerow = timerow+2
+        daterow = daterow+2
         rowcount = rowcount
+
+        for i in range(daterow,rowcount):
+            if i == 0:
+                i = 1
+            datelist.append(sh1.cell(i,datecolumn).value)
+
+
+        for i in range(timerow,rowcount):
+            if i==0:
+                i = 1
+            timelist.append(sh1.cell(i,timecolumn).value)
+        #print(timelist)
+
 
         for i in range(distancerow,rowcount):
             if i == 0:
@@ -437,7 +498,21 @@ def chartcreation (request) :
 
         #print(speedlist)
         #print(distancelist)
-        if data.get("spmtype") == "telpro":
+        #spmtype = data.get("spmtype")
+        #print(spmtype)
+
+        spmcount = 0
+        for i in range(len(distancelist1)):
+            if distancelist1[i] == 1 or distancelist1[i] == 2:
+                spmcount = spmcount+1
+        print(spmcount)
+        #print(len(distancelist1))
+        if spmcount>=20:
+            spmtype = "telpro"
+        else:
+            spmtype = ""
+
+        if spmtype == "telpro":
             for i in range(len(distancelist)):
                 if i != 0 or i != len(distancelist):
                     distancelist[i] = distancelist[i] + distancelist[i-1]
@@ -771,17 +846,19 @@ def chartcreation (request) :
                     zeroindexfound[a] = 1
 
         zeroindexvalue = 0
+
+        
+
         for i in range(len(zeroindexfound)):
             if zeroindexfound[i] == 0:
-                zeroindexvalue = zeroindexcopy[i]
+                #zeroindexvalue = zeroindexcopy[i]
                 for p in range(10):
                     for a in range(len(annot)):
-                        if signalname[zeroindexvalue] == annot[a] and zeroindexfound[i] == 0:
-                            zeroindexfound[i] = 1
-                            zeroindexcopy[i] = zeroindexvalue
-                        else:
-                            if zeroindexvalue < (len(signalname)-1):
-                                zeroindexvalue = zeroindexvalue + p
+                        if (zeroindexfound[i]+p)<(len(signalname)-1):
+                            if signalname[zeroindexfound[i]+p] == annot[a] and zeroindexfound[i] == 0:
+                                zeroindexfound[i] = 1
+                                zeroindexcopy[i] = zeroindexfound[i]+p
+                    
 
         #print(zeroindexfound)
         #print(zeroindexcopy)
@@ -1805,7 +1882,132 @@ def chartcreation (request) :
         plot_div = plot(fig, output_type='div')
 
         loading = "true"
-        return render(request, "index.html", {"minvalue" : minvalue, "loading": loading, "latesignals" : latesignals, "stoppingstations" : stoppingstations,  "mpsmaxvalue": mpsmaxvalue, "mpsviolateddistance" : mpsviolateddistance, "mpsdistance" : mpsdistance, "violatedvalue" : violatedvalue, "bftvalue" : bftvalue, "bptvalue" : bptvalue, "today" : today, "mpsvalue" : mpsvalue, "plot_div" : plot_div, "sstn" : sstn, "slist" : slist, "dlist" : dlist})
+        if startdate == enddate:
+            datevalue = startdate
+        if startdate != enddate:
+            datevalue = "From " + str(startdate) + " To " + str(enddate)
+
+       
+        datetimesplit = []
+        """
+        #print(datelist)
+        timestart = []
+        timeend = []
+        datestart = []
+        dateend = []
+        for i in range(len(x)):
+            if i < (len(x)-1):
+                if y[i] == 0:
+                    if "time" in timevalue.lower() and "date" in timevalue.lower():
+                        timestart.append(timelist[i])
+                        timeend.append(timelist[i+1])
+                    else:
+                        timestart.append(timelist[i])
+                        timeend.append(timelist[i+1])
+                        datestart.append(datelist[i])
+                        dateend.append(datelist[i+1])
+        """
+
+
+        #avg speed with detention
+        if "time" in timevalue.lower() and "date" in timevalue.lower():
+            for i in range(len(timelist)):
+                #timesplit1.append(timelist[i].split(" "))
+                datetimesplit.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
+            totalsecondswd = (datetimesplit[len(datetimesplit)-1]-datetimesplit[0]).total_seconds()
+            #print(totalsecondswd)
+        else:
+            for i in range(len(timelist)):
+                #timesplit1.append(timelist[i])
+                #datesplit1.append(datelist[i])
+                if (type(datelist[i]).__name__) == "str":
+                    datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
+                datetimesplit.append(datetime.combine(datelist[i],timelist[i]))
+            totalsecondswd = (datetimesplit[len(datetimesplit)-1]-datetimesplit[0]).total_seconds()
+        #print(totalsecondswd)
+        avgspdwd = ((x[len(x)-1])*1000)/(totalsecondswd)
+        #print(avgspdwd)
+        avgspdwd = round((avgspdwd * (18/5)),2)
+        #print(avgspdwd)
+        avgspdwd = "Average Speed of the train with detention is " + str(avgspdwd) + " KM/Hr"
+        #print(len(timelist))
+        #print(len(x))
+
+        datetimesplit1 = []
+       
+
+        if "time" in timevalue.lower() and "date" in timevalue.lower():
+            for i in range(len(x)):
+                datetimesplit1.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
+        else:
+            for i in range(len(x)):
+                if (type(datelist[i]).__name__) == "str":
+                    datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
+                datetimesplit1.append(datetime.combine(datelist[i],timelist[i]))
+
+        totalsecondswod = 0
+        
+
+
+        for i in range(len(datetimesplit1)):
+            if i <(len(datetimesplit1)-1):
+                if y[i] == 0:
+                    totalsecondswod = totalsecondswod
+                else:
+                    totalsecondswod = totalsecondswod + ((datetimesplit1[i+1]-datetimesplit1[i]).total_seconds())
+        #print(totalsecondswod)
+        #print(totalsecondswd)
+
+
+
+        avgspdwod = ((x[len(x)-1])*1000)/(totalsecondswod)
+        #print(avgspdwod)
+        avgspdwod = round((avgspdwod * (18/5)),2)
+        #print(avgspdwod)
+        avgspdwod = "Average Speed of the train without detention is " + str(avgspdwod) + " KM/Hr"
+
+        """
+        #avg speed without detention
+        datetimesplitstart = []
+        datetimesplitend = []
+        totalsecondsarrwod = []
+        if len(timestart) == len(datestart):
+            for i in range(len(timestart)):
+                if (type(type(datestart[i]).__name__)) == "str":
+                    datestart[i] = datetime.strptime(datestart[i], '%d/%m/%y')
+                    dateend[i] = datetime.strptime(dateend[i], '%d/%m/%y')
+                datetimesplitstart.append(datetime.combine(datestart[i],timestart[i]))
+                datetimesplitend.append(datetime.combine(dateend[i],timeend[i]))
+        else:
+            for i in range(len(timestart)):
+                datetimesplitstart.append(datetime.strptime(timestart[i], ' %d/%m/%y %H:%M:%S'))
+                datetimesplitend.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
+
+        print(datetimesplitstart)
+        print(datetimesplitend)
+
+        for i in range(len(datetimesplitstart)):
+            totalsecondsarrwod.append((datetimesplitend[i]-datetimesplitstart[i]).total_seconds())
+        for i in range(len(totalsecondsarrwod)):
+            if totalsecondsarrwod[i]<0:
+                totalsecondsarrwod[i] = totalsecondsarrwod[i]*(-1)
+        totalsecondswod = sum(totalsecondsarrwod)
+        print(totalsecondsarrwod)
+        print(totalsecondswod)
+        print(totalsecondswd)
+        totalsecondswod = totalsecondswd-totalsecondswod
+
+        avgspdwod = (((x[len(x)-1])-(0.01*(len(totalsecondsarrwod)+1)))*1000)/(totalsecondswod)
+        print(avgspdwod)
+        avgspdwod = round((avgspdwod * (18/5)),2)
+        print(avgspdwod)
+
+        """
+
+
+        
+
+        return render(request, "index.html", {"minvalue" : minvalue, "avgspdwd":avgspdwd,"avgspdwod":avgspdwod, "datevalue": datevalue, "nameoflp" : nameoflp, "trainno":trainno, "locono":locono, "loading": loading, "latesignals" : latesignals, "stoppingstations" : stoppingstations,  "mpsmaxvalue": mpsmaxvalue, "mpsviolateddistance" : mpsviolateddistance, "mpsdistance" : mpsdistance, "violatedvalue" : violatedvalue, "bftvalue" : bftvalue, "bptvalue" : bptvalue, "today" : today, "mpsvalue" : mpsvalue, "plot_div" : plot_div, "sstn" : sstn, "slist" : slist, "dlist" : dlist})
 """
 def indexview(request):
     return render(request,'index.html')

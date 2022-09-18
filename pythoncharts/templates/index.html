@@ -66,14 +66,37 @@
   -->
               <div class="mb-3">
           <label for="formFile" class="form-label">Please load Speedometer file with distance and speed values</label>
-               <input  class="form-control" type="file" name="spmfile" required="required">
+               <input  class="form-control" type="file" name="spmfile" required="required" id="spmfile">
         </div>
             <br>
             <div class="mb-3">
           <label for="formFile" class="form-label">Please enter the MAXIMUM PERMISSIBLE SPEED of the train in the section:</label>
                <input  class="form-control" type="number" name="mps" max="110"  ng-model = "mps" required="required">
         </div>
+          <div class="mb-3">
+          <label for="formFile" class="form-label">Please enter the Name of the LOCO PILOT:</label>
+               <input  class="form-control" type="text" name="nameoflp"  ng-model = "nameoflp" required="required" oninput="this.value = this.value.toUpperCase()">
+        </div>
+
+          <div class="mb-3">
+          <label for="formFile" class="form-label">Please enter the Train NO:</label>
+               <input  class="form-control" type="text" name="trainno"  ng-model = "trainno" required="required" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Please enter the Loco No:</label>
+               <input  class="form-control" type="text" name="locono"  ng-model = "locono" required="required" placeholder="22222/22223">
+        </div>
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Please enter the Starting Date of the train:</label>
+               <input  class="form-control" type="date" name="startdate"  ng-model = "startdate" required="required">
+        </div>
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Please enter the ending Date of the train:</label>
+               <input  class="form-control" type="date" name="enddate" ng-model = "enddate" required="required">
+        </div>
+
             <br>
+            <!--
             <div class="input-group">
                <div class="input-group-text">
                   <input class="form-check-input mt-0" type="checkbox" name="spmtype" value="telpro">
@@ -84,6 +107,7 @@
                </div>
             </div>
             <br>
+            -->
             <div class="input-group">
                <div class="input-group-text">
                   <input class="form-check-input mt-0" type = "checkbox" ng-model = "enterplot" value="Enter from to plot details" ng-click = distspdvalues() ng-disabled = "enterplotdisabled"><br>
@@ -139,7 +163,7 @@
 
 
             <br>
-            <button class="btn btn-primary" type="submit" value="submit" ng-show = "showfullgraph" ng-click = "loading = true">Show full graph</button>
+            <button class="btn btn-primary" type="submit" value="submit" ng-show = "showfullgraph" ng-click = loadingfun()>Show full graph</button>
             <div ng-show = showplotinput>
                <div class="input-group">
                   <label class="col-sm-2 col-form-label">Please enter starting station for which plot is required:</label><br>
@@ -179,32 +203,77 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr class="table-primary">
+      <td>Name of Loco Pilot</td>
+      <td>{{nameoflp}}</td>
+    </tr>
+    <tr class="table-primary">
+      <td>Train NO</td>
+      <td>{{trainno}}</td>
+    </tr>
+    <tr class="table-primary">
+      <td>Loco NO</td>
+      <td>{{locono}}</td>
+    </tr>
+    <tr class="table-primary">
+      <td>Date of working</td>
+      <td>{{datevalue}}</td>
+    </tr>
+   {% if mpsvalue == "MPS reached" %}
+    <tr class="table-info">
+    {% elif mpsvalue != "MPS reached" %}
+    <tr class="table-danger">
+    {% endif %}
       <td>Maximum Permissible speed</td>
       <td>{{mpsvalue}}</td>
     </tr>
-    <tr>
+    {% if mpsvalue == "MPS reached" %}
+    <tr class="table-info">
+    {% elif mpsvalue != "MPS reached" %}
+    <tr class="table-danger">
+    {% endif %}
       <td>Maximum speed reached</td>
       <td>{{mpsmaxvalue}}</td>
     </tr>
     <tr>
-    <tr>
+    <tr class="table-info">
       <td>Maximum Permissible Speed range Travelled</td>
       <td>{{mpsdistance}}</td>
     </tr>
-    <tr>
+    <tr class="table-danger">
       <td>Maximum Permissible Speed violation distance travelled</td>
       <td>{{mpsviolateddistance}}</td>
     </tr>
-    <tr>
+    <tr class="table-info">
+      <td>Average Speed With Detention</td>
+      <td>{{avgspdwd}}</td>
+    </tr>
+    <tr class="table-info">
+      <td>Average Speed With out Detention</td>
+      <td>{{avgspdwod}}</td>
+    </tr>
+
+    {% if "not" in bftvalue %}
+    <tr class="table-danger">
+    {% else %}
+    <tr class="table-info">
+    {% endif %}
       <td>Brake Feel Test</td>
       <td>{{bftvalue}}</td>
     </tr>
-    <tr>
+    {% if "not" in bptvalue %}
+    <tr class="table-danger">
+    {% else %}
+    <tr class="table-info">
+    {% endif %}
        <td>Brake Power Test</td>
       <td>{{bptvalue}}</td>
     </tr>
-    <tr>
+    {% if violated in violatedvalue %}
+    <tr class="table-danger">
+    {% else %}
+    <tr class="table-info">
+    {% endif %}
        <td>Caution Violations</td>
       <td>{{violatedvalue}}</td>
     </tr>
@@ -396,6 +465,7 @@
         };
 
 
+
               $scope.Cautionorders = [];
       $scope.cautionorderlength = $scope.Cautionorders.length;
       $scope.cautioncheckboxvalue1 = false;
@@ -524,6 +594,33 @@
                 }
             };
             $scope.loading = false;
+
+
+          
+     
+
+            $scope.loadingfun = function()
+            {
+              if ($scope.dropvalue != null && $scope.dropvalueinput != null && $scope.mps !=null && $scope.nameoflp != null && $scope.trainno != null && $scope.locono != null && $scope.startdate != null && $scope.enddate != null) 
+              {
+              var spmfile = document.getElementById("spmfile");
+              if(spmfile.files.length == 0 )
+              {
+                $window.alert("Please load SPM file");
+              }
+              else
+              {
+                $scope.loading = true;
+              }
+              }
+              else
+              {
+                $window.alert("Please fill all the details");
+              }
+              
+            };
+
+
 
     
       });
