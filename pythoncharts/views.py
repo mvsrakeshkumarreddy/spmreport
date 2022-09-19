@@ -73,12 +73,13 @@ def chartcreation (request) :
             for r in range(rowcount):
                 if r==0:
                     r=r+1
-                if sh1.cell(r,c).value == "DISTANCE" or sh1.cell(r,c).value == "distance" or sh1.cell(r,c).value == "Distance" or sh1.cell(r,c).value == "DIST MTRS":
-                    distancerow = r
-                    distancecolumn = c
-                if sh1.cell(r,c).value == "SPEED" or sh1.cell(r,c).value == "speed" or sh1.cell(r,c).value == "Speed" or sh1.cell(r,c).value == "INST.  KMPH":
-                    speedrow = r
-                    speedcolumn = c
+                if (type(sh1.cell(r,c).value).__name__) == "str":
+                    if "distance" in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "DISTANCE" or sh1.cell(r,c).value == "distance" or sh1.cell(r,c).value == "Distance" or sh1.cell(r,c).value == "DIST MTRS":
+                        distancerow = r
+                        distancecolumn = c
+                    if "speed"  in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "SPEED" or sh1.cell(r,c).value == "speed" or sh1.cell(r,c).value == "Speed" or sh1.cell(r,c).value == "INST.  KMPH":
+                        speedrow = r
+                        speedcolumn = c
 
         speedlist1 = []
         distancelist1 = []
@@ -131,7 +132,7 @@ def chartcreation (request) :
             annot = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
             dstn = [0.00,7.18,18.18,24.18,30.18,39.18,46.48,54.18,66.18,76.18,96.33,103.32,113.33,116.7,120.08,129.98,140.68,153.18,158.18,165.98,174.38,179.28]
             dstnannot = ["0","4.91","13.31","21.11","26.11","38.61","49.31","59.21","62.79","65.96","75.97","82.96","92.27","102.44","112.48","125.03","132.02","140.3","148.65","160.53","171.91","179.29"]
-            """
+            
             signalkm = ["0","0.48","2.58","3.6","4.68","5.88","6.58","7.18","7.68","7.98","10.98","11.38","12.38","13.58","15.18","15.78","16.98","17.68","18.18","18.88","19.18","22.68","23.08","24.18","24.18","27.98","28.58","29.58","30.18","31.18","31.48","32.18","35.48","36.68","37.98","39.18","39.18","39.78","44.38","45.48","46.48","47.18","47.68","47.98","52.08","52.48","53.48","54.18","54.78","55.18","59.28","59.78","60.78","60.88","65.28","65.68","66.78","66.88","68.18","68.38","69.58","69.98","70.98","72.28","73.08","75.48","76.48","76.88","77.68","78.08","85.58","86.38","87.38","88.12","88.48","88.88","94.08","95.68","96.68","97.43","97.98","98.38","100.98","102.38","103.58","104.42","104.88","105.28","108.68","109.08","110.18","112.08","112.48","113.58","114.43","115.48","116.38","117.8","118.12","118.62","118.82","119.62","120.62","122.02","122.12","122.62","124.52","125.32","126.32","127.72","128.62","129.42","130.42","131.52","132.52","132.72","133.12","135.12","135.92","136.92","140.32","141.62","142.62","143.62","143.72","144.22","146.12","147.12","148.12","149.92","150.72","152.02","153.12","155.22","156.02","157.02","157.92","158.22","158.52","160.42","161.42","162.62","163.42","163.92","164.82","166.22","167.12","168.12","168.42","169.92","170.92","171.72","172.12","172.42","175.02","175.72","176.72","177.62","178.22","179.32","180.12","180.42","180.82","182.32","182.72","182.82","183.82","185.02","185.02","185.52","186.42"]
             signalname = ["JTJ","STARTER","INNER STARTER I","INNER STARTER II","LSS","GSS","HOME","TPT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME/GD","GSS","GWB","GD","GSS","HOME","KEY","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","KNNT","GWB","DISTANT","HOME","SLY","STARTER","LSS/GD","GSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","MAP","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","THONGNUR NBS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","G/IB D","IBH","GWB","DISTANT","HOME","BQI","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","TNT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","KPPR","LSS/DISTANT","HOME","MGSJ","STARTER","LSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","GD","LC 115 GSS/IBD","IBS","GWB","GD","LC 115 A GSS/D","HOME","VRPD","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","GD","LC 116 C GSS","GWB","IBD","IBS/GD","LC 116 E GSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","GD","LC 118 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 121 A GSS","GWB","DISTANT","HOME","CV","STARTER","LSS","GWB","GD","LC 121 C GSS/D","HOME","ED","ED","STARTER","LSS"]
             nstn = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
@@ -139,6 +140,14 @@ def chartcreation (request) :
             dstn = [0,7.18,18.18,30.18,39.18,47.18,54.18,66.88,76.88,88.12,97.43,104.42,114.43,117.8,122.02,132.52,143.62,157.92,163.42,171.72,180.12,185.02]
             dstnannot = ["0","7.18","18.18","30.18","39.18","47.18","54.18","66.88","76.88","88.12","97.43","104.42","114.43","117.8","122.02","132.52","143.62","157.92","163.42","171.72","180.12","185.02"]
 
+            """
+
+            signalkm = ["0","0.48","2.58","3.6","4.68","5.88","6.58","7.18","7.68","7.98","10.98","11.38","12.38","13.58","15.18","15.78","16.98","17.68","18.18","18.88","19.18","22.68","23.08","24.18","24.18","27.98","28.58","29.58","30.18","31.18","31.48","32.18","35.48","36.68","37.98","39.18","39.18","39.78","44.38","45.48","46.48","47.18","47.68","47.98","52.08","52.78","53.78","54.48","55.08","55.48","59.58","60.38","61.38","61.48","65.88","66.68","67.78","67.88","69.18","69.38","70.58","71.28","72.28","73.58","74.38","76.78","77.78","78.18","78.98","79.38","86.88","87.68","88.68","89.42","89.78","90.18","95.38","96.98","97.98","98.73","99.28","99.68","102.48","103.88","105.08","105.92","106.38","106.78","110.18","110.58","111.68","113.58","114.38","115.48","116.33","117.38","118.28","119.7","120.02","120.52","120.92","121.72","122.72","124.12","124.22","124.72","126.62","127.42","128.42","129.82","130.72","131.62","132.62","133.72","134.72","134.92","135.32","137.32","138.12","139.12","142.32","143.62","144.62","145.62","145.72","146.22","148.12","149.12","150.12","151.92","152.92","154.22","155.42","157.42","158.32","159.32","160.12","160.42","160.72","162.62","163.62","164.92","165.72","166.22","167.12","168.52","169.32","170.32","170.62","172.12","173.12","173.92","174.32","174.62","176.92","177.62","178.62","179.42","180.02","181.12","181.92","182.22","182.62","184.12","184.52","184.62","185.62","186.82","186.82","187.32"]
+            signalname = ["JTJ","STARTER","INNER STARTER I","INNER STARTER II","LSS","GSS","HOME","TPT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME/GD","GSS","GWB","GD","GSS","HOME","KEY","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","KNNT","GWB","DISTANT","HOME","SLY","STARTER","LSS/GD","GSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","MAP","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","THONGNUR NBS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","G/IB D","IBH","GWB","DISTANT","HOME","BQI","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","TNT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","KPPR","LSS/DISTANT","HOME","MGSJ","STARTER","LSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","GD","LC 115 GSS/IBD","IBS","GWB","GD","LC 115 A GSS/D","HOME","VRPD","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","GD","LC 116 C GSS","GWB","IBD","IBS/GD","LC 116 E GSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","GD","LC 118 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 121 A GSS","GWB","DISTANT","HOME","CV","STARTER","LSS","GWB","GD","LC 121 C GSS/D","HOME","ED","ED","STARTER"]
+            nstn = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
+            annot = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
+            dstn = [0,7.18,18.18,30.18,39.18,47.18,54.48,67.88,78.18,89.42,98.73,105.92,116.33,119.7,124.12,134.72,145.62,160.12,165.72,173.92,181.92,186.82]
+            dstnannot = ["0","7.18","18.18","30.18","39.18","47.18","54.48","67.88","78.18","89.42","98.73","105.92","116.33","119.7","124.12","134.72","145.62","160.12","165.72","173.92","181.92","186.82"]
 
 
         if route == "EDJTJ":
@@ -149,13 +158,21 @@ def chartcreation (request) :
             annot = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
             dstn = [0,4.91,13.31,21.11,26.11,38.61,49.31,59.21,62.79,65.96,75.97,82.96,92.27,102.44,112.48,125.03,132.02,140.3,148.65,160.53,171.91,179.29]
             dstnannot = ["0","4.91","13.31","21.11","26.11","38.61","49.31","59.21","62.79","65.96","75.97","82.96","92.27","102.44","112.48","125.03","132.02","140.3","148.65","160.53","171.91","179.29"]
-            """
+            
             signalkm = ["0","0.21","0.61","1.71","2.21","3.41","4.91","5.41","5.61","5.41","5.81","7.31","8.11","11.11","11.41","12.51","13.31","14.21","13.51","13.51","13.91","15.01","16.11","18.51","18.91","19.91","21.11","21.11","21.81","23.71","24.31","25.51","26.11","26.51","26.81","29.61","30.41","31.41","32.41","33.61","36.11","37.51","38.81","39.41","39.91","40.31","44.21","45.01","46.11","49.01","49.81","50.81","51.41","51.91","52.31","53.01","54.31","55.11","56.21","57.21","59.21","60.01","61.31","62.11","62.71","63.41","63.61","64.11","65.11","65.79","66.51","66.91","67.81","68.96","69.11","69.71","71.61","72.41","73.41","76.51","77.21","78.31","79.57","79.91","80.31","83.81","84.61","85.61","86.76","86.81","87.21","92.51","94.11","95.11","96.17","96.41","96.81","100.01","100.81","101.81","102.61","103.41","104.51","105.01","105.41","106.51","107.24","107.81","108.21","110.11","110.61","111.61","111.91","112.31","113.31","114.91","115.71","116.81","117.68","117.81","118.11","121.71","122.41","123.41","124.41","126.81","128.11","129.11","130.53","130.61","130.91","134.71","135.61","136.61","137.52","137.81","138.21","143.21","144.01","145.01","146","146.31","146.81","150.51","151.21","152.21","153.21","154.35","154.51","154.91","158.41","159.11","160.11","161.11","163.71","164.11","165.11","166.11","166.53","167.01","167.41","169.81","170.21","171.21","171.81","175.41","175.81","177.31","177.91","178.41","178.91","180.61","182.11","184.01","185.3","186.01"]
             signalname = ["ED","STARTER","LSS","GWB","DISTANT","HOME","CV","STARTER","LSS/GD","LC 120 B GSS","GD","LC 120 A GSS/GD","LCC 119 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 118 C GSS/GD","LC 118 B GSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","GD","LC 117 A GSS/IBD","IBS/GD","LC 117  GSS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","VRPD","STARTER","LSS/GD","LC 115 A GSS","IB GWB","IBD","IBS/GD","LC 115 GSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","DISTANT","HOME","MGSJ","STARTER","LSS/DISTANT","HOME","KPPR","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","TNT","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","GD","GSS      ","GWB    ","GD    ","GSS","GWB","DISTANT","HOME","BQI","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","GSS/ IB DIS","IB HOME","GWB","DISTANT","HOME","MAP","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","GD","GSS/DISTANT","HOME","SLY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISTANT","INNER HOME","ROUTING HOME","KEY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISATANT","HOME","TPT","STARTER","LSS/D","HOME","HOME","HOME","JTJ","STARTER"]
             nstn = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
             annot = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
             dstn = [0,4.91,13.31,21.11,26.11,39.41,51.41,62.11,65.79,68.96,79.57,86.76,96.17,107.24,117.68,130.53,137.52,146,154.35,166.53,177.91,185.3]
             dstnannot = ["0","4.91","13.31","21.11","26.11","39.41","51.41","62.11","65.79","68.96","79.57","86.76","96.17","107.24","117.68","130.53","137.52","146","154.35","166.53","177.91","185.3"]
+            """
+
+            signalkm = ["0","0.21","0.61","1.71","2.21","3.41","4.91","5.41","5.61","5.81","6.21","7.41","8.21","11.21","11.51","12.61","13.41","13.61","14.01","14.41","14.81","15.91","17.01","18.81","19.21","20.21","21.41","21.51","22.21","23.91","24.71","25.81","26.41","26.81","27.11","29.81","30.81","31.81","32.81","34.01","36.71","37.91","39.11","39.71","40.21","40.61","44.11","44.91","46.11","48.41","49.11","50.11","50.71","51.21","51.61","52.31","53.61","54.41","55.51","56.51","58.51","59.31","60.61","61.41","62.01","62.71","62.91","63.41","64.41","65.09","65.81","66.21","66.91","68.06","68.26","68.86","70.36","71.16","72.16","74.96","75.66","76.76","78.02","78.36","78.76","82.26","83.06","84.06","85.21","85.41","85.81","91.11","92.71","93.71","94.77","95.01","95.41","98.61","99.41","100.41","101.21","102.01","103.11","103.61","104.01","105.11","105.84","106.41","106.81","108.71","109.21","110.21","110.51","111.01","112.01","113.61","114.41","115.51","116.38","116.51","116.81","120.41","121.11","122.11","123.11","125.51","126.81","127.81","129.23","129.33","129.63","133.43","134.33","135.33","136.24","136.54","136.94","141.74","142.54","143.54","144.53","144.84","145.34","148.64","149.34","150.34","151.34","152.48","152.64","153.04","155.84","156.54","157.54","158.54","160.84","161.34","162.34","163.34","163.76","164.24","164.64","166.24","166.64","167.64","168.44","171.54","172.04","173.54","174.14","174.64","175.14","176.84","178.34","180.24","181.53","182.24"]
+            signalname = ["ED","STARTER","LSS","GWB","DISTANT","HOME","CV","STARTER","LSS/GD","LC 120 B GSS","GD","LC 120 A GSS/GD","LCC 119 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 118 C GSS/GD","LC 118 B GSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","GD","LC 117 A GSS/IBD","IBS/GD","LC 117  GSS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","VRPD","STARTER","LSS/GD","LC 115 A GSS","IB GWB","IBD","IBS/GD","LC 115 GSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","DISTANT","HOME","MGSJ","STARTER","LSS/DISTANT","HOME","KPPR","STARTER","LSS"," GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","TNT","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","GD","GSS      ","GWB    ","GD    ","GSS","GWB","DISTANT","HOME","BQI","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","GSS/ IB DIS","IB HOME","GWB","DISTANT","HOME","MAP","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","GD","GSS/DISTANT","HOME","SLY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISTANT","INNER HOME","ROUTING HOME","KEY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISATANT","HOME","TPT","STARTER","LSS/D","HOME","HOME","HOME","JTJ","STARTER"]
+            nstn = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
+            annot = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
+            dstn = [0,4.91,13.41,21.41,26.41,39.71,50.71,61.41,65.09,68.06,78.02,85.21,94.77,105.84,116.38,129.23,136.24,144.53,152.48,163.76,174.14,181.53]
+            dstnannot = ["0","4.91","13.41","21.41","26.41","39.71","50.71","61.41","65.09","68.06","78.02","85.21","94.77","105.84","116.38","129.23","136.24","144.53","152.48","163.76","174.14","181.53"]
 
 
         if route == "SATPJ":
@@ -310,13 +327,18 @@ def chartcreation (request) :
 
         for i in range(len(bwstnfound)):
             if bwstnfound[i] == 0:
-                for k in range(10):
+                for k in range(15):
                     plotvalue = plotsignal[i]+(0.01*k)
                     for a in range(len(list4)):
                         if plotvalue == list2[a] and bwstnfound[i] == 0:
                             plotsignalspeed[i] = list4[a]
                             bwstnfound[i] = 1
         #print(bwstnfound)
+        zcount = 0
+        for i in range(len(list4)):
+            if list4[i] == 0:
+                zcount = zcount+1
+        print(zcount)
         print(plotsignal)
         print(plotsignalspeed)
         print(plotsignalname)
@@ -379,7 +401,7 @@ def chartcreation (request) :
                 if plotsignalname[i] == annot[a]:
                     arrow=dict(x=plotsignal[i],y=y[i],text=annot[a],arrowhead = 2,
                                arrowwidth=1.5,
-                               arrowcolor='rgb(255,51,0)',)
+                               arrowcolor='rgb(255,51,0)')
                     arrow_list.append(arrow) 
 
         #print(arrow_list)
@@ -425,17 +447,18 @@ def chartcreation (request) :
             for r in range(rowcount):
                 if r==0:
                     r=r+1
-                if sh1.cell(r,c).value == "DISTANCE" or sh1.cell(r,c).value == "distance" or sh1.cell(r,c).value == "Distance" or sh1.cell(r,c).value == "DIST MTRS":
-                    distancerow = r
-                    distancecolumn = c
-                if sh1.cell(r,c).value == "SPEED" or sh1.cell(r,c).value == "speed" or sh1.cell(r,c).value == "Speed" or sh1.cell(r,c).value == "INST.  KMPH":
-                    speedrow = r
-                    speedcolumn = c
                 if (type(sh1.cell(r,c).value).__name__) == "str":
-                    if sh1.cell(r,c).value == "Time" or sh1.cell(r,c).value == "TIME" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower()):
+                    if "distance" in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "DISTANCE" or sh1.cell(r,c).value == "distance" or sh1.cell(r,c).value == "Distance" or sh1.cell(r,c).value == "DIST MTRS":
+                        distancerow = r
+                        distancecolumn = c
+                    if "speed"  in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "SPEED" or sh1.cell(r,c).value == "speed" or sh1.cell(r,c).value == "Speed" or sh1.cell(r,c).value == "INST.  KMPH":
+                        speedrow = r
+                        speedcolumn = c
+                if (type(sh1.cell(r,c).value).__name__) == "str":
+                    if "time"  in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "Time" or sh1.cell(r,c).value == "TIME" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower()):
                         timerow = r
                         timecolumn = c
-                    if sh1.cell(r,c).value == "Date" or sh1.cell(r,c).value == "DATE" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower()):
+                    if "date"  in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "Date" or sh1.cell(r,c).value == "DATE" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower()):
                         daterow = r
                         datecolumn = c
                 """
@@ -538,13 +561,23 @@ def chartcreation (request) :
             dstn = [0.00,7.18,18.18,30.18,39.18,47.18,54.18,66.18,76.18,87.02,96.33,103.32,113.33,116.7,120.08,129.98,140.68,153.18,158.18,165.98,174.38,179.28]
             dstnannot = ["0","7.18","18.18","30.18","39.18","47.18","54.18","66.18","76.18","87.02","96.33","103.32","113.33","116.7","120.08","129.98","140.68","153.18","158.18","165.98","174.38","179.28"]
             #dstnannot = ["0","4.91","13.31","21.11","26.11","38.61","49.31","59.21","62.79","65.96","75.97","82.96","92.27","102.44","112.48","125.03","132.02","140.3","148.65","160.53","171.91","179.29"]
-            """
+            
             signalkm = ["0","0.48","2.58","3.6","4.68","5.88","6.58","7.18","7.68","7.98","10.98","11.38","12.38","13.58","15.18","15.78","16.98","17.68","18.18","18.88","19.18","22.68","23.08","24.18","24.18","27.98","28.58","29.58","30.18","31.18","31.48","32.18","35.48","36.68","37.98","39.18","39.18","39.78","44.38","45.48","46.48","47.18","47.68","47.98","52.08","52.48","53.48","54.18","54.78","55.18","59.28","59.78","60.78","60.88","65.28","65.68","66.78","66.88","68.18","68.38","69.58","69.98","70.98","72.28","73.08","75.48","76.48","76.88","77.68","78.08","85.58","86.38","87.38","88.12","88.48","88.88","94.08","95.68","96.68","97.43","97.98","98.38","100.98","102.38","103.58","104.42","104.88","105.28","108.68","109.08","110.18","112.08","112.48","113.58","114.43","115.48","116.38","117.8","118.12","118.62","118.82","119.62","120.62","122.02","122.12","122.62","124.52","125.32","126.32","127.72","128.62","129.42","130.42","131.52","132.52","132.72","133.12","135.12","135.92","136.92","140.32","141.62","142.62","143.62","143.72","144.22","146.12","147.12","148.12","149.92","150.72","152.02","153.12","155.22","156.02","157.02","157.92","158.22","158.52","160.42","161.42","162.62","163.42","163.92","164.82","166.22","167.12","168.12","168.42","169.92","170.92","171.72","172.12","172.42","175.02","175.72","176.72","177.62","178.22","179.32","180.12","180.42","180.82","182.32","182.72","182.82","183.82","185.02","185.02","185.52","186.42"]
             signalname = ["JTJ","STARTER","INNER STARTER I","INNER STARTER II","LSS","GSS","HOME","TPT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME/GD","GSS","GWB","GD","GSS","HOME","KEY","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","KNNT","GWB","DISTANT","HOME","SLY","STARTER","LSS/GD","GSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","MAP","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","THONGNUR NBS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","G/IB D","IBH","GWB","DISTANT","HOME","BQI","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","TNT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","KPPR","LSS/DISTANT","HOME","MGSJ","STARTER","LSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","GD","LC 115 GSS/IBD","IBS","GWB","GD","LC 115 A GSS/D","HOME","VRPD","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","GD","LC 116 C GSS","GWB","IBD","IBS/GD","LC 116 E GSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","GD","LC 118 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 121 A GSS","GWB","DISTANT","HOME","CV","STARTER","LSS","GWB","GD","LC 121 C GSS/D","HOME","ED","ED","STARTER","LSS"]
             nstn = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
             annot = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
             dstn = [0,7.18,18.18,30.18,39.18,47.18,54.18,66.88,76.88,88.12,97.43,104.42,114.43,117.8,122.02,132.52,143.62,157.92,163.42,171.72,180.12,185.02]
             dstnannot = ["0","7.18","18.18","30.18","39.18","47.18","54.18","66.88","76.88","88.12","97.43","104.42","114.43","117.8","122.02","132.52","143.62","157.92","163.42","171.72","180.12","185.02"]
+            """
+
+
+            signalkm = ["0","0.48","2.58","3.6","4.68","5.88","6.58","7.18","7.68","7.98","10.98","11.38","12.38","13.58","15.18","15.78","16.98","17.68","18.18","18.88","19.18","22.68","23.08","24.18","24.18","27.98","28.58","29.58","30.18","31.18","31.48","32.18","35.48","36.68","37.98","39.18","39.18","39.78","44.38","45.48","46.48","47.18","47.68","47.98","52.08","52.78","53.78","54.48","55.08","55.48","59.58","60.38","61.38","61.48","65.88","66.68","67.78","67.88","69.18","69.38","70.58","71.28","72.28","73.58","74.38","76.78","77.78","78.18","78.98","79.38","86.88","87.68","88.68","89.42","89.78","90.18","95.38","96.98","97.98","98.73","99.28","99.68","102.48","103.88","105.08","105.92","106.38","106.78","110.18","110.58","111.68","113.58","114.38","115.48","116.33","117.38","118.28","119.7","120.02","120.52","120.92","121.72","122.72","124.12","124.22","124.72","126.62","127.42","128.42","129.82","130.72","131.62","132.62","133.72","134.72","134.92","135.32","137.32","138.12","139.12","142.32","143.62","144.62","145.62","145.72","146.22","148.12","149.12","150.12","151.92","152.92","154.22","155.42","157.42","158.32","159.32","160.12","160.42","160.72","162.62","163.62","164.92","165.72","166.22","167.12","168.52","169.32","170.32","170.62","172.12","173.12","173.92","174.32","174.62","176.92","177.62","178.62","179.42","180.02","181.12","181.92","182.22","182.62","184.12","184.52","184.62","185.62","186.82","186.82","187.32"]
+            signalname = ["JTJ","STARTER","INNER STARTER I","INNER STARTER II","LSS","GSS","HOME","TPT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME/GD","GSS","GWB","GD","GSS","HOME","KEY","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","KNNT","GWB","DISTANT","HOME","SLY","STARTER","LSS/GD","GSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","MAP","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","THONGNUR NBS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","G/IB D","IBH","GWB","DISTANT","HOME","BQI","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","TNT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","KPPR","LSS/DISTANT","HOME","MGSJ","STARTER","LSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","GD","LC 115 GSS/IBD","IBS","GWB","GD","LC 115 A GSS/D","HOME","VRPD","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","GD","LC 116 C GSS","GWB","IBD","IBS/GD","LC 116 E GSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","GD","LC 118 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 121 A GSS","GWB","DISTANT","HOME","CV","STARTER","LSS","GWB","GD","LC 121 C GSS/D","HOME","ED","ED","STARTER"]
+            nstn = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
+            annot = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
+            dstn = [0,7.18,18.18,30.18,39.18,47.18,54.48,67.88,78.18,89.42,98.73,105.92,116.33,119.7,124.12,134.72,145.62,160.12,165.72,173.92,181.92,186.82]
+            dstnannot = ["0","7.18","18.18","30.18","39.18","47.18","54.48","67.88","78.18","89.42","98.73","105.92","116.33","119.7","124.12","134.72","145.62","160.12","165.72","173.92","181.92","186.82"]
+
 
         if route == "EDJTJ":
             """
@@ -554,7 +587,7 @@ def chartcreation (request) :
             annot = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
             dstn = [0,4.91,13.31,21.11,26.11,38.61,49.31,59.21,62.79,65.96,75.97,82.96,92.27,102.44,112.48,125.03,132.02,140.3,148.65,160.53,171.91,179.29]
             dstnannot = ["0","4.91","13.31","21.11","26.11","38.61","49.31","59.21","62.79","65.96","75.97","82.96","92.27","102.44","112.48","125.03","132.02","140.3","148.65","160.53","171.91","179.29"]
-            """
+            
             signalkm = ["0","0.21","0.61","1.71","2.21","3.41","4.91","5.41","5.61","5.41","5.81","7.31","8.11","11.11","11.41","12.51","13.31","14.21","13.51","13.51","13.91","15.01","16.11","18.51","18.91","19.91","21.11","21.11","21.81","23.71","24.31","25.51","26.11","26.51","26.81","29.61","30.41","31.41","32.41","33.61","36.11","37.51","38.81","39.41","39.91","40.31","44.21","45.01","46.11","49.01","49.81","50.81","51.41","51.91","52.31","53.01","54.31","55.11","56.21","57.21","59.21","60.01","61.31","62.11","62.71","63.41","63.61","64.11","65.11","65.79","66.51","66.91","67.81","68.96","69.11","69.71","71.61","72.41","73.41","76.51","77.21","78.31","79.57","79.91","80.31","83.81","84.61","85.61","86.76","86.81","87.21","92.51","94.11","95.11","96.17","96.41","96.81","100.01","100.81","101.81","102.61","103.41","104.51","105.01","105.41","106.51","107.24","107.81","108.21","110.11","110.61","111.61","111.91","112.31","113.31","114.91","115.71","116.81","117.68","117.81","118.11","121.71","122.41","123.41","124.41","126.81","128.11","129.11","130.53","130.61","130.91","134.71","135.61","136.61","137.52","137.81","138.21","143.21","144.01","145.01","146","146.31","146.81","150.51","151.21","152.21","153.21","154.35","154.51","154.91","158.41","159.11","160.11","161.11","163.71","164.11","165.11","166.11","166.53","167.01","167.41","169.81","170.21","171.21","171.81","175.41","175.81","177.31","177.91","178.41","178.91","180.61","182.11","184.01","185.3","186.01"]
             signalname = ["ED","STARTER","LSS","GWB","DISTANT","HOME","CV","STARTER","LSS/GD","LC 120 B GSS","GD","LC 120 A GSS/GD","LCC 119 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 118 C GSS/GD","LC 118 B GSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","GD","LC 117 A GSS/IBD","IBS/GD","LC 117  GSS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","VRPD","STARTER","LSS/GD","LC 115 A GSS","IB GWB","IBD","IBS/GD","LC 115 GSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","DISTANT","HOME","MGSJ","STARTER","LSS/DISTANT","HOME","KPPR","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","TNT","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","GD","GSS      ","GWB    ","GD    ","GSS","GWB","DISTANT","HOME","BQI","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","GSS/ IB DIS","IB HOME","GWB","DISTANT","HOME","MAP","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","GD","GSS/DISTANT","HOME","SLY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISTANT","INNER HOME","ROUTING HOME","KEY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISATANT","HOME","TPT","STARTER","LSS/D","HOME","HOME","HOME","JTJ","STARTER"]
             nstn = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
@@ -562,6 +595,14 @@ def chartcreation (request) :
             dstn = [0,4.91,13.31,21.11,26.11,39.41,51.41,62.11,65.79,68.96,79.57,86.76,96.17,107.24,117.68,130.53,137.52,146,154.35,166.53,177.91,185.3]
             dstnannot = ["0","4.91","13.31","21.11","26.11","39.41","51.41","62.11","65.79","68.96","79.57","86.76","96.17","107.24","117.68","130.53","137.52","146","154.35","166.53","177.91","185.3"]
 
+            """
+
+            signalkm = ["0","0.21","0.61","1.71","2.21","3.41","4.91","5.41","5.61","5.81","6.21","7.41","8.21","11.21","11.51","12.61","13.41","13.61","14.01","14.41","14.81","15.91","17.01","18.81","19.21","20.21","21.41","21.51","22.21","23.91","24.71","25.81","26.41","26.81","27.11","29.81","30.81","31.81","32.81","34.01","36.71","37.91","39.11","39.71","40.21","40.61","44.11","44.91","46.11","48.41","49.11","50.11","50.71","51.21","51.61","52.31","53.61","54.41","55.51","56.51","58.51","59.31","60.61","61.41","62.01","62.71","62.91","63.41","64.41","65.09","65.81","66.21","66.91","68.06","68.26","68.86","70.36","71.16","72.16","74.96","75.66","76.76","78.02","78.36","78.76","82.26","83.06","84.06","85.21","85.41","85.81","91.11","92.71","93.71","94.77","95.01","95.41","98.61","99.41","100.41","101.21","102.01","103.11","103.61","104.01","105.11","105.84","106.41","106.81","108.71","109.21","110.21","110.51","111.01","112.01","113.61","114.41","115.51","116.38","116.51","116.81","120.41","121.11","122.11","123.11","125.51","126.81","127.81","129.23","129.33","129.63","133.43","134.33","135.33","136.24","136.54","136.94","141.74","142.54","143.54","144.53","144.84","145.34","148.64","149.34","150.34","151.34","152.48","152.64","153.04","155.84","156.54","157.54","158.54","160.84","161.34","162.34","163.34","163.76","164.24","164.64","166.24","166.64","167.64","168.44","171.54","172.04","173.54","174.14","174.64","175.14","176.84","178.34","180.24","181.53","182.24"]
+            signalname = ["ED","STARTER","LSS","GWB","DISTANT","HOME","CV","STARTER","LSS/GD","LC 120 B GSS","GD","LC 120 A GSS/GD","LCC 119 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 118 C GSS/GD","LC 118 B GSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","GD","LC 117 A GSS/IBD","IBS/GD","LC 117  GSS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","VRPD","STARTER","LSS/GD","LC 115 A GSS","IB GWB","IBD","IBS/GD","LC 115 GSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","DISTANT","HOME","MGSJ","STARTER","LSS/DISTANT","HOME","KPPR","STARTER","LSS"," GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","TNT","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","GD","GSS      ","GWB    ","GD    ","GSS","GWB","DISTANT","HOME","BQI","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","GSS/ IB DIS","IB HOME","GWB","DISTANT","HOME","MAP","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","GD","GSS/DISTANT","HOME","SLY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISTANT","INNER HOME","ROUTING HOME","KEY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISATANT","HOME","TPT","STARTER","LSS/D","HOME","HOME","HOME","JTJ","STARTER"]
+            nstn = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
+            annot = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
+            dstn = [0,4.91,13.41,21.41,26.41,39.71,50.71,61.41,65.09,68.06,78.02,85.21,94.77,105.84,116.38,129.23,136.24,144.53,152.48,163.76,174.14,181.53]
+            dstnannot = ["0","4.91","13.41","21.41","26.41","39.71","50.71","61.41","65.09","68.06","78.02","85.21","94.77","105.84","116.38","129.23","136.24","144.53","152.48","163.76","174.14","181.53"]
 
         if route == "SATPJ":
             signalkm = ["0","0","0.09","10.05","11.01","12.02","13.3","13.4","13.8","14.01","23.06","24.02","25.02","25.87","26.4","26.8","32.02","33.5","36.07","37.05","38.05","39.6","39.8","40.01","48.08","49.04","50.04","51.4","51.8","52.01","56.01","57.8","67","67.06","68.06","69.5","69.9","70.02","72.05","78.5","81.06","82.02","83.02","83.08","85","85.2","85.6","87.6","88.9","90.4","90.8","91.8","92","92.4","93.4","94.52","94.6","94.9","95.2","95.6","96.6","98.9","99.4","100.4","101","101.5","102.5","103.48","103.7","104","107.6","107.64","107.8","108.5","109.5","110.41","110.7","111","112.5","112.8","113.9","114.2","114.8","115.2","116.3","116.3","116.7","117.8","118.49","118.7","119.2","120.2","120.6","122.1","122.2","123","123.5","124.3","124.7","125","125.7","126.1","126.5","127.6","128.3","128.7","129.8","130.4","130.9","131.9","133.19","133.5","133.8","134.6","136","136.4","137.4","138.4","139.17","140.37","140.57","141.67","143.57","144.09","144.67","144.87","145.77","146.07","147.17","149.06","150.27","150.77","151.77","153.47","154.82","154.97","155.42","156.02","156.62","157.72","158.72","159.02","159.72","160.72","162.02","162.58","163.68","163.98","164.98","164.98","165.38","167.08"]
@@ -697,10 +738,12 @@ def chartcreation (request) :
         #print(nstn[0])
         spd = [0]*(len(stn))
         #print(round(list2[800],0))
+        highlightxtime = [0] * len(stn)
         for x in range(len(stn)):
             for index in range(len(list2)):
                 if round(stn[x],1) == round(list2[index],1):
                     spd[x] = list4[index]
+                    highlightxtime[x] = index
                     break
         #for sp in range(len(list2):
         print(stn)
@@ -875,11 +918,18 @@ def chartcreation (request) :
             if signalname[zeroindexcopy[i]] == signalname[zeroindex[i]]:
                 stoppingstations.append(str(signalname[zeroindexcopy[i]]) + " -- station")
                 #print(str(signalname[zeroindexcopy[i]]) + " -- station")
+            elif signalname[zeroindex[i]] == "GWB":
+                if "home" in signalname[zeroindex[i]+2].lower():
+                    stoppingstations.append(str(signalname[zeroindex[i]+3]) + " -- " + str(signalname[zeroindex[i]]))    
+                else:
+                    stoppingstations.append(str(signalname[zeroindex[i]+2]) + " -- " + str(signalname[zeroindex[i]]))
+            elif "distant" in signalname[zeroindex[i]].lower():
+                stoppingstations.append(str(signalname[zeroindex[i]+2]) + " -- " + str(signalname[zeroindex[i]]))
+            elif i == (len(zeroindexcopy)-1) and zerofinalreached == 1:
+                stoppingstations.append(str(annot[len(annot)-1]) + " -- station")
             else:
                 stoppingstations.append(str(signalname[zeroindexcopy[i]]) + " -- " + str(signalname[zeroindex[i]]))
                 #print(str(signalname[zeroindexcopy[i]]) + " -- " + str(signalname[zeroindex[i]]))
-            if i == (len(zeroindexcopy)-1) and zerofinalreached == 1:
-                stoppingstations.append(str(annot[len(annot)-1]) + " -- station")
         #print(stoppingstations)
 
 
@@ -890,7 +940,7 @@ def chartcreation (request) :
         for i in range(len(x)-250):
             for k in range(250):
                 if y[i] >= 45:
-                    if y[i+k] <= ((y[i] * 0.6)) or y[i+k] < (33):
+                    if y[i+k] <= ((y[i] * 0.6)) and y[i+k] < (33):
                         if ((x[i+k]-x[i]) * 1000) < 1000 and i == latecount:
                             latestart.append(i)
                             lateend.append(i+k)
@@ -956,7 +1006,7 @@ def chartcreation (request) :
         latebefaft = [0] * len(lateenddistance)
         for i in range(len(lateenddistance)):
             for k in range(len(signalkmfinal)):
-                for a in range(150):
+                for a in range(250):
                     if round((lateenddistance[i]+(0.01*a)),2) == signalkmfinal[k] and lateendfound[i] == 0:
                         lateendfound[i] = signalname[k]
                         lateendfoundindex[i] = k
@@ -979,11 +1029,13 @@ def chartcreation (request) :
         print(latebefaft)
 
         lateendfoundindexcopy = lateendfoundindex.copy()
-        for i in range(len(lateendfoundindex)):
-            if signalname[lateendfoundindex[i]] == "STARTER":
+        for i in range(len(lateendfoundindex)):    
+            if "STARTER" in signalname[lateendfoundindex[i]]:
                 lateendfoundindexcopy[i] = lateendfoundindex[i]-1
-            if signalname[lateendfoundindex[i]] == "HOME":
-                lateendfoundindexcopy[i] = lateendfoundindex[i] +1 
+            for a in range(3):
+                if (lateendfoundindex[i]+a)<(len(signalname)):
+                    if "HOME" in signalname[lateendfoundindex[i]+a]:
+                        lateendfoundindexcopy[i] = lateendfoundindex[i] +(a+1)
             print(signalname[lateendfoundindexcopy[i]])
         print(lateendfoundindexcopy)
 
@@ -1003,7 +1055,7 @@ def chartcreation (request) :
         print(lateindexfound)
         for i in range(len(lateendfoundindexcopy)):
             if lateindexfound[i] == 0:
-                for a in range(10):
+                for a in range(20):
                     for k in range(len(annot)):
                         if (lateendfoundindexcopy[i]+a)<(len(signalname)-1):
                             if (signalname[lateendfoundindexcopy[i]+a]) == annot[k] and lateindexfoundannot[i] == 0:
@@ -1016,33 +1068,159 @@ def chartcreation (request) :
         print(lateendfoundindexcopy)
         print(lateindexfound)
         
-        
+        cautiondetected = []
+        for a in range(len(lateendfoundindexcopy)):
+            if lateendfoundindexcopy[a] == 0:
+                cautiondetected.append(a)
+        print(cautiondetected)
+
 
         latesignals = []
         for i in range(len(lateendfoundindexcopy)):
-            if latebefaft[i] == 0:
-                if signalname[lateendfoundindexcopy[i]] == signalname[lateendfoundindex[i]]:
-                    latesignals.append(str(signalname[lateendfoundindexcopy[i]]) + " -- station")
-                elif signalname[lateendfoundindexcopy[i]] != signalname[lateendfoundindex[i]] and lateindexfound[i] == 0:
+            if lateendfoundindexcopy[i] != 0:
+                if latebefaft[i] == 0:
+                    if signalname[lateendfoundindexcopy[i]] == signalname[lateendfoundindex[i]]:
+                        latesignals.append(str(signalname[lateendfoundindexcopy[i]]) + " -- station")
+                    elif signalname[lateendfoundindexcopy[i]] != signalname[lateendfoundindex[i]] and lateindexfound[i] == 0:
+                        for a in range(len(annot)):
+                            if signalname[lateendfoundindexcopy[i]] == annot[a]:
+                                lateindexfound[i] = annot[a-1]
+                        if signalname[lateendfoundindex[i]] == "GWB":
+                            latesignals.append(str(signalname[lateendfoundindex[i]]) + " before " + str(signalname[lateendfoundindex[i]+1]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
+                        else:
+                            latesignals.append(str(signalname[lateendfoundindex[i]]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
+                    elif signalname[lateendfoundindexcopy[i]] != signalname[lateendfoundindex[i]] and lateindexfound[i] !=0:
+                        latesignals.append(str(signalname[lateendfoundindexcopy[i]]) + " -- " + str(signalname[lateendfoundindex[i]]))
+                if latebefaft[i] == 1:
                     for a in range(len(annot)):
                         if signalname[lateendfoundindexcopy[i]] == annot[a]:
                             lateindexfound[i] = annot[a-1]
-                    if signalname[lateendfoundindex[i]] == "GWB":
-                        latesignals.append(str(signalname[lateendfoundindex[i]]) + " before " + str(signalname[lateendfoundindex[i]+1]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
+                    if "starter" in signalname[lateendfoundindex[i]].lower() or "lss" in signalname[lateendfoundindex[i]].lower():
+                        latesignals.append("After passing " + str(signalname[lateendfoundindex[i]]) + " of " + str(signalname[lateendfoundindexcopy[i]]))
                     else:
-                        latesignals.append(str(signalname[lateendfoundindex[i]]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
-                elif signalname[lateendfoundindexcopy[i]] != signalname[lateendfoundindex[i]] and lateindexfound[i] !=0:
-                    latesignals.append(str(signalname[lateendfoundindexcopy[i]]) + " -- " + str(signalname[lateendfoundindex[i]]))
-            if latebefaft[i] == 1:
-                for a in range(len(annot)):
-                        if signalname[lateendfoundindexcopy[i]] == annot[a]:
-                            lateindexfound[i] = annot[a-1]
-                latesignals.append("After passing " + str(signalname[lateendfoundindex[i]]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
+                        latesignals.append("After passing " + str(signalname[lateendfoundindex[i]]) + " between " +str(lateindexfound[i])+ " -- " + str(signalname[lateendfoundindexcopy[i]]))
 
 
 
 
 
+
+
+        datetimesplit = []
+        """
+        #print(datelist)
+        timestart = []
+        timeend = []
+        datestart = []
+        dateend = []
+        for i in range(len(x)):
+            if i < (len(x)-1):
+                if y[i] == 0:
+                    if "time" in timevalue.lower() and "date" in timevalue.lower():
+                        timestart.append(timelist[i])
+                        timeend.append(timelist[i+1])
+                    else:
+                        timestart.append(timelist[i])
+                        timeend.append(timelist[i+1])
+                        datestart.append(datelist[i])
+                        dateend.append(datelist[i+1])
+        """
+
+
+        #avg speed with detention
+        if "time" in timevalue.lower() and "date" in timevalue.lower():
+            for i in range(len(timelist)):
+                #timesplit1.append(timelist[i].split(" "))
+                datetimesplit.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
+            totalsecondswd = (datetimesplit[len(datetimesplit)-1]-datetimesplit[0]).total_seconds()
+            #print(totalsecondswd)
+        else:
+            for i in range(len(timelist)):
+                #timesplit1.append(timelist[i])
+                #datesplit1.append(datelist[i])
+                if (type(datelist[i]).__name__) == "str":
+                    datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
+                datetimesplit.append(datetime.combine(datelist[i],timelist[i]))
+            totalsecondswd = (datetimesplit[len(datetimesplit)-1]-datetimesplit[0]).total_seconds()
+        #print(totalsecondswd)
+        avgspdwd = ((x[len(x)-1])*1000)/(totalsecondswd)
+        #print(avgspdwd)
+        avgspdwd = round((avgspdwd * (18/5)),2)
+        #print(avgspdwd)
+        avgspdwd = "Average Speed of the train with detention is " + str(avgspdwd) + " KM/Hr"
+        #print(len(timelist))
+        #print(len(x))
+
+        datetimesplit1 = []
+       
+
+        if "time" in timevalue.lower() and "date" in timevalue.lower():
+            for i in range(len(x)):
+                datetimesplit1.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
+        else:
+            for i in range(len(x)):
+                if (type(datelist[i]).__name__) == "str":
+                    datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
+                datetimesplit1.append(datetime.combine(datelist[i],timelist[i]))
+
+        totalsecondswod = 0
+        
+
+
+        for i in range(len(datetimesplit1)):
+            if i <(len(datetimesplit1)-1):
+                if y[i] == 0:
+                    totalsecondswod = totalsecondswod
+                else:
+                    totalsecondswod = totalsecondswod + ((datetimesplit1[i+1]-datetimesplit1[i]).total_seconds())
+        #print(totalsecondswod)
+        #print(totalsecondswd)
+
+
+
+        avgspdwod = ((x[len(x)-1])*1000)/(totalsecondswod)
+        #print(avgspdwod)
+        avgspdwod = round((avgspdwod * (18/5)),2)
+        #print(avgspdwod)
+        avgspdwod = "Average Speed of the train without detention is " + str(avgspdwod) + " KM/Hr"
+
+        """
+        #avg speed without detention
+        datetimesplitstart = []
+        datetimesplitend = []
+        totalsecondsarrwod = []
+        if len(timestart) == len(datestart):
+            for i in range(len(timestart)):
+                if (type(type(datestart[i]).__name__)) == "str":
+                    datestart[i] = datetime.strptime(datestart[i], '%d/%m/%y')
+                    dateend[i] = datetime.strptime(dateend[i], '%d/%m/%y')
+                datetimesplitstart.append(datetime.combine(datestart[i],timestart[i]))
+                datetimesplitend.append(datetime.combine(dateend[i],timeend[i]))
+        else:
+            for i in range(len(timestart)):
+                datetimesplitstart.append(datetime.strptime(timestart[i], ' %d/%m/%y %H:%M:%S'))
+                datetimesplitend.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
+
+        print(datetimesplitstart)
+        print(datetimesplitend)
+
+        for i in range(len(datetimesplitstart)):
+            totalsecondsarrwod.append((datetimesplitend[i]-datetimesplitstart[i]).total_seconds())
+        for i in range(len(totalsecondsarrwod)):
+            if totalsecondsarrwod[i]<0:
+                totalsecondsarrwod[i] = totalsecondsarrwod[i]*(-1)
+        totalsecondswod = sum(totalsecondsarrwod)
+        print(totalsecondsarrwod)
+        print(totalsecondswod)
+        print(totalsecondswd)
+        totalsecondswod = totalsecondswd-totalsecondswod
+
+        avgspdwod = (((x[len(x)-1])-(0.01*(len(totalsecondsarrwod)+1)))*1000)/(totalsecondswod)
+        print(avgspdwod)
+        avgspdwod = round((avgspdwod * (18/5)),2)
+        print(avgspdwod)
+
+        """
 
 
         
@@ -1178,10 +1356,12 @@ def chartcreation (request) :
 
             bptdistancevalues = []
             bptspeedvalues = []
+            bptdistancevaluestime = []
+
             for i in range(startindex,endindex+1):
                 bptdistancevalues.append(x[i])
                 bptspeedvalues.append(y[i])
-
+                bptdistancevaluestime.append(datetimesplit[i])
             #print(bptdistancevalues)
             #print(bptspeedvalues)
 
@@ -1197,13 +1377,15 @@ def chartcreation (request) :
             bptspeedvalues = []
 
 
+
+
         bftstartindex = 0
         bftendindex = 0
-        for i in range(stnindexvalue[0],(stnindexvalue[0]+700)):
+        for i in range(stnindexvalue[0],(stnindexvalue[0]+500)):
             if y[i] >= 10 and y[i] <= 16:
                 if bftstartindex == 0:
                     for k in range(50):
-                        if y[i+k] <= ((y[i] * 0.6)):
+                        if y[i+k] <= ((y[i] * 0.65)):
                             bftstartindex = i
                             bftendindex = i+k
                             break
@@ -1231,9 +1413,11 @@ def chartcreation (request) :
                     break
             bftdistancevalues = []
             bftspeedvalues = []
+            bftdistancevaluestime= []
             for i in range(bftstartindex, bftendindex+1):
                 bftdistancevalues.append(x[i])
                 bftspeedvalues.append(y[i])
+                bftdistancevaluestime.append(datetimesplit[i])
             #print(bftdistancevalues)
             #print(bftspeedvalues)
 
@@ -1841,6 +2025,10 @@ def chartcreation (request) :
         #return render(request, "index.html", {"minvalue" : minvalue, "today" : today, "chart" : chart, "inputvalue" : inputvalue})
 
 
+
+
+
+
         fig = go.Figure()
         scatter = go.Scatter(x=x, y=y, mode='lines', name='SPM Chart', opacity=0.8, marker_color='blue')
         fig.add_trace(scatter)
@@ -1881,6 +2069,8 @@ def chartcreation (request) :
         #fig.update_layout(xaxis = dict(tickmode = 'array',tickvals = plotsignal, ticktext = x))
         plot_div = plot(fig, output_type='div')
 
+        
+
         loading = "true"
         if startdate == enddate:
             datevalue = startdate
@@ -1888,126 +2078,52 @@ def chartcreation (request) :
             datevalue = "From " + str(startdate) + " To " + str(enddate)
 
        
-        datetimesplit = []
-        """
-        #print(datelist)
-        timestart = []
-        timeend = []
-        datestart = []
-        dateend = []
+        print(highlightxtime)
+        
+        for i in range(len(highlightxtime)):
+            highlightxtime[i] = datetimesplit[highlightxtime[i]]
+
+        highlightxtime = [0] * len(nstn)
+
         for i in range(len(x)):
-            if i < (len(x)-1):
-                if y[i] == 0:
-                    if "time" in timevalue.lower() and "date" in timevalue.lower():
-                        timestart.append(timelist[i])
-                        timeend.append(timelist[i+1])
-                    else:
-                        timestart.append(timelist[i])
-                        timeend.append(timelist[i+1])
-                        datestart.append(datelist[i])
-                        dateend.append(datelist[i+1])
+            for a in range(len(nstn)):
+                if round(x[i],1) == round(dstn[a],1):
+                    highlightxtime[a] = datetimesplit[i]
+        print(highlightxtime)
+
+
+
+        fig2 = go.Figure()
+        scatter2 = go.Scatter(x=datetimesplit, y=y, mode='lines', name='SPM Chart', opacity=0.8, marker_color='blue')
+        fig2.add_trace(scatter2)
         """
+        if bftindexend != 0:
+            scatterbft = go.Scatter(x=bftdistance, y=bftspeed, mode = "markers", name = "Brake Feet Test", marker_color = "orange")
+            fig.add_trace(scatterbft)
+        """
+        if startindex !=0:
+            scatterbpt2 = go.Scatter(x=bptdistancevaluestime, y=bptspeedvalues, mode='markers' , name = 'Brake Power Test', marker_color='black')
+            fig2.add_trace(scatterbpt2)
+        if bftstartindex !=0:
+            scatterbft2 = go.Scatter(x=bftdistancevaluestime, y=bftspeedvalues, mode = 'markers' , name = 'Brake Feel Test', marker_color='orange')
+            fig2.add_trace(scatterbft2)
 
+        arrow_list2=[]
+        for i in range(len(highlightx)):
+            arrow2=dict(x=highlightxtime[i],y=highlighty[i],text=annot[i],arrowhead = 2,
+                       arrowwidth=1.5,
+                       arrowcolor='rgb(255,51,0)',)
+            arrow_list2.append(arrow2)
 
-        #avg speed with detention
-        if "time" in timevalue.lower() and "date" in timevalue.lower():
-            for i in range(len(timelist)):
-                #timesplit1.append(timelist[i].split(" "))
-                datetimesplit.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
-            totalsecondswd = (datetimesplit[len(datetimesplit)-1]-datetimesplit[0]).total_seconds()
-            #print(totalsecondswd)
-        else:
-            for i in range(len(timelist)):
-                #timesplit1.append(timelist[i])
-                #datesplit1.append(datelist[i])
-                if (type(datelist[i]).__name__) == "str":
-                    datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
-                datetimesplit.append(datetime.combine(datelist[i],timelist[i]))
-            totalsecondswd = (datetimesplit[len(datetimesplit)-1]-datetimesplit[0]).total_seconds()
-        #print(totalsecondswd)
-        avgspdwd = ((x[len(x)-1])*1000)/(totalsecondswd)
-        #print(avgspdwd)
-        avgspdwd = round((avgspdwd * (18/5)),2)
-        #print(avgspdwd)
-        avgspdwd = "Average Speed of the train with detention is " + str(avgspdwd) + " KM/Hr"
-        #print(len(timelist))
-        #print(len(x))
-
-        datetimesplit1 = []
+        fig2.update_layout(annotations=arrow_list2, xaxis_title="Time", yaxis_title="SPEED (KMPH)", title={'text': 'SPEEDOMETER CHART', 'y':0.9,'x':0.5,'xanchor': 'center','yanchor': 'top'})
        
 
-        if "time" in timevalue.lower() and "date" in timevalue.lower():
-            for i in range(len(x)):
-                datetimesplit1.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
-        else:
-            for i in range(len(x)):
-                if (type(datelist[i]).__name__) == "str":
-                    datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
-                datetimesplit1.append(datetime.combine(datelist[i],timelist[i]))
+ 
 
-        totalsecondswod = 0
-        
+        plot_div2 = plot(fig2, output_type= 'div')
+     
 
-
-        for i in range(len(datetimesplit1)):
-            if i <(len(datetimesplit1)-1):
-                if y[i] == 0:
-                    totalsecondswod = totalsecondswod
-                else:
-                    totalsecondswod = totalsecondswod + ((datetimesplit1[i+1]-datetimesplit1[i]).total_seconds())
-        #print(totalsecondswod)
-        #print(totalsecondswd)
-
-
-
-        avgspdwod = ((x[len(x)-1])*1000)/(totalsecondswod)
-        #print(avgspdwod)
-        avgspdwod = round((avgspdwod * (18/5)),2)
-        #print(avgspdwod)
-        avgspdwod = "Average Speed of the train without detention is " + str(avgspdwod) + " KM/Hr"
-
-        """
-        #avg speed without detention
-        datetimesplitstart = []
-        datetimesplitend = []
-        totalsecondsarrwod = []
-        if len(timestart) == len(datestart):
-            for i in range(len(timestart)):
-                if (type(type(datestart[i]).__name__)) == "str":
-                    datestart[i] = datetime.strptime(datestart[i], '%d/%m/%y')
-                    dateend[i] = datetime.strptime(dateend[i], '%d/%m/%y')
-                datetimesplitstart.append(datetime.combine(datestart[i],timestart[i]))
-                datetimesplitend.append(datetime.combine(dateend[i],timeend[i]))
-        else:
-            for i in range(len(timestart)):
-                datetimesplitstart.append(datetime.strptime(timestart[i], ' %d/%m/%y %H:%M:%S'))
-                datetimesplitend.append(datetime.strptime(timelist[i], ' %d/%m/%y %H:%M:%S'))
-
-        print(datetimesplitstart)
-        print(datetimesplitend)
-
-        for i in range(len(datetimesplitstart)):
-            totalsecondsarrwod.append((datetimesplitend[i]-datetimesplitstart[i]).total_seconds())
-        for i in range(len(totalsecondsarrwod)):
-            if totalsecondsarrwod[i]<0:
-                totalsecondsarrwod[i] = totalsecondsarrwod[i]*(-1)
-        totalsecondswod = sum(totalsecondsarrwod)
-        print(totalsecondsarrwod)
-        print(totalsecondswod)
-        print(totalsecondswd)
-        totalsecondswod = totalsecondswd-totalsecondswod
-
-        avgspdwod = (((x[len(x)-1])-(0.01*(len(totalsecondsarrwod)+1)))*1000)/(totalsecondswod)
-        print(avgspdwod)
-        avgspdwod = round((avgspdwod * (18/5)),2)
-        print(avgspdwod)
-
-        """
-
-
-        
-
-        return render(request, "index.html", {"minvalue" : minvalue, "avgspdwd":avgspdwd,"avgspdwod":avgspdwod, "datevalue": datevalue, "nameoflp" : nameoflp, "trainno":trainno, "locono":locono, "loading": loading, "latesignals" : latesignals, "stoppingstations" : stoppingstations,  "mpsmaxvalue": mpsmaxvalue, "mpsviolateddistance" : mpsviolateddistance, "mpsdistance" : mpsdistance, "violatedvalue" : violatedvalue, "bftvalue" : bftvalue, "bptvalue" : bptvalue, "today" : today, "mpsvalue" : mpsvalue, "plot_div" : plot_div, "sstn" : sstn, "slist" : slist, "dlist" : dlist})
+        return render(request, "index.html", {"minvalue" : minvalue, "plot_div2": plot_div2, "avgspdwd":avgspdwd,"avgspdwod":avgspdwod, "datevalue": datevalue, "nameoflp" : nameoflp, "trainno":trainno, "locono":locono, "loading": loading, "latesignals" : latesignals, "stoppingstations" : stoppingstations,  "mpsmaxvalue": mpsmaxvalue, "mpsviolateddistance" : mpsviolateddistance, "mpsdistance" : mpsdistance, "violatedvalue" : violatedvalue, "bftvalue" : bftvalue, "bptvalue" : bptvalue, "today" : today, "mpsvalue" : mpsvalue, "plot_div" : plot_div, "sstn" : sstn, "slist" : slist, "dlist" : dlist})
 """
 def indexview(request):
     return render(request,'index.html')

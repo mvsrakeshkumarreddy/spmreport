@@ -187,11 +187,38 @@
    </div>
   
 
+
+<div ng-hide = "enterplot">
+
+{% if mpsvalue is not null %}
+ <div class="input-group">
+               <div class="input-group-text">
+                  <input class="form-check-input mt-0" type = "checkbox" ng-model = "timegraph"  ng-click = timegraph = true; ><br>
+               </div>
+               <p>&nbsp;</p>
+               <div>
+                  <label class="col-form-label">Would you like to view the graph in time and speed values</label>
+               </div>
+            </div>
+            <br>
+</div>
+
+{% endif %}
   
+<span ng-hide = "timegraph">
   
 {% autoescape off %}
   {{ plot_div }}
   {% endautoescape %}
+</span>
+
+<span ng-show = "timegraph">
+  
+{% autoescape off %}
+  {{ plot_div2 }}
+  {% endautoescape %}
+</span>
+
 
 
 {% if mpsvalue is not null %}
@@ -338,6 +365,7 @@
         $scope.showplotinput = false;
         $scope.enterplotdisabled = false;
         $scope.showfullgraphdiv = true;
+        $scope.timegraph = false;
 
 
       
