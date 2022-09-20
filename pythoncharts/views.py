@@ -458,7 +458,7 @@ def chartcreation (request) :
                     if "time"  in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "Time" or sh1.cell(r,c).value == "TIME" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower()):
                         timerow = r
                         timecolumn = c
-                    if "date"  in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "Date" or sh1.cell(r,c).value == "DATE" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower()):
+                    if c<=3 and ("date"  in sh1.cell(r,c).value.lower() or sh1.cell(r,c).value == "Date" or sh1.cell(r,c).value == "DATE" or ("time"  in sh1.cell(r,c).value.lower() and "date" in sh1.cell(r,c).value.lower())):
                         daterow = r
                         datecolumn = c
                 """
@@ -478,6 +478,8 @@ def chartcreation (request) :
         distancelist1 = []
         timelist = []
         datelist = []
+        print(daterow)
+        print(datecolumn)
         timevalue = sh1.cell(timerow,timecolumn).value
        
         datevalue = sh1.cell(daterow,datecolumn).value
@@ -906,12 +908,15 @@ def chartcreation (request) :
         #print(zeroindexfound)
         #print(zeroindexcopy)
         #zerofinalreached = 0
+        """
         for a in range(len(signalname)):
             if annot[len(annot)-1] == signalname[a]:
-                if (signalkmfinal[a]-(x[len(x)-1]))>2:
+                if (signalkmfinal[a]-(x[len(x)-1]))<0:
                     zerofinalreached = 0
                 else:
                     zerofinalreached = 1
+        print(zerofinalreached)
+        """
 
         stoppingstations = []
         for i in range(len(zeroindexcopy)):
@@ -925,13 +930,16 @@ def chartcreation (request) :
                     stoppingstations.append(str(signalname[zeroindex[i]+2]) + " -- " + str(signalname[zeroindex[i]]))
             elif "distant" in signalname[zeroindex[i]].lower():
                 stoppingstations.append(str(signalname[zeroindex[i]+2]) + " -- " + str(signalname[zeroindex[i]]))
-            elif i == (len(zeroindexcopy)-1) and zerofinalreached == 1:
-                stoppingstations.append(str(annot[len(annot)-1]) + " -- station")
             else:
                 stoppingstations.append(str(signalname[zeroindexcopy[i]]) + " -- " + str(signalname[zeroindex[i]]))
+            """
+            if i == (len(zeroindexcopy)-1) and zerofinalreached == 1:
+                stoppingstations.append(str(annot[len(annot)-1]) + " -- station")
+            """
                 #print(str(signalname[zeroindexcopy[i]]) + " -- " + str(signalname[zeroindex[i]]))
         #print(stoppingstations)
-
+        if (signalname[zeroindex[len(zeroindexcopy)-1]] != annot[len(annot)-1]):
+            stoppingstations.append(str(annot[len(annot)-1]) + " -- station")
 
         #late signals
         latecount = 0
@@ -1061,9 +1069,9 @@ def chartcreation (request) :
                             if (signalname[lateendfoundindexcopy[i]+a]) == annot[k] and lateindexfoundannot[i] == 0:
                                 lateendfoundindexcopy[i] = (lateendfoundindexcopy[i]+a)
                                 lateindexfoundannot[i] = 1
-                                print(signalname[lateendfoundindexcopy[i]+a])
-                                print("---")
-                                print(annot[k])
+                                #print(signalname[lateendfoundindexcopy[i]+a])
+                                #print("---")
+                                #print(annot[k])
         print(lateindexfoundannot)
         print(lateendfoundindexcopy)
         print(lateindexfound)
@@ -1128,6 +1136,9 @@ def chartcreation (request) :
 
 
         #avg speed with detention
+        print(timelist[10])
+        print(datelist[10])
+
         if "time" in timevalue.lower() and "date" in timevalue.lower():
             for i in range(len(timelist)):
                 #timesplit1.append(timelist[i].split(" "))
@@ -1139,7 +1150,17 @@ def chartcreation (request) :
                 #timesplit1.append(timelist[i])
                 #datesplit1.append(datelist[i])
                 if (type(datelist[i]).__name__) == "str":
-                    datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
+                    datesplit = datelist[i].split('/')
+                    print(datesplit)
+                    print("jjjjj")
+                    if len(datesplit[2]) == 4:
+                        datelist[i] = datetime.strptime(datelist[i], '%d/%m/%Y')
+                    if len(datesplit[2]) == 2:
+                        datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
+                    datelist[i] = datelist[i].date()
+                if (type(timelist[i]).__name__) == "str":
+                    timelist[i] = datetime.strptime(timelist[i], '%H:%M:%S')
+                    timelist[i] = timelist[i].time()
                 datetimesplit.append(datetime.combine(datelist[i],timelist[i]))
             totalsecondswd = (datetimesplit[len(datetimesplit)-1]-datetimesplit[0]).total_seconds()
         #print(totalsecondswd)
@@ -1151,6 +1172,7 @@ def chartcreation (request) :
         #print(len(timelist))
         #print(len(x))
 
+
         datetimesplit1 = []
        
 
@@ -1160,7 +1182,14 @@ def chartcreation (request) :
         else:
             for i in range(len(x)):
                 if (type(datelist[i]).__name__) == "str":
-                    datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
+                    datesplit = datelist[i].split('/')
+                    if len(datesplit[2]) == 4:
+                        datelist[i] = datetime.strptime(datelist[i], '%d/%m/%Y')
+                    if len(datesplit[2]) == 2:
+                        datelist[i] = datetime.strptime(datelist[i], '%d/%m/%y')
+                if (type(timelist[i]).__name__) == "str":
+                    timelist[i] = datetime.strptime(timelist[i], '%H:%M:%S')
+                    timelist[i] = timelist[i].time()
                 datetimesplit1.append(datetime.combine(datelist[i],timelist[i]))
 
         totalsecondswod = 0
@@ -1361,7 +1390,7 @@ def chartcreation (request) :
             for i in range(startindex,endindex+1):
                 bptdistancevalues.append(x[i])
                 bptspeedvalues.append(y[i])
-                bptdistancevaluestime.append(datetimesplit[i])
+                bptdistancevaluestime.append(datetimesplit[i].time())
             #print(bptdistancevalues)
             #print(bptspeedvalues)
 
@@ -1417,7 +1446,7 @@ def chartcreation (request) :
             for i in range(bftstartindex, bftendindex+1):
                 bftdistancevalues.append(x[i])
                 bftspeedvalues.append(y[i])
-                bftdistancevaluestime.append(datetimesplit[i])
+                bftdistancevaluestime.append(datetimesplit[i].time())
             #print(bftdistancevalues)
             #print(bftspeedvalues)
 
@@ -2088,10 +2117,17 @@ def chartcreation (request) :
         for i in range(len(x)):
             for a in range(len(nstn)):
                 if round(x[i],1) == round(dstn[a],1):
-                    highlightxtime[a] = datetimesplit[i]
-        #print(highlightxtime)
+                    highlightxtime[a] = datetimesplit[i].time()
+        print(highlightxtime)
 
+        hightime = []
+        for i in range(len(highlightxtime)):
+            if highlightxtime[i] == 0:
+                hightime.append(i)
 
+        
+        for i in range(len(datetimesplit)):
+            datetimesplit[i] = datetimesplit[i].time()
 
         fig2 = go.Figure()
         scatter2 = go.Scatter(x=datetimesplit, y=y, mode='lines', name='SPM Chart', opacity=0.8, marker_color='blue')
@@ -2110,10 +2146,11 @@ def chartcreation (request) :
 
         arrow_list2=[]
         for i in range(len(highlightx)):
-            arrow2=dict(x=highlightxtime[i],y=highlighty[i],text=annot[i],arrowhead = 2,
-                       arrowwidth=1.5,
-                       arrowcolor='rgb(255,51,0)',)
-            arrow_list2.append(arrow2)
+            if highlightxtime[i] != 0 or i==0: 
+                arrow2=dict(x=highlightxtime[i],y=highlighty[i],text=annot[i],arrowhead = 2,
+                           arrowwidth=1.5,
+                           arrowcolor='rgb(255,51,0)',)
+                arrow_list2.append(arrow2)
 
         fig2.update_layout(annotations=arrow_list2, xaxis_title="Time", yaxis_title="SPEED (KMPH)", title={'text': 'SPEEDOMETER CHART', 'y':0.9,'x':0.5,'xanchor': 'center','yanchor': 'top'})
        
