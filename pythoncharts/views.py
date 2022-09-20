@@ -2089,7 +2089,7 @@ def chartcreation (request) :
             for a in range(len(nstn)):
                 if round(x[i],1) == round(dstn[a],1):
                     highlightxtime[a] = datetimesplit[i]
-        print(highlightxtime)
+        #print(highlightxtime)
 
 
 

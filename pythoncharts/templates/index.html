@@ -1,7 +1,7 @@
 {% include 'applayout.html' %}
 {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <body>
 
 
@@ -80,7 +80,7 @@
         </div>
           <div class="mb-3">
           <label for="formFile" class="form-label">Please enter the Name of the LOCO PILOT:</label>
-               <input  class="form-control" type="text" name="nameoflp"  ng-model = "nameoflp" required="required" oninput="this.value = this.value.toUpperCase()">
+               <input  class="form-control" id="nameoflp" value="{{nameoflp}}" type="text" name="nameoflp"  ng-model = "nameoflp" required="required" oninput="this.value = this.value.toUpperCase()">
         </div>
 
           <div class="mb-3">
@@ -241,19 +241,19 @@
   <tbody>
     <tr class="table-primary">
       <td>Name of Loco Pilot</td>
-      <td>{{nameoflp}}</td>
+      <td id="lpname" value = "{{nameoflp}}">{{nameoflp}}</td>
     </tr>
     <tr class="table-primary">
       <td>Train NO</td>
-      <td>{{trainno}}</td>
+      <td id="train" value = "{{trainno}}">{{trainno}}</td>
     </tr>
     <tr class="table-primary">
       <td>Loco NO</td>
-      <td>{{locono}}</td>
+      <td id="loco" value = "{{locono}}">{{locono}}</td>
     </tr>
     <tr class="table-primary">
       <td>Date of working</td>
-      <td>{{datevalue}}</td>
+      <td id="date" value = "{{datevalue}}">{{datevalue}}</td>
     </tr>
    {% if mpsvalue == "MPS reached" %}
     <tr class="table-info">
@@ -335,7 +335,11 @@
 
 <p>
     
+          <!--
            <button class="btn btn-primary" type="button" value="Create PDF" onclick = "createPDF()" >Export</button>
+           -->
+           <button class="btn btn-primary" id="download" >Export</button>
+
   </p>
 {% endif %}
 
@@ -694,6 +698,35 @@
         win.print();    // PRINT THE CONTENTS.
 
     }
+</script>
+<script>
+  window.onload = function(){
+    document.getElementById("download").addEventListener("click", ()=>{
+      const exp = this.document.getElementById("exp");
+      const element = document.getElementById("lpname"); 
+      let name = element.getAttribute("value");
+      const element1 = document.getElementById("train"); 
+      let train = element1.getAttribute("value")
+      const element2 = document.getElementById("loco"); 
+      let loco = element2.getAttribute("value")
+      const element3 = document.getElementById("date"); 
+      let date = element3.getAttribute("value")
+      const pdfname = name + ' - ' + train + ' - ' + loco + ' - ' + date;
+
+      //console.log(pdfname)
+      
+      var opt = {
+  margin:       1,
+  filename:     'myfile.pdf',
+  image:        { type: 'jpeg', quality: 0.98 },
+  html2canvas:  { width : 1300 },
+  jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
+};
+
+
+      html2pdf().set(opt).from(exp).save(pdfname);
+    })
+  }
 </script>
 </body>
 {% endblock %}
