@@ -1,11 +1,16 @@
 {% include 'applayout.html' %}
 {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <body>
 
 
 
    <div ng-app="chartApp" ng-controller="myCtrl">
+
+   
+
+
 
 
     <div class="container" ng-show = "loading"> 
@@ -204,6 +209,10 @@
 </div>
 
 {% endif %}
+
+
+<div id="exp">
+  
   
 <span ng-hide = "timegraph">
   
@@ -222,7 +231,7 @@
 
 
 {% if mpsvalue is not null %}
-  <table class="table">
+  <table class="table" id="tab">
   <thead>
     <tr>
       <th scope="col">Feature</th>
@@ -322,6 +331,12 @@
     </tr>
   </tbody>
 </table>
+</div>
+
+<p>
+    
+           <button class="btn btn-primary" type="button" value="Create PDF" onclick = "createPDF()" >Export</button>
+  </p>
 {% endif %}
 
    <!--
@@ -653,5 +668,32 @@
     
       });
    </script>
+   <script>
+    function createPDF() {
+        var sTable = document.getElementById('exp').innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close();   // CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+
+    }
+</script>
 </body>
 {% endblock %}

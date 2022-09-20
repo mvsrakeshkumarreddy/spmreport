@@ -7,29 +7,49 @@
 </div>
 <br>
 
+<!--
+    <div class="wow flash wow bounceInUp center" data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="1000">
+    <marquee behavior="alternate" bgcolor="#0d6efd" hspace="10%" vspace="1%"  height="5%" direction="left"><span style="color: white; font-family:formfoundcom; font-size:40px;">JNTUA COLLEGE OF ENGINEERING PULIVENDULA</span> </marquee></div>
+-->
+
+	<div class="wow bounceInDown center">
+		
+    <div class="wow flash" data-wow-duration="2s" data-wow-delay="0s" data-wow-iteration="2">
+    <marquee behavior="alternate" bgcolor="#0d6efd" hspace="1%" vspace="1%"  height="5%" direction="left"><span style="color: white; font-family:formfoundcom; font-size:35px;">Inaugurated By Shri B.G.Mallya,GM/S.Rly in the gracious presence of PHODs,DRM,ADRM and the other Senior Officers</span> </marquee></div>
+
+	</div>
+
 <div class="container">
   <div class="row justify-content-md-center">
     
 	<form method="POST">
 		
 		{% csrf_token %}
-     
+     <div class="span3 wow bounceInLeft">
+     	
 		<div class="input-group">
 		<label for="id_username" class="col-sm-2 col-form-label">Crew ID:</label>
 		 <div class="col-sm-10">
 		<input type="text" class="form-control" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" oninput="this.value = this.value.toUpperCase()">
 		</div>
 		</div>
+     </div>
 		<br>
+		<div class="span3 wow bounceInRight">
+			
 		<div class="input-group">
 		<label for="id_password" class="col-sm-2 col-form-label">Password:</label>
 		 <div class="col-sm-10">
 		<input type="password" class="form-control" name="password"  autocomplete="current-password" maxlength="150" required id="id_password">
 		</div>
 		</div>
+		</div>
 		<br>
+		<div class="span3 wow bounceInUp center">
+			
 		<button class="btn btn-primary">Login</button>
 		<a href="/register"><button type="button" class="btn btn-primary">Register</button></a>
+		</div>
 	</form>
  
   
