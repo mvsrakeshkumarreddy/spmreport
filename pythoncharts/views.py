@@ -41,10 +41,16 @@ def chartcreation (request) :
         
         mydata = User.objects.filter(first_name='abc')
         superusers = User.objects.filter(is_superuser=True)
-        print(mydata[0])
-        print(superusers[0])
         sup = str(superusers[0])
-        ranvalue = 849849
+        ranvalue = str(mydata[0])
+        ranvalue = int(ranvalue)
+        today = date.today()
+        todayvalue = str(today).split('-')
+        for i in range(len(todayvalue)):
+            ranvalue = int(todayvalue[i]) + ranvalue + (i*3) + (i*5)
+
+
+
 
         return render(request, "index.html",{"loading":loading, "sup": sup, "ranvalue" : ranvalue})
     data = request.POST
@@ -2185,7 +2191,13 @@ def dashboardview(request):
     print(mydata[0])
     print(superusers[0])
     sup = str(superusers[0])
-    ranvalue = mydata[0]
+    #ranvalue = mydata[0]
+    ranvalue = str(mydata[0])
+    ranvalue = int(ranvalue)
+    today = date.today()
+    todayvalue = str(today).split('-')
+    for i in range(len(todayvalue)):
+        ranvalue = int(todayvalue[i]) + ranvalue  + (i*3) + (i*5)
 
     return render(request,'homepage.html',{"sup":sup, "ranvalue":ranvalue})
 
@@ -2202,5 +2214,11 @@ def registerview(request):
     else:
         form = RegisterUserForm()
         mydata = User.objects.filter(first_name='abc')
-        ranvalue = mydata[0]
+        #ranvalue = mydata[0]
+        ranvalue = str(mydata[0])
+        ranvalue = int(ranvalue)
+        today = date.today()
+        todayvalue = str(today).split('-')
+        for i in range(len(todayvalue)):
+            ranvalue = int(todayvalue[i]) + ranvalue  + (i*3) + (i*5)
     return render(request,'registration/register.html',{"form":form, "ranvalue": ranvalue})
