@@ -13,6 +13,10 @@ from datetime import datetime, timedelta, timezone, tzinfo,date
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterUserForm
@@ -34,7 +38,15 @@ def chartcreation (request) :
     print(request.method)
     if request.method == "GET":
         loading = "true"
-        return render(request, "index.html",{"loading":loading})
+        
+        mydata = User.objects.filter(first_name='abc')
+        superusers = User.objects.filter(is_superuser=True)
+        print(mydata[0])
+        print(superusers[0])
+        sup = str(superusers[0])
+        ranvalue = mydata[0]
+
+        return render(request, "index.html",{"loading":loading, "sup": sup, "ranvalue" : ranvalue})
     data = request.POST
     slist = data.get("spdlist")
     dlist = data.get("distlist")
@@ -2168,116 +2180,14 @@ def indexview(request):
 
 @login_required(login_url = '/login')
 def dashboardview(request):
-    print(request.method)
-    data = request.POST
-    #print(data)
-    if request.method == "POST":
-        cautionorderlength = int(data.get("cautionorderlength"))
-        cautionorders  =  data.get("Cautionorders")
-        print(cautionorders)
-        req = json.loads(cautionorders)
-        #print(type(cautionorders))
-        #print(req[0]['startingkm'])
-        print(cautionorderlength)
-        skm = []
-        ekm = []
-        speed = []
-        for i in range(cautionorderlength):
-            #print(req[i]['Speed'])
-            skm.append(req[i]['startingkm'])
-            ekm.append(req[i]['endingkm'])
-            speed.append(req[i]['Speed'])
-        #print(skm)
-        #print(ekm)
-        #print(speed)
-        x = []
-        for i in range(cautionorderlength):
-            x.append(skm[i].split("/"))
-        #print(x)
-        #print(len(x))
-        y = []
-        for i in range(cautionorderlength):
-            y.append(ekm[i].split("/"))
-        sa = []
-        sb = []
-        for i in range(len(x)):
-            sa.append(x[i][0])
-            sb.append(x[i][1])
-            #print(x[i][0])
-            #print(x[i][1])
-        ea = []
-        eb = []
-        for i in range(len(y)):
-            ea.append(y[i][0])
-            eb.append(y[i][1])
-        #print(sa)
-        #print(sb)
-        #print(ea)
-        #print(eb)
-        #print(speed)
-        start = []
-        end = []
-        for i in range(len(sa)):
-            if len(sb[i])>=3:
-                sb[i] = int(sb[i])
-                sa[i] = int(sa[i])
-                sb[i] = sb[i]/1000
-                #print(sb[i])
-                sa[i] = sa[i] + sb[i]
-                sa[i] = round(sa[i],2)
-                sa[i] = str(sa[i])
-                start.append(sa[i])
-                #print("yes")
-            else:
-                sb[i] = int(sb[i])
-                sa[i] = int(sa[i])
-                #print(sa[i])
-                #print(sb[i])
-                sb[i] = ((sb[i]/2)*72)/1000
-                #print(type(sb[i]))
-                #print(sb[i])
-                sa[i] = sa[i] + sb[i]
-                sa[i] = round(sa[i],2)
-                #print(sa[i])
-                sa[i] = str(sa[i])
-                start.append(sa[i])
-        for i in range(len(ea)):
-            if len(eb[i])>=3:
-                eb[i] = int(eb[i])
-                ea[i] = int(ea[i])
-                eb[i] = eb[i]/1000
-                #print(eb[i])
-                ea[i] = ea[i] + eb[i]
-                ea[i] = round(ea[i],2)
-                ea[i] = str(ea[i])
-                end.append(ea[i])
-                #print("yes")
-            else:
-                eb[i] = int(eb[i])
-                ea[i] = int(ea[i])
-                #print(ea[i])
-                #print(eb[i])
-                eb[i] = ((eb[i]/2)*72)/1000
-                #print(type(eb[i]))
-                #print(eb[i])
-                ea[i] = ea[i] + eb[i]
-                ea[i] = round(ea[i],2)
-                #print(ea[i])
-                ea[i] = str(ea[i])
-                end.append(ea[i])
-        print(start)
-        print(end)
-        print(speed)
+    mydata = User.objects.filter(first_name='abc')
+    superusers = User.objects.filter(is_superuser=True)
+    print(mydata[0])
+    print(superusers[0])
+    sup = str(superusers[0])
+    ranvalue = mydata[0]
 
-        #print(len(eb[1]))
-
-    #name = data.get("customername")
-    #country = data.get("customercountry")
-    
-    #slist = data.get("spdlist")
-
-
-    return render(request,'homepage.html')
+    return render(request,'homepage.html',{"sup":sup, "ranvalue":ranvalue})
 
 def registerview(request):
     if request.method == "POST":
@@ -2288,7 +2198,9 @@ def registerview(request):
                                                 pwd=form.cleaned_data.get('password1')
                                                 user = authenticate(username=username,password=pwd)
                                                 login(request,user)"""
-            return render(request,'someindex.html')
+            return render(request,'registration/login.html')
     else:
         form = RegisterUserForm()
-    return render(request,'registration/register.html',{"form":form})
+        mydata = User.objects.filter(first_name='abc')
+        ranvalue = mydata[0]
+    return render(request,'registration/register.html',{"form":form, "ranvalue": ranvalue})
