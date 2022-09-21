@@ -44,7 +44,7 @@ def chartcreation (request) :
         print(mydata[0])
         print(superusers[0])
         sup = str(superusers[0])
-        ranvalue = mydata[0]
+        ranvalue = 849849
 
         return render(request, "index.html",{"loading":loading, "sup": sup, "ranvalue" : ranvalue})
     data = request.POST
