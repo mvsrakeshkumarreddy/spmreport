@@ -38,7 +38,86 @@
 </div>
 </div>
 
+   
+<!--
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search">
 
+    <table class="table table-hover table-bordered" id= "prtable">
+  <thead class="table-primary">
+    <tr>
+      <th scope="col">CrewID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Designation</th>
+      <th scope="col">Last PR</th>
+      <th scope="col">Crew Status</th>
+      <th scope="col">Available Station</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for pr in prduedata %}
+    <tr>
+      <td>{{pr.1}}</td>
+      <td>{{pr.2}}</td>
+      <td>{{pr.3}}</td>
+      <td>{{pr.7}}</td>
+      <td>{{pr.9}}</td>
+      <td>{{pr.10}}</td>
+    </tr>
+{% endfor %}
+   
+  </tbody>
+</table>
+    <table class="table table-hover table-bordered" id= "prtable">
+  <thead class="table-primary">
+    <tr>
+      <th scope="col">CrewID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Designation</th>
+      <th scope="col">REFT due</th>
+      <th scope="col">REFD due</th>
+      <th scope="col">REFE due</th>
+      <th scope="col">PME due</th>
+
+    </tr>
+  </thead>
+  <tbody>
+{% for due in duedata %}
+    <tr>
+      <td>{{due.2}}</td>
+      <td>{{due.3}}</td>
+      <td>{{due.5}}</td>
+      <td>{{due.8}}</td>
+      <td>{{due.9}}</td>
+      <td>{{due.10}}</td>
+      <td>{{due.11}}</td>
+    </tr>
+{% endfor %}
+   
+  </tbody>
+</table>
+-->
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("prtable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
 
 
   

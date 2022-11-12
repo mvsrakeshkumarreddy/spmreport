@@ -45,7 +45,8 @@
               <option value="DGKRR">DG - KRR</option>
               <option value="EDPGTA">ED - PGT (A-LINE)</option>
               <option value="PGTEDA">PGT - ED(A-LINE)</option>
-              
+              <option value="EDPGTB">ED - PGT(B-LINE)</option>
+              <option value="PGTEDB">PGT - ED(B-LINE)</option>
               <!--
               <option value="3" ng-disabled="true">XXXXX</option>
               -->
@@ -519,6 +520,16 @@
           if ($scope.dropvalue == "EDPGTA")
           {
             $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "EDPGTB")
+          {
+            $scope.dropvalueinput = "ED"
+            $scope.Cautionorders = [];
+          }
+          if ($scope.dropvalue == "PGTEDB")
+          {
+            $scope.dropvalueinput = "PGT"
             $scope.Cautionorders = [];
           }
         };

@@ -296,6 +296,24 @@ def chartcreation (request) :
             dstn = [0,12.98,23.98,38.24,48.5,58.8,65.1,73.9,83.5,91.6,105.1,114.7,122.7,128.1,135.7,141.7]
             dstnannot = ["0","12.98","23.98","38.24","48.5","58.8","65.1","73.9","83.5","91.6","105.1","114.7","122.7","128.1","135.7","141.7"]
 
+        if route == "EDPGTB":
+            signalkm = ["0","0.08","1.1","3.9","5.1","6.1","6.39","7.1","10.85","10.94","11.92","13.59","14.3","14.5","16.8","16.92","17.92","19.05","19.8","19.9","23.92","25.3","26.3","26.7","26.82","26.9","28.94","30.5","30.8","33.86","33.96","35.02","36.65","36.9","37","40.86","42.1","43.3","43.8","43.98","44.98","45.98","46.84","47.9","48.94","50.16","50.6","51","55.9","56.3","57.3","58.2","58.6","58.9","59.4","59.8","60.9","62.2","63.2","63.8","64.8","65.5","65.9","67.1","67.8","67.8","68.7","68.8","69.8","70.8","72.7","72.8","73.8","73.8","75.9","76.3","77","77.3","79.8","79.9","80.9","82.8","83.1","83.6","88.8","88.9","89.9","90","90.8","91.8","93.2","93.6","93.95","100.83","101.99","102.8","103.72","103.93","105.85","107.73","107.74","114.71","115.89","116.6","117.15","117.75","123","124.1","124.8","125.93","127.09","128.5","128.86","129.71","130.85","133.87","134.91","136.228","138.97","139.95","140.87","141.7"]
+            signalname = ["ED","STARTER","LSS","GWB","DISTANT","HOME","TPM","STARTER","GWB","DISTANT","HOME","PY","STARTER","LSS","GWB","DISTANT","HOME","IGR","STARTER","LSS","GWB","DISTANT","HOME","VZ","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","UKL","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","HOME 2","TUP","STARTER","LSS","GWB","DISTANT","HOME","VNJ","STARTER","LSS","GWB","GD","GSS/DISTANT","GSS","GWB","GD","GSS","GWB","DISTANT","HOME","SNO","STARTER","LSS/GD","GSS","GWB","GD","GSS","GWB","GD","G/D","HOME","SUU","STARTER","LSS","GWB","DISTANT","HOME","IGU","STARTER","LSS","GWB","GD","GSS","GWB","DISTANT","HOME","PTJ","STARTER","LSS","DISTANT","HOME","MDKI","STARTER","LSS","DISTANT","HOME","ETTIMADAI","DISTANT","HOME","WAL","STARTER","LSS","GWB","IBD","IBSS","DISTANT","HOME","KJKD","STARTER","LSS/GD","GSS","DISTANT","HOME","KOTTAKADU","DISTANT","HOME","INNER HOME","PGT"]
+            nstn = ["ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PTJ","MDKI","WAL","KJKD","PGT"]
+            annot = ["ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PTJ","MDKI","WAL","KJKD","PGT"]
+            dstn = [0,6.39,13.59,19.05,26.7,36.65,50.16,58.2,67.8,76.3,82.8,93.2,102.8,116.6,128.5,141.7]
+            dstnannot = ["0","6.39","13.59","19.05","26.7","36.65","50.16","58.2","67.8","76.3","82.8","93.2","102.8","116.6","128.5","141.7"]
+
+        if route == "PGTEDB":
+            signalkm = ["0","0.55","0.95","4.2","4.91","5.91","5.91","9.1","9.71","10.69","11.91","13.48","13.57","13.87","16.9","17.6","18.7","22.1","22.75","23.73","24.491","24.87","25.65","31.1","31.89","32.93","33.5","35.1","36.67","37.65","37.98","38.79","38.99","45.2","45.95","46.87","48.5","48.8","49.1","49.3","49.7","50.7","56.4","56.8","57.8","58.8","59.3","60.1","62.6","63.1","64.1","65.4","65.6","65.7","67.1","68.3","68.8","69.9","70.3","70.8","71.8","72.8","73.9","74","74.4","74.7","75.3","76.4","77.5","78","79","80.4","81","81.6","82.6","83.5","83.7","84.2","89.1","89.5","90.5","91.6","91.7","92.2","93","94","94.6","95.6","96.6","97.2","98.4","101.8","102.3","104.2","105.1","105.6","106","112.8","113.1","114.2","114.7","115.4","115.8","119.4","120.6","121.7","122.7","122.9","123.2","125.9","126.3","127.2","128.1","128.5","128.9","132.9","133.5","134.5","135.7","135.7","135.9","137.4","139.7","140.1","141","141.7"]
+            signalname = ["PGT","STARTER","LSS","GWB","DISTANT","HOME","KOTTAIKADU","GWB","GD","GSS","HOME","KJKD","STARTER","LSS","GWB","IBD","IBSS","GWB","DISTANT","HOME","WAL","STARTER","LSS","GWB","DISTANT","HOME","ETTIMADAI","GWB","DISTANT","HOME","MDKI","STARTER","LSS","GWB","DISTANT","HOME","PTJ","STARTER","LSS","GWB","G D","LC 147 GSS","GWB","DISTANT","HOME","IGU","STARTER","LSS","GWB","DISTANT","HOME","SUU","STARTER","LSS/GD","LC142 GSS","GWB","G D","LC141 GSS","GWB","GD","LC140 GSS/DIST","HOME","SNO","STARTER","LSS","GWB","G D","LC137 GSS","GWB","GD","LC136 GSS/GD","LC 135 GSS","GWB","DISTANT","HOME","VNJ","STARTER","LSS","GWB","DISTANT","HOME","TUP","STARTER","LSS/G D","GSS","GWB","GD","LC 131 E GSS","IBS GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","UKL","STARTER","LSS ","GWB","DISTANT","HOME","VZ","STARTER","LSS ","GWB","DISTANT","HOME","IGR","STARTER","LSS","GWB","DISTANT","HOME","PY","STARTER","LSS","GWB","DISTANT","HOME","TPM","STARTER","LSS","GWB","DISTANT","HOME","RT HOME","ED"]
+            nstn = ["PGT","KJKD","WAL","MDKI","PTJ","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED"]
+            annot = ["PGT","KJKD","WAL","MDKI","PTJ","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED"]
+            dstn = [0,13.48,24.491,37.98,48.5,58.8,65.4,73.9,83.5,91.6,105.1,114.7,122.7,128.1,135.7,141.7]
+            dstnannot = ["0","13.48","24.491","37.98","48.5","58.8","65.4","73.9","83.5","91.6","105.1","114.7","122.7","128.1","135.7","141.7"]
+
+
+
 
         list1 = distancelist
         list3 = speedlist
@@ -740,6 +758,22 @@ def chartcreation (request) :
             dstn = [0,12.98,23.98,38.24,48.5,58.8,65.1,73.9,83.5,91.6,105.1,114.7,122.7,128.1,135.7,141.7]
             dstnannot = ["0","12.98","23.98","38.24","48.5","58.8","65.1","73.9","83.5","91.6","105.1","114.7","122.7","128.1","135.7","141.7"]
 
+        if route == "EDPGTB":
+            signalkm = ["0","0.08","1.1","3.9","5.1","6.1","6.39","7.1","10.85","10.94","11.92","13.59","14.3","14.5","16.8","16.92","17.92","19.05","19.8","19.9","23.92","25.3","26.3","26.7","26.82","26.9","28.94","30.5","30.8","33.86","33.96","35.02","36.65","36.9","37","40.86","42.1","43.3","43.8","43.98","44.98","45.98","46.84","47.9","48.94","50.16","50.6","51","55.9","56.3","57.3","58.2","58.6","58.9","59.4","59.8","60.9","62.2","63.2","63.8","64.8","65.5","65.9","67.1","67.8","67.8","68.7","68.8","69.8","70.8","72.7","72.8","73.8","73.8","75.9","76.3","77","77.3","79.8","79.9","80.9","82.8","83.1","83.6","88.8","88.9","89.9","90","90.8","91.8","93.2","93.6","93.95","100.83","101.99","102.8","103.72","103.93","105.85","107.73","107.74","114.71","115.89","116.6","117.15","117.75","123","124.1","124.8","125.93","127.09","128.5","128.86","129.71","130.85","133.87","134.91","136.228","138.97","139.95","140.87","141.7"]
+            signalname = ["ED","STARTER","LSS","GWB","DISTANT","HOME","TPM","STARTER","GWB","DISTANT","HOME","PY","STARTER","LSS","GWB","DISTANT","HOME","IGR","STARTER","LSS","GWB","DISTANT","HOME","VZ","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","UKL","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","HOME 2","TUP","STARTER","LSS","GWB","DISTANT","HOME","VNJ","STARTER","LSS","GWB","GD","GSS/DISTANT","GSS","GWB","GD","GSS","GWB","DISTANT","HOME","SNO","STARTER","LSS/GD","GSS","GWB","GD","GSS","GWB","GD","G/D","HOME","SUU","STARTER","LSS","GWB","DISTANT","HOME","IGU","STARTER","LSS","GWB","GD","GSS","GWB","DISTANT","HOME","PTJ","STARTER","LSS","DISTANT","HOME","MDKI","STARTER","LSS","DISTANT","HOME","ETTIMADAI","DISTANT","HOME","WAL","STARTER","LSS","GWB","IBD","IBSS","DISTANT","HOME","KJKD","STARTER","LSS/GD","GSS","DISTANT","HOME","KOTTAKADU","DISTANT","HOME","INNER HOME","PGT"]
+            nstn = ["ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PTJ","MDKI","WAL","KJKD","PGT"]
+            annot = ["ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PTJ","MDKI","WAL","KJKD","PGT"]
+            dstn = [0,6.39,13.59,19.05,26.7,36.65,50.16,58.2,67.8,76.3,82.8,93.2,102.8,116.6,128.5,141.7]
+            dstnannot = ["0","6.39","13.59","19.05","26.7","36.65","50.16","58.2","67.8","76.3","82.8","93.2","102.8","116.6","128.5","141.7"]
+
+        if route == "PGTEDB":
+            signalkm = ["0","0.55","0.95","4.2","4.91","5.91","5.91","9.1","9.71","10.69","11.91","13.48","13.57","13.87","16.9","17.6","18.7","22.1","22.75","23.73","24.491","24.87","25.65","31.1","31.89","32.93","33.5","35.1","36.67","37.65","37.98","38.79","38.99","45.2","45.95","46.87","48.5","48.8","49.1","49.3","49.7","50.7","56.4","56.8","57.8","58.8","59.3","60.1","62.6","63.1","64.1","65.4","65.6","65.7","67.1","68.3","68.8","69.9","70.3","70.8","71.8","72.8","73.9","74","74.4","74.7","75.3","76.4","77.5","78","79","80.4","81","81.6","82.6","83.5","83.7","84.2","89.1","89.5","90.5","91.6","91.7","92.2","93","94","94.6","95.6","96.6","97.2","98.4","101.8","102.3","104.2","105.1","105.6","106","112.8","113.1","114.2","114.7","115.4","115.8","119.4","120.6","121.7","122.7","122.9","123.2","125.9","126.3","127.2","128.1","128.5","128.9","132.9","133.5","134.5","135.7","135.7","135.9","137.4","139.7","140.1","141","141.7"]
+            signalname = ["PGT","STARTER","LSS","GWB","DISTANT","HOME","KOTTAIKADU","GWB","GD","GSS","HOME","KJKD","STARTER","LSS","GWB","IBD","IBSS","GWB","DISTANT","HOME","WAL","STARTER","LSS","GWB","DISTANT","HOME","ETTIMADAI","GWB","DISTANT","HOME","MDKI","STARTER","LSS","GWB","DISTANT","HOME","PTJ","STARTER","LSS","GWB","G D","LC 147 GSS","GWB","DISTANT","HOME","IGU","STARTER","LSS","GWB","DISTANT","HOME","SUU","STARTER","LSS/GD","LC142 GSS","GWB","G D","LC141 GSS","GWB","GD","LC140 GSS/DIST","HOME","SNO","STARTER","LSS","GWB","G D","LC137 GSS","GWB","GD","LC136 GSS/GD","LC 135 GSS","GWB","DISTANT","HOME","VNJ","STARTER","LSS","GWB","DISTANT","HOME","TUP","STARTER","LSS/G D","GSS","GWB","GD","LC 131 E GSS","IBS GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","UKL","STARTER","LSS ","GWB","DISTANT","HOME","VZ","STARTER","LSS ","GWB","DISTANT","HOME","IGR","STARTER","LSS","GWB","DISTANT","HOME","PY","STARTER","LSS","GWB","DISTANT","HOME","TPM","STARTER","LSS","GWB","DISTANT","HOME","RT HOME","ED"]
+            nstn = ["PGT","KJKD","WAL","MDKI","PTJ","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED"]
+            annot = ["PGT","KJKD","WAL","MDKI","PTJ","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED"]
+            dstn = [0,13.48,24.491,37.98,48.5,58.8,65.4,73.9,83.5,91.6,105.1,114.7,122.7,128.1,135.7,141.7]
+            dstnannot = ["0","13.48","24.491","37.98","48.5","58.8","65.4","73.9","83.5","91.6","105.1","114.7","122.7","128.1","135.7","141.7"]
+
 
         """
         if route == "EDJTJ":
@@ -1046,22 +1080,22 @@ def chartcreation (request) :
 
 
         for i in range(len(lateend)):
-            for k in range(250):
-                lateendappend.append(lateend[i]+k)
-                lateendappenddistance.append(x[lateend[i]+k])
-                lateendappendspeed.append(y[lateend[i]+k])
-            lateendminvalue = lateendappendspeed[0]
-            for a in range(len(lateendappend)):
-                if lateendappendspeed[a] <= lateendminvalue:
-                    lateendminvalue = lateendappendspeed[a]
-                    lateendminvalueindex = lateendappend[a]
-            lateendfinal.append(lateendminvalueindex)
-            lateendappend = []
-            lateendappenddistance = []
-            lateendappendspeed = []
-            lateendminvalue = 0
-            lateendminvalueindex = 0
-
+            if (lateend[i]+250)< len(x):
+                for k in range(250):
+                    lateendappend.append(lateend[i]+k)
+                    lateendappenddistance.append(x[lateend[i]+k])
+                    lateendappendspeed.append(y[lateend[i]+k])
+                lateendminvalue = lateendappendspeed[0]
+                for a in range(len(lateendappend)):
+                    if lateendappendspeed[a] <= lateendminvalue:
+                        lateendminvalue = lateendappendspeed[a]
+                        lateendminvalueindex = lateendappend[a]
+                lateendfinal.append(lateendminvalueindex)
+                lateendappend = []
+                lateendappenddistance = []
+                lateendappendspeed = []
+                lateendminvalue = 0
+                lateendminvalueindex = 0
         print(lateendfinal)
 
         lateendspeed = []
@@ -1488,7 +1522,7 @@ def chartcreation (request) :
         if bftstartindex !=0: 
             bftfinalmaxspeed = []
             bftfinalmaxspeedindex = []
-            for i in range(bftstartindex, (bftstartindex-50),-1):
+            for i in range(bftstartindex, (bftstartindex-10),-1):
                 bftfinalmaxspeed.append(y[i])
                 bftfinalmaxspeedindex.append(i)
             bftfinalmaxvalue = max(bftfinalmaxspeed)
@@ -1515,7 +1549,7 @@ def chartcreation (request) :
 
             bftdistancetravelled = 0
             bftdistancetravelled = round((bftdistancevalues[(len(bftdistancevalues)-1)] - bftdistancevalues[0]) * 1000)
-            print(str(bftdistancetravelled) + " mts travelled from speed " +str(y[bftstartindex]) + " to " + str(y[bftendindex]))
+            print(str(bftdistancetravelled) + " mts travelled from speed " +str(y[bftstartindex]) + " to " + str(y[bftendindex])+ str(bftstartindex) +"dsjflk"+ str(bftendindex))
             bftvalue = str(bftdistancetravelled) + " mts travelled from speed " +str(y[bftstartindex]) + " to " + str(y[bftendindex])
         if bftstartindex == 0:
             print("Brake feel test not done properly")
@@ -1854,6 +1888,13 @@ def chartcreation (request) :
             cautiondata = 1
             cautionmin = "PGTEDA"
 
+        if route == "EDPGTB":
+            cautiondata = 1
+            cautionmin = "EDPGTB"
+        if route == "PGTEDB":
+            cautiondata = 1
+            cautionmin = "PGTEDB"
+
         start = []
         end = []
         for i in range(len(sa)):
@@ -1872,7 +1913,7 @@ def chartcreation (request) :
                 sa[i] = int(sa[i])
                 #print(sa[i])
                 #print(sb[i])
-                if route == "JTJED" or route == "EDJTJ" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA":
+                if route == "JTJED" or route == "EDJTJ" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
                     sb[i] = ((sb[i]/2)*72)/1000
                 if route == "SATPJ" or route == "TPJSA":
                     sb[i] = ((sb[i])*72)/1000
@@ -1889,9 +1930,9 @@ def chartcreation (request) :
                 ea[i] = int(ea[i])
                 eb[i] = eb[i]/1000
                 #print(eb[i])
-                if route == "JTJED" or route == "EDTPJ" or route == "SATPJ" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA":
+                if route == "JTJED" or route == "EDTPJ" or route == "SATPJ" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
                     ea[i] = ea[i] + eb[i] +0.7
-                if route == "EDJTJ" or route == "TPJED" or route == "TPJSA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA":
+                if route == "EDJTJ" or route == "TPJED" or route == "TPJSA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
                     ea[i] = ea[i] + eb[i] - 0.7
                 ea[i] = round(ea[i],2)
                 ea[i] = str(ea[i])
@@ -1902,15 +1943,15 @@ def chartcreation (request) :
                 ea[i] = int(ea[i])
                 #print(ea[i])
                 #print(eb[i])
-                if route == "JTJED" or route == "EDJTJ" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA":
+                if route == "JTJED" or route == "EDJTJ" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
                     eb[i] = ((eb[i]/2)*72)/1000
                 if route == "SATPJ" or route == "TPJSA":
                     eb[i] = ((eb[i])*72)/1000
                 #print(type(eb[i]))
                 #print(eb[i])
-                if route == "JTJED" or route == "EDTPJ" or route == "SATPJ" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA":
+                if route == "JTJED" or route == "EDTPJ" or route == "SATPJ" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
                     ea[i] = ea[i] + eb[i] +0.7
-                if route == "EDJTJ" or route == "TPJED" or route == "TPJSA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA":
+                if route == "EDJTJ" or route == "TPJED" or route == "TPJSA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
                     ea[i] = ea[i] + eb[i] - 0.7
                 ea[i] = round(ea[i],2)
                 #print(ea[i])
@@ -1946,13 +1987,17 @@ def chartcreation (request) :
                 cautionminvalue = 392.3
             if cautionmin == "PGTEDA":
                 cautionminvalue = 534.00
+            if cautionmin == "EDPGTB":
+                cautionminvalue = 392.3
+            if cautionmin == "PGTEDB":
+                cautionminvalue = 534.00
 
 
             
 
             for i in range(len(start)):
                 start[i] = float(start[i])
-                if cautionmin == "JTJED" or cautionmin == "EDJTJ" or cautionmin == "EDTPJ" or cautionmin == "TPJED" or cautionmin =="EDIGU" or cautionmin == "IGUED" or cautionmin =="KRRDG" or cautionmin == "DGKRR" or cautionmin == "EDPGTA" or cautionmin == "PGTEDA":
+                if cautionmin == "JTJED" or cautionmin == "EDJTJ" or cautionmin == "EDTPJ" or cautionmin == "TPJED" or cautionmin =="EDIGU" or cautionmin == "IGUED" or cautionmin =="KRRDG" or cautionmin == "DGKRR" or cautionmin == "EDPGTA" or cautionmin == "PGTEDA" or cautionmin == "EDPGTB" or cautionmin == "PGTEDB":
                     start[i] = start[i] - cautionminvalue
                 if cautionmin == "SATPJ":
                     if cautioncheckboxvalue[i] == "SA - KRR":
@@ -2003,7 +2048,7 @@ def chartcreation (request) :
             #print(found)
             for i in range(len(end)):
                 end[i] = float(end[i])
-                if cautionmin == "JTJED" or cautionmin == "EDJTJ" or cautionmin == "EDTPJ" or cautionmin == "TPJED" or cautionmin == "EDIGU" or cautionmin == "IGUED" or cautionmin =="KRRDG" or cautionmin == "DGKRR" or cautionmin == "EDPGTA" or cautionmin == "PGTEDA":
+                if cautionmin == "JTJED" or cautionmin == "EDJTJ" or cautionmin == "EDTPJ" or cautionmin == "TPJED" or cautionmin == "EDIGU" or cautionmin == "IGUED" or cautionmin =="KRRDG" or cautionmin == "DGKRR" or cautionmin == "EDPGTA" or cautionmin == "PGTEDA" or cautionmin == "EDPGTB" or cautionmin == "PGTEDB":
                     end[i] = end[i] - cautionminvalue
                 if cautionmin == "SATPJ":
                     if cautioncheckboxvalue[i] == "SA - KRR":
