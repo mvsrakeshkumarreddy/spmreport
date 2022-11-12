@@ -21,11 +21,7 @@ from django.http import HttpResponse
 from django.template import loader
 from plotly.offline import plot
 import plotly.graph_objs as go
-import urllib3
-import requests
-from bs4 import BeautifulSoup
-import json
-from itertools import islice
+
 
 
 @login_required(login_url = '/login')
