@@ -30,10 +30,7 @@ SECRET_KEY = 'django-insecure-4zp9l#qndnmsxiz+qhd37*lu24q63p94a#@zy-ny_1#m2#bl*x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','https://somechart.herokuapp.com','.vercel.app', '.now.sh']
-
-
-
+ALLOWED_HOSTS = ['*','https://somechart.herokuapp.com']
 
 #AUTH_USER_MODEL = 'auth.User'
 
@@ -182,10 +179,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#vercel
-#STATICFILES_DIRS = os.path.join(BASE_DIR,'static'),
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-
 STATIC_URL = '/static/'
 #STATICFILES_DIRS  = [(os.path.join(BASE_DIR, 'static','spm'))]
 
