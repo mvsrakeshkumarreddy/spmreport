@@ -114,7 +114,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-"""
 #spmreport/spmreport
 DATABASES = {
     'default': {
@@ -126,6 +125,24 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+
+"""
+
+#crunchy bridge/spmreport
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME' : 'uzfhocix',
+        'USER': 'uzfhocix',
+        'PASSWORD': 'PnvMzNA8eGixbJoBmY1HdgznrN1EXRLH',
+        'HOST': 'babar.db.elephantsql.com',
+        
+    }
+}
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
