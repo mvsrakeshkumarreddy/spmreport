@@ -33,6 +33,9 @@ DEBUG = True
 ALLOWED_HOSTS = ['*','*.spmreportautomation.com','www.spmreportautomation.com','http://spmreportautomation.com','https://web-production-402f.up.railway.app', 'http://www.spmreportautomation.com']
 CSRF_TRUSTED_ORIGINS = ['*','*.spmreportautomation.com','www.spmreportautomation.com','http://spmreportautomation.com','https://web-production-402f.up.railway.app','http://www.spmreportautomation.com']
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 #AUTH_USER_MODEL = 'auth.User'
 
