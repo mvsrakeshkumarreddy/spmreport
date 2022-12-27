@@ -30,7 +30,9 @@ SECRET_KEY = 'django-insecure-4zp9l#qndnmsxiz+qhd37*lu24q63p94a#@zy-ny_1#m2#bl*x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','https://somechart.herokuapp.com','https://web-production-402f.up.railway.app']
+ALLOWED_HOSTS = ['*','https://web-production-402f.up.railway.app', 'http://www.spmreportautomation.com']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-402f.up.railway.app','http://www.spmreportautomation.com']
+
 
 #AUTH_USER_MODEL = 'auth.User'
 

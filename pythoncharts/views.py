@@ -47,7 +47,7 @@ def chartcreation (request) :
         today = date.today()
         todayvalue = str(today).split('-')
         for i in range(len(todayvalue)):
-            ranvalue = int(todayvalue[i]) + ranvalue + (i*3) + (i*5)
+            ranvalue = ((int(todayvalue[i]))*5 + ranvalue + (i*3) + (i*5))*5
 
 
 
@@ -2298,7 +2298,7 @@ def dashboardview(request):
     today = date.today()
     todayvalue = str(today).split('-')
     for i in range(len(todayvalue)):
-        ranvalue = int(todayvalue[i]) + ranvalue  + (i*3) + (i*5)
+        ranvalue = ((int(todayvalue[i]))*5 + ranvalue  + (i*3) + (i*5))*5
 
     return render(request,'homepage.html',{"sup":sup, "ranvalue":ranvalue})
 
@@ -2321,5 +2321,5 @@ def registerview(request):
         today = date.today()
         todayvalue = str(today).split('-')
         for i in range(len(todayvalue)):
-            ranvalue = int(todayvalue[i]) + ranvalue  + (i*3) + (i*5)
+            ranvalue = ((int(todayvalue[i]))*5 + ranvalue  + (i*3) + (i*5))*5
     return render(request,'registration/register.html',{"form":form, "ranvalue": ranvalue})
