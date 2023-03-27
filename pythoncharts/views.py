@@ -67,6 +67,56 @@ def chartcreation (request) :
     startdate = data.get("startdate")
     enddate = data.get("enddate")
 
+    if route == "TPTED":
+        signalkm = ["0","0.5","0.8","3.8","4.2","5.2","6.4","8","8.6","9.8","10.5","11","11.7","12","15.5","15.9","17","17","20.8","21.4","22.4","23","24","24.3","25","28.3","29.5","30.8","32","32","32.6","37.2","38.3","39.3","40","40.5","40.8","44.9","45.6","46.6","47.3","47.9","48.3","52.4","53.2","54.2","54.3","58.7","59.5","60.6","60.7","62","62.2","63.4","64.1","65.1","66.4","67.2","69.6","70.6","71","71.8","72.2","79.7","80.5","81.5","82.24","82.6","83","88.2","89.8","90.8","91.55","92.1","92.5","95.3","96.7","97.9","98.74","99.2","99.6","103","103.4","104.5","106.4","107.2","108.3","109.15","110.2","111.1","112.52","112.84","113.34","113.74","114.54","115.54","116.94","117.04","117.54","119.44","120.24","121.24","122.64","123.54","124.44","125.44","126.54","127.54","127.74","128.14","130.14","130.94","131.94","135.14","136.44","137.44","138.44","138.54","139.04","140.94","141.94","142.94","144.74","145.74","147.04","148.24","150.24","151.14","152.14","152.94","153.24","153.54","155.44","156.44","157.74","158.54","159.04","159.94","161.34","162.14","163.14","163.44","164.94","165.94","166.74","167.14","167.44","169.74","170.44","171.44","172.24","172.84","173.94","174.74","175.04","175.44","176.94","177.34","177.44","178.44","179.64"]
+        signalname = ["TPT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME/GD","GSS","GWB","GD","GSS","HOME","KEY","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","KNNT","GWB","DISTANT","HOME","SLY","STARTER","LSS/GD","GSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","MAP","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","THONGNUR NBS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","G/IB D","IBH","GWB","DISTANT","HOME","BQI","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","TNT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","KPPR","LSS/DISTANT","HOME","MGSJ","STARTER","LSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","GD","LC 115 GSS/IBD","IBS","GWB","GD","LC 115 A GSS/D","HOME","VRPD","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","GD","LC 116 C GSS","GWB","IBD","IBS/GD","LC 116 E GSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","GD","LC 118 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 121 A GSS","GWB","DISTANT","HOME","CV","STARTER","LSS","GWB","GD","LC 121 C GSS/D","HOME","ED"]
+        nstn = ["TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
+        annot = ["TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED"]
+        dstn = [0,11,23,32,40,47.3,60.7,71,82.24,91.55,98.74,109.15,112.52,116.94,127.54,138.44,152.94,158.54,166.74,174.74,179.64]
+        dstnannot = ["0","11","23","32","40","47.3","60.7","71","82.24","91.55","98.74","109.15","112.52","116.94","127.54","138.44","152.94","158.54","166.74","174.74","179.64"]
+
+
+    if route == "EDTPT":
+        signalkm = ["0","0.21","0.61","1.71","2.21","3.41","4.91","5.41","5.61","5.81","6.21","7.41","8.21","11.21","11.51","12.61","13.41","13.61","14.01","14.41","14.81","15.91","17.01","18.81","19.21","20.21","21.41","21.51","22.21","23.91","24.71","25.81","26.41","26.81","27.11","29.81","30.81","31.81","32.81","34.01","36.71","37.91","39.11","39.71","40.21","40.61","44.11","44.91","46.11","48.41","49.11","50.11","50.71","51.21","51.61","52.31","53.61","54.41","55.51","56.51","58.51","59.31","60.61","61.41","62.01","62.71","62.91","63.41","64.41","65.09","65.81","66.21","66.91","68.06","68.26","68.86","70.36","71.16","72.16","74.96","75.66","76.76","78.02","78.36","78.76","82.26","83.06","84.06","85.21","85.41","85.81","91.11","92.71","93.71","94.77","95.01","95.41","98.61","99.41","100.41","101.21","102.01","103.11","103.61","104.01","105.11","105.84","106.41","106.81","108.71","109.21","110.21","110.51","111.01","112.01","113.61","114.41","115.51","116.38","116.51","116.81","120.41","121.11","122.11","123.11","125.51","126.81","127.81","129.23","129.33","129.63","133.43","134.33","135.33","136.24","136.54","136.94","141.74","142.54","143.54","144.53","144.84","145.34","148.64","149.34","150.34","151.34","152.48","152.64","153.04","155.84","156.54","157.54","158.54","160.84","161.34","162.34","163.34","163.76","164.24","164.64","166.24","166.64","167.64","168.44","171.54","172.04","173.54","174.14"]
+        signalname = ["ED","STARTER","LSS","GWB","DISTANT","HOME","CV","STARTER","LSS/GD","LC 120 B GSS","GD","LC 120 A GSS/GD","LCC 119 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 118 C GSS/GD","LC 118 B GSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","GD","LC 117 A GSS/IBD","IBS/GD","LC 117  GSS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","VRPD","STARTER","LSS/GD","LC 115 A GSS","IB GWB","IBD","IBS/GD","LC 115 GSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","DISTANT","HOME","MGSJ","STARTER","LSS/DISTANT","HOME","KPPR","STARTER","LSS"," GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","TNT","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","GD","GSS      ","GWB    ","GD    ","GSS","GWB","DISTANT","HOME","BQI","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","GSS/ IB DIS","IB HOME","GWB","DISTANT","HOME","MAP","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","GD","GSS/DISTANT","HOME","SLY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISTANT","INNER HOME","ROUTING HOME","KEY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISATANT","HOME","TPT"]
+        nstn = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT"]
+        annot = ["ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT"]
+        dstn = [0,4.91,13.41,21.41,26.41,39.71,50.71,61.41,65.09,68.06,78.02,85.21,94.77,105.84,116.38,129.23,136.24,144.53,152.48,163.76,174.14]
+        dstnannot = ["0","4.91","13.41","21.41","26.41","39.71","50.71","61.41","65.09","68.06","78.02","85.21","94.77","105.84","116.38","129.23","136.24","144.53","152.48","163.76","174.14"]
+
+    if route == "JTJCBE":
+        signalkm = ["0","0.48","2.58","3.6","4.68","5.88","6.58","7.18","7.68","7.98","10.98","11.38","12.38","13.58","15.18","15.78","16.98","17.68","18.18","18.88","19.18","22.68","23.08","24.18","24.18","27.98","28.58","29.58","30.18","31.18","31.48","32.18","35.48","36.68","37.98","39.18","39.18","39.78","44.38","45.48","46.48","47.18","47.68","47.98","52.08","52.78","53.78","54.48","55.08","55.48","59.58","60.38","61.38","61.48","65.88","66.68","67.78","67.88","69.18","69.38","70.58","71.28","72.28","73.58","74.38","76.78","77.78","78.18","78.98","79.38","86.88","87.68","88.68","89.42","89.78","90.18","95.38","96.98","97.98","98.73","99.28","99.68","102.48","103.88","105.08","105.92","106.38","106.78","110.18","110.58","111.68","113.58","114.38","115.48","116.33","117.38","118.28","119.7","120.02","120.52","120.92","121.72","122.72","124.12","124.22","124.72","126.62","127.42","128.42","129.82","130.72","131.62","132.62","133.72","134.72","134.92","135.32","137.32","138.12","139.12","142.32","143.62","144.62","145.62","145.72","146.22","148.12","149.12","150.12","151.92","152.92","154.22","155.42","157.42","158.32","159.32","160.12","160.42","160.72","162.62","163.62","164.92","165.72","166.22","167.12","168.52","169.32","170.32","170.62","172.12","173.12","173.92","174.32","174.62","176.92","177.62","178.62","179.42","180.02","181.12","181.92","182.22","182.62","184.12","184.52","184.62","185.62","185.62","185.7","186.72","189.52","190.72","191.72","192.01","192.72","196.47","196.56","197.54","199.21","199.92","200.12","202.42","202.54","203.54","204.67","205.42","205.52","209.54","210.92","211.92","212.32","212.44","212.52","214.56","216.12","216.42","219.48","219.58","220.64","222.27","222.52","222.62","226.48","227.72","228.92","229.42","229.6","230.6","231.6","232.46","233.52","234.56","235.78","236.22","236.62","241.52","241.92","242.92","243.82","244.22","244.52","245.02","245.42","246.52","247.82","248.82","249.42","250.42","251.12","251.52","252.72","253.42","253.42","254.32","254.42","255.42","256.42","258.32","258.42","259.42","259.42","261.52","261.92","262.62","262.92","265.42","265.52","266.52","268.32","268.42","268.62","269.02","270.02","270.12","270.82","271.42","272.82","273.22","274.22","275.62","276.22","276.82","277.12","278.42","279.42","280.12","281.22","282.92","282.92","283.32","284.52","285.72"]
+        signalname = ["JTJ","STARTER","INNER STARTER I","INNER STARTER II","LSS","GSS","HOME","TPT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME/GD","GSS","GWB","GD","GSS","HOME","KEY","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","KNNT","GWB","DISTANT","HOME","SLY","STARTER","LSS/GD","GSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","MAP","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","THONGNUR NBS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","G/IB D","IBH","GWB","DISTANT","HOME","BQI","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","TNT","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","KPPR","LSS/DISTANT","HOME","MGSJ","STARTER","LSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","GD","LC 115 GSS/IBD","IBS","GWB","GD","LC 115 A GSS/D","HOME","VRPD","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","GD","LC 116 C GSS","GWB","IBD","IBS/GD","LC 116 E GSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","GD","LC 118 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 121 A GSS","GWB","DISTANT","HOME","CV","STARTER","LSS","GWB","GD","LC 121 C GSS/D","HOME","ED","STARTER","LSS","GWB","DISTANT","HOME","TPM","STARTER","GWB","DISTANT","HOME","PY","STARTER","LSS","GWB","DISTANT","HOME","IGR","STARTER","LSS","GWB","DISTANT","HOME","VZ","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","UKL","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","HOME 2","TUP","STARTER","LSS","GWB","DISTANT","HOME","VNJ","STARTER","LSS","GWB","GD","GSS/DISTANT","GSS","GWB","GD","GSS","GWB","DISTANT","HOME","SNO","STARTER","LSS/GD","GSS","GWB","GD","GSS","GWB","GD","G/D","HOME","SUU","STARTER","LSS","GWB","DISTANT","HOME","IGU","STARTER","LSS/DISTANT","GSS/GD","GSS/GD","SWB","GSS","SHI - H","GWB","DISTANT","GSS/DISTANT","HOME","PLMD","STARTER","LSS/ GD","GSS/GD","GSS/GD","GSS/DISTANT","HOME","CBF","STARTER","LSS/DISTANT","HOME","CBE"]
+        nstn = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PLMD","CBF","CBE"]
+        annot = ["JTJ","TPT","KEY","SLY","DST","DPI","MAP","BDY","BQI","LCR","DSPT","TNT","KPPR","MGSJ","SA","VRPD","DC","MVPM","SGE","ANU","CV","ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PLMD","CBF","CBE"]
+        dstn = [0,7.18,18.18,30.18,39.18,47.18,54.48,67.88,78.18,89.42,98.73,105.92,116.33,119.7,124.12,134.72,145.62,160.12,165.72,173.92,181.92,185.62,192.01,199.21,204.67,212.32,222.27,235.78,243.82,253.42,261.92,268.32,276.22,282.92,285.72]
+        dstnannot = ["0","7.18","18.18","30.18","39.18","47.18","54.48","67.88","78.18","89.42","98.73","105.92","116.33","119.7","124.12","134.72","145.62","160.12","165.72","173.92","181.92","185.62","192.01","199.21","204.67","212.32","222.27","235.78","243.82","253.42","261.92","268.32","276.22","282.92","285.72"]
+
+    if route == "CBEJTJ":
+        signalkm = ["0.00","0.63","1.10","2.30","2.80","3.30","4.00","4.50","5.70","6.80","8.40","9.50","9.60","9.90","11.00","12.40","12.80","13.10","13.90","14.30","15.00","16.10","17.10","17.90","18.40","19.20","21.70","22.20","23.20","24.40","24.50","24.80","26.20","27.40","27.90","29.00","29.40","29.90","30.90","31.90","33.00","33.20","33.50","33.80","34.40","35.50","36.60","37.10","38.10","39.50","40.10","40.70","41.70","42.60","42.80","43.30","48.20","48.60","49.60","50.70","50.80","51.30","52.10","53.10","53.70","54.70","55.70","56.30","57.50","60.90","61.40","63.30","64.15","64.70","65.10","71.90","72.20","73.30","73.78","74.50","74.90","78.50","79.70","80.80","81.75","82.00","82.30","85.00","85.40","86.30","87.21","87.60","88.00","92.00","92.60","93.60","94.71","94.80","95.00","96.50","97.10","98.20","99.20","100.10","100.79","101.00","101.40","102.50","103.00","104.20","105.70","106.20","106.40","107.10","107.60","108.10","108.90","111.90","112.20","113.30","114.10","114.20","114.30","114.30","114.70","115.80","116.90","119.30","119.70","120.70","121.90","121.90","122.60","124.50","125.10","126.30","126.90","127.30","127.60","130.40","131.00","132.00","133.00","134.10","136.30","137.60","138.80","139.40","139.90","140.30","143.90","144.20","145.30","147.90","148.50","149.50","150.10","150.60","151.00","151.70","152.90","153.30","154.40","155.40","157.40","157.90","159.20","160.00","160.60","161.30","161.50","161.90","162.90","163.58","164.30","164.70","165.60","166.75","166.90","167.50","169.40","170.00","171.00","174.00","174.40","175.50","176.76","177.10","177.50","181.00","181.60","182.60","183.75","183.80","184.20","189.40","191.00","192.00","193.06","193.30","193.70","196.70","197.20","198.20","199.00","199.40","200.50","201.00","201.40","202.50","203.23","203.80","204.20","206.10","206.60","207.60","207.90","208.30","209.30","210.90","211.30","212.40","213.27","213.40","213.70","217.30","217.70","218.70","219.70","222.10","223.40","224.40","225.82","225.90","226.20","230.00","230.90","231.90","232.81","233.10","233.50","238.50","239.10","240.10","241.09","241.40","241.90","245.60","246.30","247.30","248.30","249.44","249.60","250.00","253.50","253.90","254.90","255.90","258.50","258.90","259.90","260.90","261.32","261.80","262.20","264.60","265.00","266.00","266.60","270.20","270.60","272.10","272.70","273.20","273.70","275.40","276.90","278.80","280.09"]
+        signalname = ["CBE","STARTER","LSS /DISTANT","HOME","CBF","STARTER","LSS/GD","GSS/ GD","GSS/GD","GSS/DISTANT","HOME","PLMD","STARTER","LSS/GD","GSS","GWB","DISTANT","SWB","GSS/DISTANT","SHI","GSS/GD","GSS/DISTANT","HOME","IGU","STARTER","LSS","GWB","DISTANT","HOME","SUU","STARTER","LSS/GD","LC142 GSS","GWB","G D","LC141 GSS","GWB","GD","LC140 GSS/DIST","HOME","SNO","STARTER","LSS","GWB","G D","LC137 GSS","GWB","GD","LC136 GSS/GD","LC 135 GSS","GWB","DISTANT","HOME","VNJ","STARTER","LSS","GWB","DISTANT","HOME","TUP","STARTER","LSS/G D","GSS","GWB","GD","LC 131 E GSS","IBS GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","UKL","STARTER","LSS ","GWB","DISTANT","HOME","VZ","STARTER","LSS ","GWB","DISTANT","HOME","IGR","STARTER","LSS","GWB","DISTANT","HOME","PY","STARTER","LSS","GWB","DISTANT","HOME","TPM","STARTER","LSS","GWB","GD","GSS/DISTANT","HOME","RT HOME","ED","STARTER","LSS","GWB","DISTANT","HOME","CV","STARTER","LSS/GD","LC 120 B GSS","GD","LC 120 A GSS/GD","LCC 119 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 118 C GSS/GD","LC 118 B GSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","GD","LC 117 A GSS/IBD","IBS/GD","LC 117  GSS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","VRPD","STARTER","LSS/GD","LC 115 A GSS","IB GWB","IBD","IBS/GD","LC 115 GSS","GWB","DISTANT","HOME","SA","STARTER","LSS","GWB","DISTANT","HOME","MGSJ","STARTER","LSS/DISTANT","HOME","KPPR","STARTER","LSS"," GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","TNT","STARTER","LSS","GWB","DISTANT","HOME","DSPT","STARTER","LSS","GWB","DISTANT","HOME","LCR","STARTER","LSS","GWB","GD","GSS      ","GWB    ","GD    ","GSS","GWB","DISTANT","HOME","BQI","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","BDY","STARTER","LSS","GWB","GD","GSS/ IB DIS","IB HOME","GWB","DISTANT","HOME","MAP","STARTER","LSS","GWB","DISTANT","HOME","DPI","STARTER","LSS","GWB","DISTANT","HOME","DST","STARTER","LSS","GWB","GD","GSS/DISTANT","HOME","SLY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISTANT","INNER HOME","ROUTING HOME","KEY","STARTER","LSS","GWB","GD","GSS/ IB D","IB HOME","GWB","DISATANT","HOME","TPT","STARTER","LSS/D","HOME","HOME","HOME","JTJ"]
+        nstn = ["CBE","CBF","PLMD","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
+        annot = ["CBE","CBF","PLMD","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED","CV","ANU","SGE","MVPM","DC","VRPD","SA","MGSJ","KPPR","TNT","DSPT","LCR","BQI","BDY","MAP","DPI","DST","SLY","KEY","TPT","JTJ"]
+        dstn = [0.00,2.80,9.50,17.90,24.40,33.00,42.60,50.70,64.15,73.78,81.75,87.21,94.71,100.79,105.70,114.10,121.90,126.90,139.40,150.10,160.00,163.58,166.75,176.76,183.75,193.06,203.23,213.27,225.82,232.81,241.09,249.44,261.32,272.70,280.09]
+        dstnannot = ["0.00","2.80","9.50","17.90","24.40","33.00","42.60","50.70","64.15","73.78","81.75","87.21","94.71","100.79","105.70","114.10","121.90","126.90","139.40","150.10","160.00","163.58","166.75","176.76","183.75","193.06","203.23","213.27","225.82","232.81","241.09","249.44","261.32","272.70","280.09"]
+
+    if route == "SACBE":
+        signalkm = ["0","0.1","0.6","2.5","3.1","4.1","5.5","6.4","6.8","7.8","8.9","9.9","10.1","10.5","12.5","12.9","13.9","17.3","18.6","19.6","20.6","20.7","21.2","23.1","23.8","24.7","26.5","27","28.3","29.4","31.2","31.5","32.2","33.1","33.4","33.7","35.6","36.1","37.3","38.1","38.6","39.3","40.7","41.3","42.3","42.6","44.1","45.1","45.9","46.3","46.6","49.2","49.9","50.9","51.8","52.4","53.5","54.3","54.6","55","56.5","56.9","57","58","59.2","59.28","60.3","63.1","64.3","65.3","65.59","66.3","70.05","70.14","71.12","72.79","73.5","73.7","76","76.12","77.12","78.25","79","79.1","83.12","84.5","85.5","85.9","86.02","86.1","88.14","89.7","90","93.06","93.16","94.22","95.85","96.1","96.2","100.06","101.3","102.5","103","103.18","104.18","105.18","106.04","107.1","108.14","109.36","109.8","110.2","115.1","115.5","116.5","117.4","117.8","118.1","118.6","119","120.1","121.4","122.4","123","124","124.7","125.1","126.3","127","127","127.9","128","129","130","131.9","132","133","133","135.1","135.5","136.2","136.5","139","139.1","140.1","141.9","142","142.7","143.1","144.1","144.2","144.9","145.5","146.9","147.3","148.3","149.7","150.3","150.9","151.2","152.5","153.5","154.2","155.3","157","157","157.4","158.6","159.8"]
+        signalname = ["SA","STARTER","LSS","GWB","GD","LC 115 GSS/IBD","IBS","GWB","GD","LC 115 A GSS/D","HOME","VRPD","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","GD","LC 116 C GSS","GWB","IBD","IBS/GD","LC 116 E GSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","GD","LC 118 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 121 A GSS","GWB","DISTANT","HOME","CV","STARTER","LSS","GWB","GD","LC 121 C GSS/D","HOME","ED","STARTER","LSS","GWB","DISTANT","HOME","TPM","STARTER","GWB","DISTANT","HOME","PY","STARTER","LSS","GWB","DISTANT","HOME","IGR","STARTER","LSS","GWB","DISTANT","HOME","VZ","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","UKL","STARTER","LSS","IB GWB","IB DISTANT","IB HOME","GWB","GD","GSS","GWB","DISTANT","HOME","HOME 2","TUP","STARTER","LSS","GWB","DISTANT","HOME","VNJ","STARTER","LSS","GWB","GD","GSS/DISTANT","GSS","GWB","GD","GSS","GWB","DISTANT","HOME","SNO","STARTER","LSS/GD","GSS","GWB","GD","GSS","GWB","GD","G/D","HOME","SUU","STARTER","LSS","GWB","DISTANT","HOME","IGU","STARTER","LSS/DISTANT","GSS/GD","GSS/GD","SWB","GSS","SHI - H","GWB","DISTANT","GSS/DISTANT","HOME","PLMD","STARTER","LSS/ GD","GSS/GD","GSS/GD","GSS/DISTANT","HOME","CBF","STARTER","LSS/DISTANT","HOME","CBE"]
+        nstn = ["SA","VRPD","DC","MVPM","SGE","ANU","CV","ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PLMD","CBF","CBE"]
+        annot = ["SA","VRPD","DC","MVPM","SGE","ANU","CV","ED","TPM","PY","IGR","VZ","UKL","TUP","VNJ","SNO","SUU","IGU","PLMD","CBF","CBE"]
+        dstn = [0,9.9,20.6,33.1,38.1,45.9,54.3,59.2,65.59,72.79,78.25,85.9,95.85,109.36,117.4,127,135.5,141.9,150.3,157,159.8]
+        dstnannot = ["0","9.9","20.6","33.1","38.1","45.9","54.3","59.2","65.59","72.79","78.25","85.9","95.85","109.36","117.4","127","135.5","141.9","150.3","157","159.8"]
+
+    if route == "CBESA":
+        signalkm = ["0.00","0.63","1.10","2.30","2.80","3.30","4.00","4.50","5.70","6.80","8.40","9.50","9.60","9.90","11.00","12.40","12.80","13.10","13.90","14.30","15.00","16.10","17.10","17.90","18.40","19.20","21.70","22.20","23.20","24.40","24.50","24.80","26.20","27.40","27.90","29.00","29.40","29.90","30.90","31.90","33.00","33.20","33.50","33.80","34.40","35.50","36.60","37.10","38.10","39.50","40.10","40.70","41.70","42.60","42.80","43.30","48.20","48.60","49.60","50.70","50.80","51.30","52.10","53.10","53.70","54.70","55.70","56.30","57.50","60.90","61.40","63.30","64.15","64.70","65.10","71.90","72.20","73.30","73.78","74.50","74.90","78.50","79.70","80.80","81.75","82.00","82.30","85.00","85.40","86.30","87.21","87.60","88.00","92.00","92.60","93.60","94.71","94.80","95.00","96.50","97.10","98.20","99.20","100.10","100.79","101.00","101.40","102.50","103.00","104.20","105.70","106.20","106.40","107.10","107.60","108.10","108.90","111.90","112.20","113.30","114.10","114.30","114.30","114.40","114.70","115.80","116.90","119.30","119.70","120.70","121.90","121.90","122.60","124.50","125.10","126.30","126.90","127.30","127.60","130.40","131.00","132.00","133.00","134.10","136.30","137.60","138.80","139.40","139.90","140.30","143.90","144.20","145.30","147.90","148.50","149.50","150.10","150.60","151.00","151.70","152.90","153.30","154.40","155.40","157.40","157.90","159.20","160.00"]
+        signalname = ["CBE","STARTER","LSS /DISTANT","HOME","CBF","STARTER","LSS/GD","GSS/ GD","GSS/GD","GSS/DISTANT","HOME","PLMD","STARTER","LSS/GD","GSS","GWB","DISTANT","SWB","GSS/DISTANT","SHI","GSS/GD","GSS/DISTANT","HOME","IGU","STARTER","LSS","GWB","DISTANT","HOME","SUU","STARTER","LSS/GD","LC142 GSS","GWB","G D","LC141 GSS","GWB","GD","LC140 GSS/DIST","HOME","SNO","STARTER","LSS","GWB","G D","LC137 GSS","GWB","GD","LC136 GSS/GD","LC 135 GSS","GWB","DISTANT","HOME","VNJ","STARTER","LSS","GWB","DISTANT","HOME","TUP","STARTER","LSS/G D","GSS","GWB","GD","LC 131 E GSS","IBS GWB","IB DISTANT","IB HOME","GWB","DISTANT","HOME","UKL","STARTER","LSS ","GWB","DISTANT","HOME","VZ","STARTER","LSS ","GWB","DISTANT","HOME","IGR","STARTER","LSS","GWB","DISTANT","HOME","PY","STARTER","LSS","GWB","DISTANT","HOME","TPM","STARTER","LSS","GWB","GD","GSS/DISTANT","HOME","RT HOME","ED","STARTER","LSS","GWB","DISTANT","HOME","CV","STARTER","LSS/GD","LC 120 B GSS","GD","LC 120 A GSS/GD","LCC 119 GSS","GWB","DISTANT","HOME","ANU","STARTER","LSS","GWB","GD","LC 118 C GSS/GD","LC 118 B GSS","GWB","DISTANT","HOME","SGE","STARTER","LSS","GWB","DISTANT","HOME","MVPM","STARTER","LSS","GWB","GD","LC 117 A GSS/IBD","IBS/GD","LC 117  GSS","GWB","DISTANT","HOME","DC","STARTER","LSS","GWB","IBD","IBS","GWB","DISTANT","HOME","VRPD","STARTER","LSS/GD","LC 115 A GSS","IB GWB","IBD","IBS/GD","LC 115 GSS","GWB","DISTANT","HOME","SA"]
+        nstn = ["CBE","CBF","PLMD","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED","CV","ANU","SGE","MVPM","DC","VRPD","SA"]
+        annot = ["CBE","CBF","PLMD","IGU","SUU","SNO","VNJ","TUP","UKL","VZ","IGR","PY","TPM","ED","CV","ANU","SGE","MVPM","DC","VRPD","SA"]
+        dstn = [0.00,2.80,9.50,17.90,24.40,33.00,42.60,50.70,64.15,73.78,81.75,87.21,94.71,100.79,105.70,114.10,121.90,126.90,139.40,150.10,160.00]
+        dstnannot = ["0.00","2.80","9.50","17.90","24.40","33.00","42.60","50.70","64.15","73.78","81.75","87.21","94.71","100.79","105.70","114.10","121.90","126.90","139.40","150.10","160.00"]
+
+
     if request.method == "POST" and plotststn != "None":
         """speedlist = data.get("spdlist")
                                 speedlist1 = speedlist.splitlines()
@@ -108,12 +158,14 @@ def chartcreation (request) :
         for i in range(distancerow,rowcount):
             if i == 0:
                 i = 1
-            distancelist1.append(sh1.cell(i,distancecolumn).value)
+            if (type(sh1.cell(i,distancecolumn).value).__name__) != "NoneType":
+                distancelist1.append(sh1.cell(i,distancecolumn).value)
 
         for s in range(speedrow,rowcount):
             if s == 0:
                 s = 1
-            speedlist1.append(sh1.cell(s,speedcolumn).value)
+            if (type(sh1.cell(s,speedcolumn).value).__name__) != "NoneType":
+                speedlist1.append(sh1.cell(s,speedcolumn).value)
         #print(len(speedlist))
         #print(len(distancelist))
         speedlist = list(map(float,speedlist1))
@@ -559,25 +611,44 @@ def chartcreation (request) :
         for i in range(daterow,rowcount):
             if i == 0:
                 i = 1
-            datelist.append(sh1.cell(i,datecolumn).value)
+            if (type(sh1.cell(i,datecolumn).value).__name__) != "NoneType":
+                datelist.append(sh1.cell(i,datecolumn).value)
+            else:
+                print("found date")
 
 
         for i in range(timerow,rowcount):
             if i==0:
                 i = 1
-            timelist.append(sh1.cell(i,timecolumn).value)
+            if (type(sh1.cell(i,timecolumn).value).__name__) != "NoneType":
+                timelist.append(sh1.cell(i,timecolumn).value)
+            else:
+                print("found time")
         #print(timelist)
 
 
         for i in range(distancerow,rowcount):
             if i == 0:
                 i = 1
-            distancelist1.append(sh1.cell(i,distancecolumn).value)
+            if (type(sh1.cell(i,distancecolumn).value).__name__) != "NoneType":
+                #print("found")
+                distancelist1.append(sh1.cell(i,distancecolumn).value)
+            else:
+                print("found distance")
+        #print(type(sh1.cell(28,2).value).__name__)
+        #print(type(sh1.cell(29,2).value))
+
+     
+
 
         for s in range(speedrow,rowcount):
             if s == 0:
                 s = 1
-            speedlist1.append(sh1.cell(s,speedcolumn).value)
+            if (type(sh1.cell(s,speedcolumn).value).__name__) != "NoneType":
+                #print("found speed")
+                speedlist1.append(sh1.cell(s,speedcolumn).value)
+            else:
+                print("found speed")
         #print(len(speedlist))
         #print(speedlist1)
         #print(len(distancelist))
@@ -1248,8 +1319,8 @@ def chartcreation (request) :
                 #datesplit1.append(datelist[i])
                 if (type(datelist[i]).__name__) == "str":
                     datesplit = datelist[i].split('/')
-                    print(datesplit)
-                    print("jjjjj")
+                    #print(datesplit)
+                    #print("jjjjj")
                     if len(datesplit[2]) == 4:
                         datelist[i] = datetime.strptime(datelist[i], '%d/%m/%Y')
                     if len(datesplit[2]) == 2:
@@ -1816,14 +1887,15 @@ def chartcreation (request) :
             skm.append(req[i]['startingkm'])
             ekm.append(req[i]['endingkm'])
             speed.append(req[i]['Speed'])
-            if route == "TPJSA" or route == "SATPJ":
+            if route == "TPJSA" or route == "SATPJ" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE":
                 cautioncheckboxvalue.append(req[i]['cautioncheckboxvalue'])
                 #route = "JTJED"
 
         #print(skm)
         #print(ekm)
         #print(speed)
-        print(cautioncheckboxvalue)
+        #print(cautioncheckboxvalue)
+        #print("----------------")
         xvalue = []
         for i in range(cautionorderlength):
             xvalue.append(skm[i].split("/"))
@@ -1857,6 +1929,12 @@ def chartcreation (request) :
         if route == "EDJTJ":
             cautiondata = 1
             cautionmin = "EDJTJ"
+        if route == "TPTED":
+            cautiondata = 1
+            cautionmin = "TPTED"
+        if route == "EDTPT":
+            cautiondata = 1
+            cautionmin = "EDTPT"
         if route == "EDTPJ":
             cautiondata = 1
             cautionmin = "EDTPJ"
@@ -1869,6 +1947,18 @@ def chartcreation (request) :
         if route == "TPJSA":
             cautiondata = 1
             cautionmin = "TPJSA"
+        if route == "CBEJTJ":
+            cautiondata = 1
+            cautionmin = "CBEJTJ"
+        if route == "JTJCBE":
+            cautiondata = 1
+            cautionmin = "JTJCBE"
+        if route == "CBESA":
+            cautiondata = 1
+            cautionmin = "CBESA"
+        if route == "SACBE":
+            cautiondata = 1
+            cautionmin = "SACBE"
         if route == "EDIGU":
             cautiondata = 1
             cautionmin = "EDIGU"
@@ -1913,7 +2003,7 @@ def chartcreation (request) :
                 sa[i] = int(sa[i])
                 #print(sa[i])
                 #print(sb[i])
-                if route == "JTJED" or route == "EDJTJ" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
+                if route == "JTJED" or route == "EDJTJ" or route == "TPTED" or route == "EDTPT" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
                     sb[i] = ((sb[i]/2)*72)/1000
                 if route == "SATPJ" or route == "TPJSA":
                     sb[i] = ((sb[i])*72)/1000
@@ -1930,9 +2020,9 @@ def chartcreation (request) :
                 ea[i] = int(ea[i])
                 eb[i] = eb[i]/1000
                 #print(eb[i])
-                if route == "JTJED" or route == "EDTPJ" or route == "SATPJ" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
+                if route == "JTJED" or route == "TPTED" or route == "EDTPJ" or route == "SATPJ" or route == "JTJCBE" or route == "SACBE" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
                     ea[i] = ea[i] + eb[i] +0.7
-                if route == "EDJTJ" or route == "TPJED" or route == "TPJSA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
+                if route == "EDJTJ" or route == "EDTPT" or route == "TPJED" or route == "TPJSA" or route == "CBEJTJ" or route == "CBESA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
                     ea[i] = ea[i] + eb[i] - 0.7
                 ea[i] = round(ea[i],2)
                 ea[i] = str(ea[i])
@@ -1943,23 +2033,23 @@ def chartcreation (request) :
                 ea[i] = int(ea[i])
                 #print(ea[i])
                 #print(eb[i])
-                if route == "JTJED" or route == "EDJTJ" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
+                if route == "JTJED" or route == "EDJTJ" or route == "TPTED" or route == "EDTPT" or route == "CBEJTJ" or route == "JTJCBE" or route == "CBESA" or route == "SACBE" or route == "EDTPJ" or route == "TPJED" or route == "EDIGU" or route == "IGUED" or route == "KRRDG" or route == "DGKRR" or route == "EDPGTA" or route == "PGTEDA" or route == "EDPGTB" or route == "PGTEDB":
                     eb[i] = ((eb[i]/2)*72)/1000
                 if route == "SATPJ" or route == "TPJSA":
                     eb[i] = ((eb[i])*72)/1000
                 #print(type(eb[i]))
                 #print(eb[i])
-                if route == "JTJED" or route == "EDTPJ" or route == "SATPJ" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
+                if route == "JTJED" or route == "TPTED" or route == "EDTPJ" or route == "SATPJ" or route == "JTJCBE" or route == "SACBE" or route == "EDIGU" or route == "KRRDG" or route == "EDPGTA" or route == "EDPGTB":
                     ea[i] = ea[i] + eb[i] +0.7
-                if route == "EDJTJ" or route == "TPJED" or route == "TPJSA" or route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
+                if route == "EDJTJ" or route == "EDTPT" or route == "TPJED" or route == "TPJSA" or route == "CBEJTJ" or route == "CBESA" or  route == "IGUED" or route == "DGKRR" or route == "PGTEDA" or route == "PGTEDB":
                     ea[i] = ea[i] + eb[i] - 0.7
                 ea[i] = round(ea[i],2)
                 #print(ea[i])
                 ea[i] = str(ea[i])
                 end.append(ea[i])
-        #print(start)
-        #print(end)
-        #print(speed)
+        print(start)
+        print(end)
+        print(speed)
         
     
         found = [0] * len(start)
@@ -1970,6 +2060,10 @@ def chartcreation (request) :
             if cautionmin == "JTJED":
                 cautionminvalue = 213.02
             if cautionmin == "EDJTJ":
+                cautionminvalue = 392.31
+            if cautionmin == "TPTED":
+                cautionminvalue = 220.2
+            if cautionmin == "EDTPT":
                 cautionminvalue = 392.31
             if cautionmin == "EDTPJ":
                 cautionminvalue = 0
@@ -1997,7 +2091,7 @@ def chartcreation (request) :
 
             for i in range(len(start)):
                 start[i] = float(start[i])
-                if cautionmin == "JTJED" or cautionmin == "EDJTJ" or cautionmin == "EDTPJ" or cautionmin == "TPJED" or cautionmin =="EDIGU" or cautionmin == "IGUED" or cautionmin =="KRRDG" or cautionmin == "DGKRR" or cautionmin == "EDPGTA" or cautionmin == "PGTEDA" or cautionmin == "EDPGTB" or cautionmin == "PGTEDB":
+                if cautionmin == "JTJED" or cautionmin == "EDJTJ" or cautionmin == "TPTED" or cautionmin == "EDTPT" or cautionmin == "EDTPJ" or cautionmin == "TPJED" or cautionmin =="EDIGU" or cautionmin == "IGUED" or cautionmin =="KRRDG" or cautionmin == "DGKRR" or cautionmin == "EDPGTA" or cautionmin == "PGTEDA" or cautionmin == "EDPGTB" or cautionmin == "PGTEDB":
                     start[i] = start[i] - cautionminvalue
                 if cautionmin == "SATPJ":
                     if cautioncheckboxvalue[i] == "SA - KRR":
@@ -2010,6 +2104,29 @@ def chartcreation (request) :
                         cautionminvalue = 141.5
                     if cautioncheckboxvalue[i] == "SA - KRR":
                         cautionminvalue = 162.22
+                    start[i] = start[i] - cautionminvalue
+                if cautionmin == "JTJCBE":
+                    if cautioncheckboxvalue[i] == "JTJ - IGU":
+                        cautionminvalue = 213.02
+                    if cautioncheckboxvalue[i] == "IGU - CBE":
+                        cautionminvalue = -267.92
+                    start[i] = start[i] - cautionminvalue
+                if cautionmin == "CBEJTJ":
+                    if cautioncheckboxvalue[i] == "IGU - CBE":
+                        cautionminvalue = 17.80
+                    if cautioncheckboxvalue[i] == "JTJ - IGU":
+                        cautionminvalue = 493.1
+                if cautionmin == "SACBE":
+                    if cautioncheckboxvalue[i] == "SA - IGU":
+                        cautionminvalue = 333.1
+                    if cautioncheckboxvalue[i] == "IGU - CBE":
+                        cautionminvalue = -142
+                    start[i] = start[i] - cautionminvalue
+                if cautionmin == "CBESA":
+                    if cautioncheckboxvalue[i] == "IGU - CBE":
+                        cautionminvalue = 17.80
+                    if cautioncheckboxvalue[i] == "SA - IGU":
+                        cautionminvalue = 493.1
                     start[i] = start[i] - cautionminvalue
                 start[i] = round(start[i],2)
                 #EDJTJ removing negative values
@@ -2046,9 +2163,10 @@ def chartcreation (request) :
                                 found[i] = 1
                                 cautionindexstart[i] = v
             #print(found)
+            #print(start)
             for i in range(len(end)):
                 end[i] = float(end[i])
-                if cautionmin == "JTJED" or cautionmin == "EDJTJ" or cautionmin == "EDTPJ" or cautionmin == "TPJED" or cautionmin == "EDIGU" or cautionmin == "IGUED" or cautionmin =="KRRDG" or cautionmin == "DGKRR" or cautionmin == "EDPGTA" or cautionmin == "PGTEDA" or cautionmin == "EDPGTB" or cautionmin == "PGTEDB":
+                if cautionmin == "JTJED" or cautionmin == "EDJTJ" or cautionmin == "TPTED" or cautionmin == "EDTPT" or cautionmin == "EDTPJ" or cautionmin == "TPJED" or cautionmin == "EDIGU" or cautionmin == "IGUED" or cautionmin =="KRRDG" or cautionmin == "DGKRR" or cautionmin == "EDPGTA" or cautionmin == "PGTEDA" or cautionmin == "EDPGTB" or cautionmin == "PGTEDB":
                     end[i] = end[i] - cautionminvalue
                 if cautionmin == "SATPJ":
                     if cautioncheckboxvalue[i] == "SA - KRR":
@@ -2062,11 +2180,37 @@ def chartcreation (request) :
                     if cautioncheckboxvalue[i] == "SA - KRR":
                         cautionminvalue = 162.22
                     end[i] = end[i] - cautionminvalue
+                if cautionmin == "JTJCBE":
+                    if cautioncheckboxvalue[i] == "JTJ - IGU":
+                        cautionminvalue = 213.02
+                    if cautioncheckboxvalue[i] == "IGU - CBE":
+                        cautionminvalue = -267.92
+                    end[i] = end[i] - cautionminvalue
+                if cautionmin == "CBEJTJ":
+                    if cautioncheckboxvalue[i] == "IGU - CBE":
+                        cautionminvalue = 17.80
+                    if cautioncheckboxvalue[i] == "JTJ - IGU":
+                        cautionminvalue = 493.1
+                    end[i] = end[i] - cautionminvalue
+                if cautionmin == "SACBE":
+                    if cautioncheckboxvalue[i] == "SA - IGU":
+                        cautionminvalue = 333.1
+                    if cautioncheckboxvalue[i] == "IGU - CBE":
+                        cautionminvalue = -142
+                    end[i] = end[i] - cautionminvalue
+                if cautionmin == "CBESA":
+                    if cautioncheckboxvalue[i] == "IGU - CBE":
+                        cautionminvalue = 17.80
+                    if cautioncheckboxvalue[i] == "SA - IGU":
+                        cautionminvalue = 493.1
+                    end[i] = end[i] - cautionminvalue
+
                 end[i] = round(end[i],2)
                 #EDJTJ removing negative values
                 if end[i] < 0:
                     end[i] = end[i] * (-1)
                 end[i] = str(end[i])
+            #print(start)
             #print(end)
             end = list(map(float,end))
             for s in range(len(end)):
@@ -2097,6 +2241,8 @@ def chartcreation (request) :
                                 founde[i] = 1
                                 cautionindexend[i] = v
             #print(founde)
+            print(start)
+            print(end)
             speed = list(map(float,speed))
             lengthofcautionspot = [1] * len(cautionindexstart)
             for i in range(len(cautionindexstart)):
